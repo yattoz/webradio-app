@@ -31,10 +31,8 @@ class PlayerStore {
     val isLpUpdated: MutableLiveData<Boolean> = MutableLiveData()
     val isMuted : MutableLiveData<Boolean> = MutableLiveData()
     val listenersCount: MutableLiveData<Int> = MutableLiveData()
-    private val urlToScrape = "https://r-a-d.io/api"
     var latencyCompensator : Long = 0
     var isInitialized: Boolean = false
-    var isStreamDown: Boolean = false
 
     init {
         playbackState.value = PlaybackStateCompat.STATE_STOPPED
@@ -47,6 +45,7 @@ class PlayerStore {
         isLpUpdated.value = false
         isMuted.value = false
         currentSong.title.value = noConnectionValue
+        currentSongBackup.title.value = noConnectionValue
         listenersCount.value = 0
     }
 
@@ -54,6 +53,7 @@ class PlayerStore {
     // ################# API FUNCTIONS ##################
     // ##################################################
 
+    /*
     private fun updateApi(resMain: JSONObject, isCompensatingLatency : Boolean = false) {
         // If we're not in PLAYING state, update title / artist metadata. If we're playing, the ICY will take care of that.
         if (playbackState.value != PlaybackStateCompat.STATE_PLAYING || currentSong.title.value.isNullOrEmpty()
@@ -154,24 +154,26 @@ class PlayerStore {
         }
         Async(scrape, post)
     }
+    */
 
     // ##################################################
     // ############## QUEUE / LP FUNCTIONS ##############
     // ##################################################
 
     fun updateLp() {
-        // note : lp must never be empty. There should always be some songs "last played".
-        // if not, then the function has been called before initialization. No need to do anything.
-        if (lp.isNotEmpty()){
+        // note : lp is empty at initialization. This check was needed when we used the R/a/dio API.
+        //if (lp.isNotEmpty()){
             val n = Song()
             n.copy(currentSongBackup)
-            lp.add(0, n)
+            if (n.title.value != noConnectionValue)
+                lp.add(0, n)
             currentSongBackup.copy(currentSong)
             isLpUpdated.value = true
             Log.d(tag, playerStoreTag +  lp.toString())
-        }
+        //}
     }
 
+    /*
     fun updateQueue() {
         if (queue.isNotEmpty()) {
             queue.remove(queue.first())
@@ -257,11 +259,13 @@ class PlayerStore {
         song.type.value = songJSON.getInt("type")
         return song
     }
+    */
 
     // ##################################################
     // ############## PICTURE FUNCTIONS #################
     // ##################################################
 
+    /*
     private fun fetchPicture(fileUrl: String)
     {
         val scrape: (Any?) -> Bitmap? = {
@@ -287,10 +291,11 @@ class PlayerStore {
         }
         Async(scrape, post)
     }
+     */
 
     fun initPicture(c: Context) {
         streamerPicture.value = BitmapFactory.decodeResource(c.resources,
-            R.drawable.actionbar_logo
+            R.drawable.logo_roundsquare
         )
     }
 

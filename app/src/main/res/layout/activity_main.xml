@@ -37,15 +37,17 @@
     app:layout_constraintTop_toTopOf="parent"
     >
 
+    <!-- REMOVE VISIBILITY GONE TO ADD AN ICON IN THE TOP BAR -->
     <ImageView
         android:id="@+id/logo_persistent"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
-        app:srcCompat="@drawable/actionbar_logo"
+        app:srcCompat="@drawable/logo_roundsquare"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:padding="12dp"
-        android:contentDescription="@string/r_a_dio_icon" />
+        android:contentDescription="@string/r_a_dio_icon"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -54,7 +56,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:menu="@menu/toolbar_menu"
-        app:layout_constraintStart_toEndOf="@id/logo_persistent"
+        app:layout_constraintStart_toEndOf="@+id/logo_persistent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="-4dp"

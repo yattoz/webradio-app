@@ -11,11 +11,3 @@ class Tick  : TimerTask() {
     }
 }
 
-class ApiFetchTick  : TimerTask() {
-    override fun run() {
-        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_STOPPED)
-        {
-            PlayerStore.instance.fetchApi()
-        }
-    }
-}

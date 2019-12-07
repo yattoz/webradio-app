@@ -107,29 +107,6 @@ class RadioService : MediaBrowserServiceCompat() {
     // ################### OBSERVERS ####################
     // ##################################################
 
-    private val titleObserver: Observer<String> = Observer {
-        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
-        {
-            Log.d(tag, radioTag + "SONG CHANGED AND PLAYING")
-            // we activate latency compensation only if it's been at least 2 songs...
-            when {
-                PlayerStore.instance.isStreamDown -> {
-                    // if we reach here, it means that the observer has been called by a new song and that the stream was down previously.
-                    // so the stream is now back to normal.
-                    PlayerStore.instance.isStreamDown = false
-                    PlayerStore.instance.initApi()
-                }
-                PlayerStore.instance.currentSong.title.value == getString(R.string.ed) -> {
-                    PlayerStore.instance.isStreamDown = true
-                }
-                else -> {
-                    PlayerStore.instance.fetchApi(numberOfSongs >= 2)
-                }
-            }
-        }
-        nowPlayingNotification.update(this)
-    }
-
     private val volumeObserver: Observer<Int> = Observer {
         setVolume(it)
     }
@@ -145,20 +122,14 @@ class RadioService : MediaBrowserServiceCompat() {
             stopPlaying()
     }
 
-    private val startTimeObserver = Observer<Long> {
-        // We're listening to startTime to determine if we have to update Queue and Lp.
-        // this is because startTime is set by the API and never by the ICY, so both cases are covered (playing and stopped)
-        // should be OK even when a new streamer comes in.
-        if (it != PlayerStore.instance.currentSongBackup.startTime.value) // we have a new song
+    private val titleObserver = Observer<String> {
+        // We're checking if a new song arrives. If so, we put the currentSong in Lp and update the backup.
+        if (PlayerStore.instance.currentSong != PlayerStore.instance.currentSongBackup
+            && it != noConnectionValue)
         {
             PlayerStore.instance.updateLp()
-            PlayerStore.instance.updateQueue()
         }
-    }
-
-    private val streamerObserver = Observer<String> {
-        PlayerStore.instance.initApi()
-        nowPlayingNotification.update(this) // should update the streamer icon
+        nowPlayingNotification.update(this)
     }
 
     private val streamerPictureObserver = Observer<Bitmap> {
@@ -224,21 +195,13 @@ class RadioService : MediaBrowserServiceCompat() {
         nowPlayingNotification.create(this, mediaSession)
 
 
-        PlayerStore.instance.streamerName.observeForever(streamerObserver)
         PlayerStore.instance.currentSong.title.observeForever(titleObserver)
-        PlayerStore.instance.currentSong.startTime.observeForever(startTimeObserver)
         PlayerStore.instance.volume.observeForever(volumeObserver)
         PlayerStore.instance.isPlaying.observeForever(isPlayingObserver)
         PlayerStore.instance.isMuted.observeForever(isMutedObserver)
         PlayerStore.instance.streamerPicture.observeForever(streamerPictureObserver)
 
         startForeground(radioServiceId, nowPlayingNotification.notification)
-
-        // start ticker for when the player is stopped
-        val periodString = PreferenceManager.getDefaultSharedPreferences(this).getString("fetchPeriod", "10") ?: "10"
-        val period: Long = Integer.parseInt(periodString).toLong()
-        if (period > 0)
-            apiTicker.schedule(ApiFetchTick(), 0, period * 1000)
 
         PlayerStore.instance.isServiceStarted.value = true
         Log.d(tag, radioTag + "created")
@@ -303,7 +266,6 @@ class RadioService : MediaBrowserServiceCompat() {
         player.release()
         unregisterReceiver(receiver)
         PlayerStore.instance.currentSong.title.removeObserver(titleObserver)
-        PlayerStore.instance.currentSong.startTime.removeObserver(startTimeObserver)
         PlayerStore.instance.volume.removeObserver(volumeObserver)
         PlayerStore.instance.isPlaying.removeObserver(isPlayingObserver)
         PlayerStore.instance.isMuted.removeObserver(isMutedObserver)
