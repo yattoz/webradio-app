@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">R/a/dio2</string>
-    <string name="title_nowplaying">R/a/dio</string>
+    <string name="app_name">Tsumugi</string>
+    <string name="title_nowplaying">Tsumugi</string>
     <string name="title_queue_lp">Songs</string>
     <string name="title_chat">Chat</string>
     <string name="title_news">News</string>
@@ -34,13 +34,13 @@
     <string name="ra_f">.ra f</string>
 
     <string name="nowPlayingNotificationChannel">R/a/dio Stream Service</string>
-    <string name="nowPlayingChannelId">io.r_a_d.radio2.PLAYER_SERVICE</string>
+    <string name="nowPlayingChannelId">fr.forum_thalie.tsumugi.PLAYER_SERVICE</string>
 
     <string name="streamerServiceChannel">Streamer Monitor Service</string>
-    <string name="streamerServiceChannelId">io.r_a_d.radio2.STREAMER_NOTIFICATION_SERVICE</string>
+    <string name="streamerServiceChannelId">fr.forum_thalie.tsumugi.STREAMER_NOTIFICATION_SERVICE</string>
 
     <string name="streamerNotificationChannel">New Streamer Notification</string>
-    <string name="streamerNotificationChannelId">io.r_a_d.radio2.STREAMER_NOTIFICATION_NEW</string>
+    <string name="streamerNotificationChannelId">fr.forum_thalie.tsumugi.STREAMER_NOTIFICATION_NEW</string>
     <string name="warningStreamerNotif">
         This feature is EXPERIMENTAL.
         \nIt WILL consume your battery by polling the server regularly.

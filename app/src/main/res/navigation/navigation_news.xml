@@ -7,7 +7,7 @@
     tools:ignore="UnusedNavigation">
     <fragment
         android:id="@+id/fragment_news"
-        android:name="io.r_a_d.radio2.ui.news.NewsFragment"
+        android:name="fr.forum_thalie.tsumugi.ui.news.NewsFragment"
         android:label="@string/title_news"
         tools:layout="@layout/fragment_songs" />
 </navigation>
