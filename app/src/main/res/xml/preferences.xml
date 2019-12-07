@@ -8,28 +8,28 @@
         app:icon="@drawable/ic_alarm"
         app:key="alarmScreen"
         app:title="Set up alarm clock"
-        app:fragment="io.r_a_d.radio2.preferences.AlarmFragment"
+        app:fragment="fr.forum_thalie.tsumugi.preferences.AlarmFragment"
         />
 
     <Preference
         app:icon="@drawable/ic_av_timer"
         app:key="sleepScreen"
         app:title="Set sleep timer"
-        app:fragment="io.r_a_d.radio2.preferences.SleepFragment"
+        app:fragment="fr.forum_thalie.tsumugi.preferences.SleepFragment"
         />
 
     <Preference
         app:icon="@drawable/ic_customize"
         app:key="CustomizeFragment"
         app:title="Customize app behavior"
-        app:fragment="io.r_a_d.radio2.preferences.CustomizeFragment"
+        app:fragment="fr.forum_thalie.tsumugi.preferences.CustomizeFragment"
         />
 
     <Preference
         app:icon="@drawable/ic_notification"
         app:key="streamerNotifServiceFragment"
         app:title="Streamer Notification Service"
-        app:fragment="io.r_a_d.radio2.preferences.StreamerNotifServiceFragment"
+        app:fragment="fr.forum_thalie.tsumugi.preferences.StreamerNotifServiceFragment"
         />
 
     <Preference

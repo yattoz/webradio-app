@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="io.r_a_d.radio2">
+    package="fr.forum_thalie.tsumugi">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -40,8 +40,8 @@
             tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="io.r_a_d.radio2.PLAY_OR_FALLBACK" />
-                <action android:name="io.r_a_d.radio2.NOTIFY" /> <!-- this is for Snooze -->
+                <action android:name="fr.forum_thalie.tsumugi.PLAY_OR_FALLBACK" />
+                <action android:name="fr.forum_thalie.tsumugi.NOTIFY" /> <!-- this is for Snooze -->
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
