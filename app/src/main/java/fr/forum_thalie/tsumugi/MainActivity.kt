@@ -15,12 +15,8 @@ import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 
 import java.util.Timer
 import android.view.MenuItem
-import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
-import fr.forum_thalie.tsumugi.streamerNotificationService.WorkerStore
-import fr.forum_thalie.tsumugi.streamerNotificationService.startStreamerMonitor
-import fr.forum_thalie.tsumugi.ui.songs.request.Requestor
 
 
 /* Log to file import
@@ -39,11 +35,11 @@ class MainActivity : BaseActivity() {
      * Called on first creation and when restoring state.
      */
     private fun setupBottomNavigationBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bottom_nav)
 
         //val navGraphIds = listOf(R.navigation.home, R.navigation.list, R.navigation.form)
         val navGraphIds = listOf(R.navigation.navigation_nowplaying, R.navigation.navigation_songs,
-            R.navigation.navigation_news, R.navigation.navigation_chat)
+            R.navigation.navigation_news)
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController(
@@ -77,15 +73,15 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            /*
             R.id.action_refresh -> {
                 PlayerStore.instance.queue.clear()
                 PlayerStore.instance.lp.clear()
-                PlayerStore.instance.initApi()
-                Requestor.instance.initFavorites()
                 val s = Snackbar.make(findViewById(R.id.nav_host_container), "Refreshing data..." as CharSequence, Snackbar.LENGTH_LONG)
                 s.show()
                 true
             }
+            */
             R.id.action_settings -> {
                 val i = Intent(this, ParametersActivity::class.java)
                 startActivity(i)
@@ -118,10 +114,6 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        WorkerStore.instance.init(this)
-        startStreamerMonitor(this) // this checks the preferenceStore before actually starting a service, don't worry.
-
         RadioAlarm.instance.cancelAlarm(c = this)
         RadioAlarm.instance.setNextAlarm(c = this) // this checks the preferenceStore before actually setting an alarm, don't worry.
 
@@ -131,8 +123,6 @@ class MainActivity : BaseActivity() {
         colorGreenList = (ResourcesCompat.getColorStateList(resources, R.color.button_green, null))
         colorRedList = (ResourcesCompat.getColorStateList(resources, R.color.button_red, null))
         colorGreenListCompat = (ResourcesCompat.getColorStateList(resources, R.color.button_green_compat, null))
-
-        PlayerStore.instance.initApi() // the service will call the initApi on defining the streamerName Observer too, but it's better to initialize the API as soon as the user opens the activity.
 
         // Post-UI Launch
         if (PlayerStore.instance.isInitialized)
@@ -149,9 +139,6 @@ class MainActivity : BaseActivity() {
             // initialize some API data
             PlayerStore.instance.initPicture(this)
             PlayerStore.instance.streamerName.value = "" // initializing the streamer name will trigger an initApi from the observer in the Service.
-
-            // initialize the favorites
-            Requestor.instance.initFavorites()
         }
 
         if (!isTimerStarted)

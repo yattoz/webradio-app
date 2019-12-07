@@ -29,7 +29,6 @@ class ParametersActivity : BaseActivity() {
             ActionOpenParam.ALARM.name -> AlarmFragment()
             ActionOpenParam.SLEEP.name -> SleepFragment()
             ActionOpenParam.CUSTOMIZE.name -> CustomizeFragment()
-            ActionOpenParam.STREAMER_NOTIFICATION_SERVICE.name -> StreamerNotifServiceFragment()
             else -> MainPreferenceFragment()
         }
 

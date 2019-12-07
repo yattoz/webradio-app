@@ -71,7 +71,7 @@ abstract class BaseNotification(private val notificationChannelId: String,
             builder.setSmallIcon(R.drawable.lollipop_logo)
             builder.color = -0xf58b01 // same color as Accent. Can't use c.getColor since it's API23+
         } else {
-            builder.setSmallIcon(R.drawable.normal_logo)
+            builder.setSmallIcon(R.drawable.logo_roundsquare)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -8,8 +8,6 @@ import android.util.Log
 import androidx.preference.PreferenceManager
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
-import fr.forum_thalie.tsumugi.streamerNotificationService.WorkerStore
-import fr.forum_thalie.tsumugi.streamerNotificationService.startStreamerMonitor
 
 class BootBroadcastReceiver : BroadcastReceiver(){
 
@@ -19,8 +17,6 @@ class BootBroadcastReceiver : BroadcastReceiver(){
         preferenceStore = PreferenceManager.getDefaultSharedPreferences(context)
 
         if (arg1.action == Intent.ACTION_BOOT_COMPLETED) {
-            WorkerStore.instance.init(context)
-            startStreamerMonitor(context) // will actually start it only if enabled in settings
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
         }
 
@@ -29,8 +25,6 @@ class BootBroadcastReceiver : BroadcastReceiver(){
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
             if (PlayerStore.instance.streamerName.value.isNullOrBlank())
                 PlayerStore.instance.initPicture(context)
-            if (!PlayerStore.instance.isInitialized)
-                PlayerStore.instance.initApi()
 
             val i = Intent(context, RadioService::class.java)
             i.putExtra("action", Actions.PLAY_OR_FALLBACK.name)

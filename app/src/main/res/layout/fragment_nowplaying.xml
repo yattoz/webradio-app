@@ -40,7 +40,7 @@
 
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
             app:layout_constraintTop_toTopOf="@id/seek_bar_volume"
-            app:srcCompat="@drawable/actionbar_logo"
+            app:srcCompat="@drawable/logo_roundsquare"
             tools:ignore="HardcodedText" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -72,7 +72,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintVertical_weight="3"
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
-            app:layout_constraintTop_toBottomOf="@id/streamerPicture" />
+            app:layout_constraintTop_toBottomOf="@id/streamerPicture"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/listenersCount"
             android:layout_width="0dp"
@@ -87,7 +88,9 @@
             app:layout_constraintBottom_toTopOf="@id/topInfoGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
-            app:layout_constraintTop_toBottomOf="@id/streamerName" />
+            app:layout_constraintTop_toBottomOf="@id/streamerName"
+            android:visibility="gone"
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topInfoGuideline"
@@ -170,6 +173,7 @@
                 android:orientation="vertical"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -287,6 +291,7 @@
 
         <!--    android:progressDrawable="@drawable/progress_bar_progress"     -->
 
+        <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -297,8 +302,10 @@
             android:progress="70"
             android:progressDrawable="@drawable/progress_bar_progress"
             app:layout_constraintBottom_toTopOf="@id/play_pause"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"
+            android:visibility="gone"/>
 
+        <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <TextView
             android:id="@+id/endTime"
             android:layout_width="44sp"
@@ -308,8 +315,10 @@
             android:text=""
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="@id/progressBar"
-            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@id/progressBar"
+            android:visibility="gone"/>
 
+        <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <TextView
             android:id="@+id/currentTime"
             android:layout_width="44sp"
@@ -319,7 +328,8 @@
             android:text=""
             android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="@id/progressBar"
-            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@id/progressBar"
+            android:visibility="gone"/>
 
 
 

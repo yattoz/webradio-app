@@ -26,13 +26,6 @@
         />
 
     <Preference
-        app:icon="@drawable/ic_notification"
-        app:key="streamerNotifServiceFragment"
-        app:title="Streamer Notification Service"
-        app:fragment="fr.forum_thalie.tsumugi.preferences.StreamerNotifServiceFragment"
-        />
-
-    <Preference
         app:key="submitBug"
         app:title="Submit a bug (opens GitHub in a web browser)"
         app:icon="@drawable/ic_bug"

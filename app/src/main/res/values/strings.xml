@@ -29,7 +29,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Force data refresh</string>
     <string name="action_bug_submit">Submit a bug (GitHub)</string>
-    <string name="github_url_new_issue">https://github.com/yattoz/Radio2/issues/</string>
+    <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
     <string name="no_user_name">To display your favorite, set you IRC user name in Settings → Customize app behavior.</string>
     <string name="ra_f">.ra f</string>
 
