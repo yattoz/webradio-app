@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_nowplaying"
+        android:icon="@drawable/exo_icon_play"
+        android:title="@string/title_nowplaying"/>
+
+    <item
+        android:id="@+id/navigation_songs"
+        android:icon="@drawable/ic_playlist_music"
+        android:title="@string/title_queue_lp"/>
+
+    <item
+        android:id="@+id/navigation_news"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/title_news"/>
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_chat_processing"
+        android:title="@string/title_chat"/>
+
+</menu>

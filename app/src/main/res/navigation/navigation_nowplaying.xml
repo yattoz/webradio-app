@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_nowplaying"
+    app:startDestination="@id/fragment_nowplaying"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/fragment_nowplaying"
+        android:name="io.r_a_d.radio2.ui.nowplaying.NowPlayingFragment"
+        android:label="@string/title_nowplaying" />
+
+</navigation>

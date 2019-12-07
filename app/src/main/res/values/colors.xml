@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#333333</color>
+    <color name="colorPrimaryDark">#222222</color>
+    <color name="colorAccent">#DF4C3A</color>
+    <color name="dark">#454545</color>
+    <color name="orange">#DF4C3A</color>
+    <color name="whited">#DDDDDD</color>
+    <color name="whited1">#D3D3D3</color>
+    <color name="whited2">#b7b7b7</color>
+    <color name="whited3">#999999</color>
+    <color name="whited4">#999999</color>
+    <color name="whited5">#7F7F7F</color>
+    <color name="rblue">#3A7AAF</color>
+    <color name="bluereq">#527a8e</color>
+    <color name="blueTitle">#527a8e</color>
+    <color name="reqButtonPressed">#5cb85c</color>
+    <color name="reqButtonNormal">#5d7b5d</color>
+    <color name="reqButtonDisabled">#a15755</color>
+
+    <color name="seek_bar_background">#585858</color>
+    <color name="seek_bar_progress">#DF4C3A</color>
+    <color name="seek_bar_secondary_progress">#3A7AAF</color>
+
+    <color name="progress_bar_background">#585858</color>
+    <color name="progress_bar_progress">#3A7AAF</color>
+    <color name="progress_bar_secondary_progress">#DF4C3A</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

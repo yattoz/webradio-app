@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- shamelessly ripped off https://stackoverflow.com/questions/32212259/android-how-to-change-default-seekbar-thickness -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape>
+            <corners
+                android:radius="4dp"
+                />
+            <solid
+                android:color="@color/progress_bar_background"
+                />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners
+                    android:radius="4dp"
+                    />
+                <solid
+                    android:color="@color/progress_bar_secondary_progress"
+                    />
+            </shape>
+        </clip>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners
+                    android:radius="4dp"
+                    />
+                <solid
+                    android:color="@color/progress_bar_progress"
+                    />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

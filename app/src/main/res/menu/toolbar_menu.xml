@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sleep"
+        android:title="@string/action_sleep"
+        android:icon="@drawable/ic_av_timer"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_alarm"
+        android:title="@string/action_alarm"
+        android:icon="@drawable/ic_alarm"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        app:showAsAction="never"/>
+
+    <!--
+    <item
+        android:id="@+id/action_bug_submit"
+        android:title="@string/action_bug_submit"
+        app:showAsAction="never"/>
+    -->
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+
+</menu>

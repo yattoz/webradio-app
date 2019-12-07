@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <SwitchPreferenceCompat
+            app:key="newStreamerNotification"
+            app:iconSpaceReserved="false"
+            app:title="New streamer notification (drains battery!)"
+            app:singleLineTitle="false"
+            app:defaultValue="false"
+            />
+
+        <ListPreference
+            app:iconSpaceReserved="false"
+            app:key="streamerMonitorPeriodPref"
+            app:title="Streamer monitor frequency"
+            android:entries="@array/streamerFetchPeriodString"
+            android:entryValues="@array/streamerFetchPeriod"
+            android:defaultValue="10"
+            />
+
+</PreferenceScreen>

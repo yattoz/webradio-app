@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <Preference
+        app:icon="@drawable/ic_alarm"
+        app:key="alarmScreen"
+        app:title="Set up alarm clock"
+        app:fragment="io.r_a_d.radio2.preferences.AlarmFragment"
+        />
+
+    <Preference
+        app:icon="@drawable/ic_av_timer"
+        app:key="sleepScreen"
+        app:title="Set sleep timer"
+        app:fragment="io.r_a_d.radio2.preferences.SleepFragment"
+        />
+
+    <Preference
+        app:icon="@drawable/ic_customize"
+        app:key="CustomizeFragment"
+        app:title="Customize app behavior"
+        app:fragment="io.r_a_d.radio2.preferences.CustomizeFragment"
+        />
+
+    <Preference
+        app:icon="@drawable/ic_notification"
+        app:key="streamerNotifServiceFragment"
+        app:title="Streamer Notification Service"
+        app:fragment="io.r_a_d.radio2.preferences.StreamerNotifServiceFragment"
+        />
+
+    <Preference
+        app:key="submitBug"
+        app:title="Submit a bug (opens GitHub in a web browser)"
+        app:icon="@drawable/ic_bug"
+        />
+
+
+</PreferenceScreen>

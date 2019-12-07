@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <EditTextPreference
+        app:iconSpaceReserved="false"
+        app:key="userName"
+        app:title="User name for favorite songs"
+        />
+
+    <SeekBarPreference
+        app:key="volume"
+        app:iconSpaceReserved="false"
+        app:title="Volume at startup"
+        app:singleLineTitle="false"
+        app:min="0"
+        android:max="100"
+        android:defaultValue="100"
+        app:showSeekBarValue="true"
+        />
+
+    <SwitchPreferenceCompat
+        app:key="splitLayout"
+        app:iconSpaceReserved="false"
+        app:title="Use horizontal split layout"
+        app:singleLineTitle="false"
+        app:defaultValue="true"
+        />
+
+    <SwitchPreferenceCompat
+        app:key="snackbarPersistent"
+        app:iconSpaceReserved="false"
+        app:title="Make Snackbars persistent"
+        app:singleLineTitle="false"
+        app:defaultValue="true"
+        />
+
+    <ListPreference
+        app:key="fetchPeriod"
+        app:iconSpaceReserved="false"
+        android:title="Set update period when stopped"
+        app:singleLineTitle="false"
+        android:entries="@array/fetchPeriodString"
+        android:entryValues="@array/fetchPeriodValues"
+        android:defaultValue="10"
+        />
+
+    <Preference
+        app:key="helpFavorites"
+        app:title="Help to use favorites with IRC"
+        app:summary="Opens the wiki in your web browser"
+        app:icon="@drawable/ic_open_in_browser"
+        />
+
+</PreferenceScreen>

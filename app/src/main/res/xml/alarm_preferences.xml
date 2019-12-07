@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <SwitchPreferenceCompat
+        app:key="isWakingUp"
+        app:iconSpaceReserved="false"
+        app:title="Use as alarm clock"
+        app:singleLineTitle="false"
+        app:defaultValue="false"
+        />
+
+    <Preference
+        app:key="timeSet"
+        app:iconSpaceReserved="false"
+        app:title="Set time"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <MultiSelectListPreference
+        app:key="alarmDays"
+        app:iconSpaceReserved="false"
+        app:title="Select days of the week"
+        app:singleLineTitle="false"
+        android:entries="@array/weekdays"
+        android:entryValues="@array/weekdays"
+        android:defaultValue="@array/weekdays"
+        />
+
+    <ListPreference
+        app:key="snoozeDuration"
+        app:iconSpaceReserved="false"
+        android:title="Set snooze duration (minutes)"
+        app:singleLineTitle="false"
+        android:entries="@array/snoozeValues"
+        android:entryValues="@array/snoozeValues"
+        android:defaultValue="10"
+        android:summary="%s"
+        />
+
+</PreferenceScreen>
