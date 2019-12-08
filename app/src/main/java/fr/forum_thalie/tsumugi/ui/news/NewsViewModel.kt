@@ -71,11 +71,12 @@ class NewsViewModel : ViewModel() {
                     news.text = item.content ?: ""
                     news.header = item.description ?: ""
 
-                    //val formatter6 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    val formatter6 = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
+                    val dateString = item.pubDate.toString()
+                    Log.d(tag, "$news --- ${dateString}")
 
-                    //news.date = formatter6.parse(item.pubDate ?: Date().toString()) ?: Date()
+                    news.date = formatter6.parse(dateString) ?: Date(0)
 
-                    Log.d(tag, "$news - ${item.pubDate}")
                     newsArray.add(news)
                 }
                 // The list contains all article's data. For example you can use it for your adapter.

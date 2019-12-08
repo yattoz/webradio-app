@@ -8,11 +8,12 @@ import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
@@ -48,6 +49,7 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
         val text = holder.itemView.findViewById<TextView>(R.id.news_text)
         val author = holder.itemView.findViewById<TextView>(R.id.news_author)
         val header = holder.itemView.findViewById<TextView>(R.id.news_header)
+        val date = holder.itemView.findViewById<TextView>(R.id.news_date)
         title.text = dataSet[position].title
         title.setOnClickListener {
             val i = Intent(Intent.ACTION_VIEW)
@@ -57,6 +59,8 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
         text.text = HtmlCompat.fromHtml(dataSet[position].text, HtmlCompat.FROM_HTML_MODE_LEGACY)
         header.text = HtmlCompat.fromHtml(dataSet[position].header, HtmlCompat.FROM_HTML_MODE_LEGACY).replace(Regex("\n"), " ")
         author.text = "| ${dataSet[position].author}"
+        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        date.text = sdf.format(dataSet[position].date)
         TextViewCompat.setAutoSizeTextTypeWithDefaults(author, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
     }
 
