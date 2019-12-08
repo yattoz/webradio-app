@@ -165,7 +165,7 @@ class PlayerStore {
         //if (lp.isNotEmpty()){
             val n = Song()
             n.copy(currentSongBackup)
-            if (n.title.value != noConnectionValue)
+            if (n.title.value != noConnectionValue && n.title.value != streamDownValue)
                 lp.add(0, n)
             currentSongBackup.copy(currentSong)
             isLpUpdated.value = true
