@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/news_header"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:textStyle="italic"
@@ -42,8 +42,21 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/news_title"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/news_date"
+        app:layout_constraintBottom_toTopOf="@id/news_text"
+        />
+
+    <TextView
+        android:id="@+id/news_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        android:textAlignment="textEnd"
+        app:layout_constraintTop_toBottomOf="@id/news_title"
+        app:layout_constraintStart_toEndOf="@id/news_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/news_text"
+
         />
 
     <TextView
