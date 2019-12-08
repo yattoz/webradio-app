@@ -1,5 +1,6 @@
 package fr.forum_thalie.tsumugi.ui.news
 
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ import kotlin.math.min
 class NewsViewModel : ViewModel() {
 
     val newsArray : ArrayList<News> = ArrayList()
+    var isWebViewLoaded = false
 
     private val urlToScrape = "https://tsumugi.forum-thalie.fr/?feed=rss2"
 
@@ -53,10 +55,12 @@ class NewsViewModel : ViewModel() {
 
     fun fetch(root: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null, viewAdapter: RecyclerView.Adapter<*>? = null)
     {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
+            return // the RSS Parser does not support API20- because of no TLS v1.2
+
         val maxNumberOfArticles = 5
         coroutineScope.launch(Dispatchers.Main) {
             Log.d(tag, "launching coroutine")
-            try {
                 val parser = Parser()
                 val articleList = parser.getArticles(urlToScrape)
                 newsArray.clear()
@@ -81,10 +85,7 @@ class NewsViewModel : ViewModel() {
                 }
                 // The list contains all article's data. For example you can use it for your adapter.
                 root?.isRefreshing = false
-                viewAdapter?.notifyDataSetChanged()
-            } catch (e: Exception) {
-                // Handle the exception
-            }
+
         }
     }
 }
