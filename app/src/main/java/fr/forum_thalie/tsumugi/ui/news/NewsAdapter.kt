@@ -1,17 +1,21 @@
 package fr.forum_thalie.tsumugi.ui.news
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
 import kotlin.collections.ArrayList
 
-class NewsAdapter(private val dataSet: ArrayList<News>
+class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
     /*,
     context: Context,
     resource: Int,
@@ -45,6 +49,11 @@ class NewsAdapter(private val dataSet: ArrayList<News>
         val author = holder.itemView.findViewById<TextView>(R.id.news_author)
         val header = holder.itemView.findViewById<TextView>(R.id.news_header)
         title.text = dataSet[position].title
+        title.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(dataSet[position].link)
+            c.startActivity(i)
+        }
         text.text = HtmlCompat.fromHtml(dataSet[position].text, HtmlCompat.FROM_HTML_MODE_LEGACY)
         header.text = HtmlCompat.fromHtml(dataSet[position].header, HtmlCompat.FROM_HTML_MODE_LEGACY).replace(Regex("\n"), " ")
         author.text = "| ${dataSet[position].author}"

@@ -29,7 +29,7 @@ class NewsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_news, container, false) as androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = NewsAdapter(newsViewModel.newsArray)
+        viewAdapter = NewsAdapter(newsViewModel.newsArray, context!!)
         recyclerView = root.findViewById<RecyclerView>(R.id.news_recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
