@@ -7,6 +7,7 @@ class News {
     var text: String = ""
     var header: String = ""
     var author: String = ""
+    var link: String = ""
     var date: Date = Date()
 
     override fun toString() : String
