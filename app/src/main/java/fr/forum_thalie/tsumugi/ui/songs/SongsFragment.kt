@@ -29,7 +29,7 @@ class SongsFragment : Fragment() {
         adapter = SongsPagerAdapter(childFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         adapter.addFragment(LastPlayedFragment.newInstance(), "last played")
 
-        //adapter.addFragment(QueueFragment.newInstance(), "queue")
+        // You can add more fragments to the adapter, to display more information (for example with R/a/dio, queue, request, faves...)
 
         viewPager.adapter = adapter
 

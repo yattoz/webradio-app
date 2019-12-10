@@ -7,7 +7,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
-import fr.forum_thalie.tsumugi.BootBroadcastReceiver
 
 class NowPlayingNotification(
     notificationChannelId: String,
@@ -27,7 +26,7 @@ class NowPlayingNotification(
     // ###### NOW PLAYING NOTIFICATION ########
     // ########################################
 
-    lateinit var mediaStyle: androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle
+    private lateinit var mediaStyle: androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle
 
     fun create(c: Context, m: MediaSessionCompat) {
         super.create(c)

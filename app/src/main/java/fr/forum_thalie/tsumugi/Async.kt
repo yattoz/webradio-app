@@ -23,6 +23,7 @@ class Async(val handler: (Any?) -> Any?, val post: (Any?) -> Unit = {},
             ActionOnError.RESET -> resetPlayerStateOnNetworkError()
             ActionOnError.NOTIFY -> return
         }
+        e.printStackTrace()
     }
 
     private fun resetPlayerStateOnNetworkError() {

@@ -23,5 +23,4 @@ enum class ActionOpenParam {
     SLEEP,
     ALARM,
     CUSTOMIZE,
-    STREAMER_NOTIFICATION_SERVICE
 }

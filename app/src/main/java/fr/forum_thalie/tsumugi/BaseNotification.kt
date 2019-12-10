@@ -23,7 +23,7 @@ abstract class BaseNotification(private val notificationChannelId: String,
 
     // Define the notification in android's swipe-down menu
     lateinit var notification: Notification
-    protected lateinit var notificationManager: NotificationManager
+    private lateinit var notificationManager: NotificationManager
     protected lateinit var builder: NotificationCompat.Builder
 
     @RequiresApi(api = Build.VERSION_CODES.O)
