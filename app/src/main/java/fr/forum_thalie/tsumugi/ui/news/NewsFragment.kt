@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -26,24 +25,20 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var root = inflater.inflate(R.layout.fragment_news, container, false) as View
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
         {
-            root = inflater.inflate(R.layout.fragment_news, container, false) as androidx.coordinatorlayout.widget.CoordinatorLayout
-            activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-            val webView = WebView(context)
-
             newsViewModel =
-                ViewModelProviders.of(this).get(NewsViewModel::class.java)
+            ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
             if (!newsViewModel.isWebViewLoaded)
             {
                 try {
-                    val webViewS = root.findViewById<WebView>(R.id.news_webview)
-                    val webViewChat = WebViewNews(webViewS as WebView)
-                    webViewChat.start()
+                    newsViewModel.root = inflater.inflate(R.layout.fragment_chat, container, false)
+                    newsViewModel.webView = newsViewModel.root.findViewById(R.id.news_webview)
+                    newsViewModel.webViewNews = WebViewNews(newsViewModel.webView as WebView)
+                    newsViewModel.webViewNews!!.start()
                 } catch (e: Exception) {
-                    root = inflater.inflate(R.layout.fragment_error_chat, container, false)
+                    newsViewModel.root = inflater.inflate(R.layout.fragment_error_chat, container, false)
                 }
 
                 newsViewModel.isWebViewLoaded = true
@@ -52,13 +47,13 @@ class NewsFragment : Fragment() {
                 Log.d(tag, "webview already created!?")
             }
 
-            return root
+            return newsViewModel.root
         }
 
         newsViewModel =
                 ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
-        root = inflater.inflate(R.layout.fragment_news, container, false) as androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        val root = inflater.inflate(R.layout.fragment_news, container, false) as androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = NewsAdapter(newsViewModel.newsArray, context!!)

@@ -2,6 +2,8 @@ package fr.forum_thalie.tsumugi.ui.news
 
 import android.os.Build
 import android.util.Log
+import android.view.View
+import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Parser
@@ -17,11 +19,14 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.max
 import kotlin.math.min
 
 
 class NewsViewModel : ViewModel() {
+
+    lateinit var root: View
+    var webView: WebView? = null
+    var webViewNews: WebViewNews? = null
 
     val newsArray : ArrayList<News> = ArrayList()
     var isWebViewLoaded = false

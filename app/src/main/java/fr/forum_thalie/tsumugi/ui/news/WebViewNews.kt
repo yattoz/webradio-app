@@ -15,12 +15,7 @@ class WebViewNews(private val webView: WebView) {
         webSetting.javaScriptEnabled = true
         webSetting.setSupportZoom(true)
 
-        /* TODO: in the future, it could be nice to have a parameters screen where you can:
-     - Set the text zoom
-     - Set your username (to not type it every time, would it be possible?)
-     - Hide the chat?
-     - do more? */
-        webSetting.textZoom = 90
+        webSetting.textZoom = 100
 
         webSetting.setSupportMultipleWindows(true)
         // needs to open target="_blank" links as KiwiIRC links have this attribute.
