@@ -1,5 +1,6 @@
 package fr.forum_thalie.tsumugi.ui.news
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Parser
 import fr.forum_thalie.tsumugi.Async
+import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.tag
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,35 +33,12 @@ class NewsViewModel : ViewModel() {
     val newsArray : ArrayList<News> = ArrayList()
     var isWebViewLoaded = false
 
-    private val urlToScrape = "https://tsumugi.forum-thalie.fr/?feed=rss2"
-
-    private val scrape : (Any?) -> Unit =
-    {
-        val t = URL(urlToScrape).readText()
-        val result = JSONArray(t)
-        newsArray.clear()
-        for (n in 0 until result.length())
-        {
-            val news = News()
-            news.title = (result[n] as JSONObject).getString("title")
-            news.author = (result[n] as JSONObject).getJSONObject("author").getString("user")
-            news.text = (result[n] as JSONObject).getString("text")
-            news.header = (result[n] as JSONObject).getString("header")
-
-            val formatter6 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-
-            news.date = formatter6.parse((result[n] as JSONObject).getString("updated_at")) ?: Date()
-
-            Log.d(tag, "$news")
-            newsArray.add(news)
-        }
-    }
-
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun fetch(root: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null, viewAdapter: RecyclerView.Adapter<*>? = null)
+    fun fetch(root: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null, viewAdapter: RecyclerView.Adapter<*>? = null, c: Context)
     {
+        val urlToScrape = c.getString(R.string.rss_url)
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
             return // the RSS Parser does not support API20- because of no TLS v1.2
 
@@ -90,7 +69,7 @@ class NewsViewModel : ViewModel() {
                 }
                 // The list contains all article's data. For example you can use it for your adapter.
                 root?.isRefreshing = false
-
+                viewAdapter?.notifyDataSetChanged()
         }
     }
 }

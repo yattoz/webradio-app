@@ -36,7 +36,7 @@ class NewsFragment : Fragment() {
                     newsViewModel.root = inflater.inflate(R.layout.fragment_news, container, false)
                     newsViewModel.webView = newsViewModel.root.findViewById(R.id.news_webview)
                     newsViewModel.webViewNews = WebViewNews(newsViewModel.webView as WebView)
-                    newsViewModel.webViewNews!!.start()
+                    newsViewModel.webViewNews!!.start(getString(R.string.website_url))
                 } catch (e: Exception) {
                     newsViewModel.root = inflater.inflate(R.layout.fragment_error_webview, container, false)
                 }
@@ -71,7 +71,7 @@ class NewsFragment : Fragment() {
 
         root.setOnRefreshListener {
 
-            newsViewModel.fetch(root, viewAdapter)
+            newsViewModel.fetch(root, viewAdapter, context!!)
 
         }
 
@@ -82,7 +82,7 @@ class NewsFragment : Fragment() {
         newsViewModel =
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
-        newsViewModel.fetch()
+        newsViewModel.fetch(c = context!!)
         Log.d(tag, "news fetched onCreate")
         super.onCreate(savedInstanceState)
     }
