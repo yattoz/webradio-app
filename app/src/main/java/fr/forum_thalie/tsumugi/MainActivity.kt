@@ -74,6 +74,7 @@ class MainActivity : BaseActivity() {
         // Handle item selection
         return when (item.itemId) {
             /*
+            // You can add more actions. This one is used in R/a/dio app Radio2.
             R.id.action_refresh -> {
                 PlayerStore.instance.queue.clear()
                 PlayerStore.instance.lp.clear()
@@ -89,7 +90,7 @@ class MainActivity : BaseActivity() {
             }
             R.id.action_sleep -> {
                 val i = Intent(this, ParametersActivity::class.java)
-                i.putExtra("action", ActionOpenParam.SLEEP.name) // TODO change value with Actions.something
+                i.putExtra("action", ActionOpenParam.SLEEP.name)
                 startActivity(i)
                 true
             }

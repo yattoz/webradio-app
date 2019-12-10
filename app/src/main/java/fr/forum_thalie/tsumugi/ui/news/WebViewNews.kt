@@ -9,7 +9,7 @@ import android.webkit.WebView
 class WebViewNews(private val webView: WebView) {
 
     @SuppressLint("SetJavaScriptEnabled")
-    fun start() {
+    fun start(url: String) {
 
         val webSetting = this.webView.settings
         webSetting.javaScriptEnabled = true
@@ -36,7 +36,7 @@ class WebViewNews(private val webView: WebView) {
             }
         }
 
-        webView.loadUrl("https://tsumugi.forum-thalie.fr/")
+        webView.loadUrl(url)
     }
 
 }

@@ -41,5 +41,7 @@
     <string name="action_alarm">Alarm</string>
     <string name="sleep_fade_out_text">One minute before the end of the timer, the volume will gradually decrease.</string>
     <string name="disable">Disable</string>
+    <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
+    <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
 
 </resources>
