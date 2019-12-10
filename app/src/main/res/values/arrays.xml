@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="streamerFetchPeriodString">
-        <item name="5">"Every 5 minutes"</item>
-        <item name="10">"Every 10 minutes"</item>
-        <item name="15">"Every 15 minutes"</item>
-        <item name="20">"Every 20 minutes"</item>
-        <item name="25">"Every 25 minutes"</item>
-        <item name="30">"Every 30 minutes"</item>
-    </string-array>
-    <string-array name="streamerFetchPeriod">
-        <item name="5">5</item>
-        <item name="10">10</item>
-        <item name="15">15</item>
-        <item name="20">20</item>
-        <item name="25">25</item>
-        <item name="30">30</item>
-    </string-array>
 
     <string-array name="weekdays">
         <item name="monday">Monday</item>
@@ -35,20 +19,6 @@
         <item name="15">15</item>
         <item name="20">20</item>
         <item name="25">25</item>
-        <item name="30">30</item>
-    </string-array>
-    <string-array name="fetchPeriodString">
-        <item name="5">Every 5 seconds (faster update)</item>
-        <item name="10">Every 10 seconds</item>
-        <item name="15">Every 15 seconds</item>
-        <item name="20">Every 20 seconds</item>
-        <item name="30">Every 30 seconds (less battery-intensive)</item>
-    </string-array>
-    <string-array name="fetchPeriodValues">
-        <item name="5">5</item>
-        <item name="10">10</item>
-        <item name="15">15</item>
-        <item name="20">20</item>
         <item name="30">30</item>
     </string-array>
 

@@ -46,24 +46,43 @@ class NowPlayingFragment : Fragment() {
         val seekBarVolume: SeekBar = root.findViewById(R.id.seek_bar_volume)
         val volumeText: TextView = root.findViewById(R.id.volume_text)
         val progressBar: ProgressBar = root.findViewById(R.id.progressBar)
+        val volumeIconImage : ImageView = root.findViewById(R.id.volume_icon)
+
+        // Note: these values are not used in the generic app
         val streamerPictureImageView: ImageView = root.findViewById(R.id.streamerPicture)
+        /*
         val streamerNameText : TextView = root.findViewById(R.id.streamerName)
         val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)
         val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
-        val volumeIconImage : ImageView = root.findViewById(R.id.volume_icon)
         val listenersText : TextView = root.findViewById(R.id.listenersCount)
+         */
 
 
+        /*
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
             streamerNameText,8, 20, 2, TypedValue.COMPLEX_UNIT_SP)
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
             listenersText,8, 16, 2, TypedValue.COMPLEX_UNIT_SP)
-        /*
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-            songTitleText,4, 24, 2, TypedValue.COMPLEX_UNIT_SP)
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-            songArtistText,4, 24, 2, TypedValue.COMPLEX_UNIT_SP)
          */
+
+        /*
+        // trick : I can't observe the queue because it's an ArrayDeque that doesn't trigger any change...
+        // so I observe a dedicated Mutable that gets set when the queue is updated.
+        PlayerStore.instance.isQueueUpdated.observe(viewLifecycleOwner, Observer {
+            val t = if (PlayerStore.instance.queue.size > 0) PlayerStore.instance.queue[0] else Song("No queue - ") // (it.peekFirst != null ? it.peekFirst : Song() )
+            songTitleNextText.text = t.title.value
+            songArtistNextText.text = t.artist.value
+        })
+
+        PlayerStore.instance.streamerName.observe(viewLifecycleOwner, Observer {
+            streamerNameText.text = it
+        })
+
+        PlayerStore.instance.listenersCount.observe(viewLifecycleOwner, Observer {
+            listenersText.text = "${getString(R.string.listeners)}: $it"
+        })
+         */
+
 
         PlayerStore.instance.currentSong.title.observe(viewLifecycleOwner, Observer {
                 songTitleText.text = it
@@ -77,13 +96,6 @@ class NowPlayingFragment : Fragment() {
             syncPlayPauseButtonImage(root)
         })
 
-        // trick : I can't observe the queue because it's an ArrayDeque that doesn't trigger any change...
-        // so I observe a dedicated Mutable that gets set when the queue is updated.
-        PlayerStore.instance.isQueueUpdated.observe(viewLifecycleOwner, Observer {
-            val t = if (PlayerStore.instance.queue.size > 0) PlayerStore.instance.queue[0] else Song("No queue - ") // (it.peekFirst != null ? it.peekFirst : Song() )
-            songTitleNextText.text = t.title.value
-            songArtistNextText.text = t.artist.value
-        })
 
         fun volumeIcon(it: Int)
         {
@@ -111,14 +123,6 @@ class NowPlayingFragment : Fragment() {
 
         PlayerStore.instance.streamerPicture.observe(viewLifecycleOwner, Observer { pic ->
             streamerPictureImageView.setImageBitmap(pic)
-        })
-
-        PlayerStore.instance.streamerName.observe(viewLifecycleOwner, Observer {
-            streamerNameText.text = it
-        })
-
-        PlayerStore.instance.listenersCount.observe(viewLifecycleOwner, Observer {
-            listenersText.text = "${getString(R.string.listeners)}: $it"
         })
 
         // fuck it, do it on main thread
@@ -172,18 +176,6 @@ class NowPlayingFragment : Fragment() {
         button.setOnClickListener{
             PlayerStore.instance.isPlaying.value = PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_STOPPED
         }
-
-        /*
-            /* TODO : disabled volumeIconImage click listener, it creates weird behaviors when switching fragments.
-                in particular, the mute state isn't retained when switching fragments, and it creates visual error
-                (displaying the mute icon when it's not muted).
-                So for the moment it's safer to disable it altogether.
-             */
-        volumeIconImage.setOnClickListener{
-            PlayerStore.instance.isMuted.value = !PlayerStore.instance.isMuted.value!!
-        }
-
-         */
 
         val setClipboardListener: View.OnLongClickListener = View.OnLongClickListener {
             val text = PlayerStore.instance.currentSong.artist.value + " - " + PlayerStore.instance.currentSong.title.value

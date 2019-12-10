@@ -33,12 +33,12 @@ class NewsFragment : Fragment() {
             if (!newsViewModel.isWebViewLoaded)
             {
                 try {
-                    newsViewModel.root = inflater.inflate(R.layout.fragment_chat, container, false)
+                    newsViewModel.root = inflater.inflate(R.layout.fragment_news, container, false)
                     newsViewModel.webView = newsViewModel.root.findViewById(R.id.news_webview)
                     newsViewModel.webViewNews = WebViewNews(newsViewModel.webView as WebView)
                     newsViewModel.webViewNews!!.start()
                 } catch (e: Exception) {
-                    newsViewModel.root = inflater.inflate(R.layout.fragment_error_chat, container, false)
+                    newsViewModel.root = inflater.inflate(R.layout.fragment_error_webview, container, false)
                 }
 
                 newsViewModel.isWebViewLoaded = true
