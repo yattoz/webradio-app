@@ -48,8 +48,9 @@ class NowPlayingFragment : Fragment() {
         val progressBar: ProgressBar = root.findViewById(R.id.progressBar)
         val volumeIconImage : ImageView = root.findViewById(R.id.volume_icon)
 
-        // Note: these values are not used in the generic app
         val streamerPictureImageView: ImageView = root.findViewById(R.id.streamerPicture)
+
+        // Note: these values are not used in the generic app, but if you want to, you can use them.
         /*
         val streamerNameText : TextView = root.findViewById(R.id.streamerName)
         val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)

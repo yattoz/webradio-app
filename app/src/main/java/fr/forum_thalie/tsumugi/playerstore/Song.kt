@@ -2,7 +2,7 @@ package fr.forum_thalie.tsumugi.playerstore
 
 import androidx.lifecycle.MutableLiveData
 
-class Song(artistTitle: String = "", _id : Int = 0, _isRequestable : Boolean = false) {
+class Song(artistTitle: String = "", _id : Int = 0) {
 
     // TODO : remove MutableLiveData, use a MutableLiveData Boolean on PlayerStore instead
     val title: MutableLiveData<String> = MutableLiveData()
@@ -11,7 +11,6 @@ class Song(artistTitle: String = "", _id : Int = 0, _isRequestable : Boolean = f
     val startTime: MutableLiveData<Long> = MutableLiveData()
     val stopTime: MutableLiveData<Long> = MutableLiveData()
     var id: Int? = _id
-    var isRequestable : Boolean = _isRequestable
 
     init {
         setTitleArtist(artistTitle)
@@ -54,5 +53,15 @@ class Song(artistTitle: String = "", _id : Int = 0, _isRequestable : Boolean = f
         this.startTime.value = song.startTime.value
         this.stopTime.value = song.stopTime.value
         this.type.value = song.type.value
+    }
+
+    override fun hashCode(): Int {
+        var result = title.hashCode()
+        result = 31 * result + artist.hashCode()
+        result = 31 * result + type.hashCode()
+        result = 31 * result + startTime.hashCode()
+        result = 31 * result + stopTime.hashCode()
+        result = 31 * result + (id ?: 0)
+        return result
     }
 }
