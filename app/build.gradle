@@ -77,7 +77,6 @@ dependencies {
 
     // RSS parser library @ https://github.com/prof18/RSS-Parser
     implementation 'com.prof.rssparser:rssparser:2.0.4'
-    implementation 'com.github.ahorn:android-rss:1.0-rc1'
 
     def work_version = "2.2.0"
     implementation "androidx.work:work-runtime-ktx:$work_version"
