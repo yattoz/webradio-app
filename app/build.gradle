@@ -64,7 +64,7 @@ dependencies {
      */
 
     implementation "androidx.media:media:1.1.0"
-    implementation 'com.google.android.exoplayer:exoplayer:2.10.6'
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
