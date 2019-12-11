@@ -9,7 +9,7 @@
 
     <string name="MEDIA_ROOT_ID">radio_root_id</string>
     <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
-    <string name="STREAM_URL_TSUMUGI">http://shelter.mahoro-net.org:8000/tsumugi</string>
+    <string name="STREAM_URL_TSUMUGI">https://radio.mahoro-net.org/streams/tsumugi</string>
     <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
 
     <string name="volume">Volume: </string>
