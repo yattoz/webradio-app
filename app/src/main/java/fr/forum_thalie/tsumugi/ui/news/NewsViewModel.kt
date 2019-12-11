@@ -46,10 +46,10 @@ class NewsViewModel : ViewModel() {
         coroutineScope.launch(Dispatchers.Main) {
             Log.d(tag, "launching coroutine")
                 val parser = Parser()
+            try {
                 val articleList = parser.getArticles(urlToScrape)
                 newsArray.clear()
-                for (i in 0 until min(articleList.size, maxNumberOfArticles))
-                {
+                for (i in 0 until min(articleList.size, maxNumberOfArticles)) {
                     val item = articleList[i]
                     Log.d(tag, "i = $i / ${articleList.size}")
                     val news = News()
@@ -70,6 +70,10 @@ class NewsViewModel : ViewModel() {
                 // The list contains all article's data. For example you can use it for your adapter.
                 root?.isRefreshing = false
                 viewAdapter?.notifyDataSetChanged()
+            }catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
         }
     }
 }
