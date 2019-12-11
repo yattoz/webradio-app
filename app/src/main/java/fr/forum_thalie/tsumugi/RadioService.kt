@@ -32,11 +32,11 @@ import androidx.media.AudioManagerCompat
 import androidx.preference.PreferenceManager
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.metadata.icy.*
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.system.exitProcess
@@ -348,7 +348,10 @@ class RadioService : MediaBrowserServiceCompat() {
             setBufferDurationsMs(minBufferMillis, maxBufferMillis, bufferForPlayback, bufferForPlaybackAfterRebuffer)
         }.createDefaultLoadControl()
 
-        player = ExoPlayerFactory.newSimpleInstance(this, DefaultTrackSelector(), loadControl)
+        val playerBuilder = SimpleExoPlayer.Builder(this)
+        playerBuilder.setLoadControl(loadControl)
+        player = playerBuilder.build()
+
         player.addMetadataOutput {
             for (i in 0 until it.length()) {
                 val entry  = it.get(i)
@@ -356,9 +359,19 @@ class RadioService : MediaBrowserServiceCompat() {
                     Log.d(tag, radioTag + "onMetadata: IcyHeaders $entry")
                 }
                 if (entry is IcyInfo) {
-                    Log.d(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
+                    Log.e(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
                     // Note : Kotlin supports UTF-8 by default.
                     numberOfSongs++
+                    val s = entry.title!!
+                    val a = ArrayList<Int>()
+
+                    for (j in s.indices)
+                    {
+                        a.add(s[j].toInt())
+
+                    }
+                    Log.e(tag, a.toString())
+                    Log.e(tag, "raw: ${it}")
                     val data = entry.title!!
                     PlayerStore.instance.currentSong.setTitleArtist(data)
                 }
