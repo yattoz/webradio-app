@@ -26,6 +26,7 @@ import kotlin.math.min
 
 class NewsViewModel : ViewModel() {
 
+    var screenRatio: Int = 100
     lateinit var root: View
     var webView: WebView? = null
     var webViewNews: WebViewNews? = null
