@@ -433,6 +433,7 @@ class RadioService : MediaBrowserServiceCompat() {
             {
                 Thread.sleep(1000)
                 i++
+                Log.d(tag, "$i, isAlarmStopped=$isAlarmStopped")
             }
         }
         val post: (Any?) -> Unit = {
@@ -516,9 +517,12 @@ class RadioService : MediaBrowserServiceCompat() {
     // stop playing but keep the notification.
     fun stopPlaying()
     {
-        isAlarmStopped = true
         if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_STOPPED)
             return // nothing to do here
+
+        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
+            isAlarmStopped = true
+
         PlayerStore.instance.playbackState.value = PlaybackStateCompat.STATE_STOPPED
 
         // STOP THE PLAYBACK
