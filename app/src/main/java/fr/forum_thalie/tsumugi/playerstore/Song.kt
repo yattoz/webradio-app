@@ -35,9 +35,9 @@ class Song(artistTitle: String = "", _id : Int = 0) {
                 title.value = data.substring(hyphenPos + 3)
         } catch (e: Exception) {
             if (artist.value != "")
-                artist.value = ""
+                artist.postValue("")
             if (title.value != data)
-                title.value = data
+                title.postValue(data)
         }
     }
 
