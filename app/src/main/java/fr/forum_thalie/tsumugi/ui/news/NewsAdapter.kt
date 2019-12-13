@@ -2,18 +2,16 @@ package fr.forum_thalie.tsumugi.ui.news
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LevelListDrawable
-import android.net.Uri
 import android.os.AsyncTask
 import android.text.Html.ImageGetter
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -121,19 +119,16 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
         val author = holder.itemView.findViewById<TextView>(R.id.news_author)
         val header = holder.itemView.findViewById<TextView>(R.id.news_header)
         val date = holder.itemView.findViewById<TextView>(R.id.news_date)
-        title.text = dataSet[position].title
-        title.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW)
-            i.data = Uri.parse(dataSet[position].link)
-            c.startActivity(i)
-        }
+
+        val titleLink = "<a href=\"${dataSet[position].link}\">${dataSet[position].title}</>"
+        title.text = HtmlCompat.fromHtml(titleLink, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        title.movementMethod = LinkMovementMethod.getInstance()
+
         header.text = HtmlCompat.fromHtml(dataSet[position].header, HtmlCompat.FROM_HTML_MODE_LEGACY).replace(Regex("\n"), " ")
         author.text = "| ${dataSet[position].author}"
         val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
         date.text = sdf.format(dataSet[position].date)
         TextViewCompat.setAutoSizeTextTypeWithDefaults(author, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
-        //val html = HtmlCompat.fromHtml(dataSet[position].text, HtmlCompat.FROM_HTML_MODE_LEGACY)
-
 
         val spanned = HtmlCompat.fromHtml(
             dataSet[position].text,
@@ -149,8 +144,7 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
             }, null
         )
         text.text = spanned
-
-
+        text.movementMethod = LinkMovementMethod.getInstance()
     }
 
     // Return the size of your dataset (invoked by the layout manager)
