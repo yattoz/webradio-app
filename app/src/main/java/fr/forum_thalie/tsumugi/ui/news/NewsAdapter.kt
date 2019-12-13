@@ -45,9 +45,9 @@ class ImageGetterAsyncTask(
             try {
                 k = URL(source).content as InputStream
                 val options = BitmapFactory.Options()
-                options.inSampleSize = 1/4
-                // this makes 1/2 of origin image size from width and height.
-                // it alleviates the memory for API16-API19 especially
+                options.inSampleSize = 1
+                // Putting 2 makes 1/2 of origin image size from width and height.
+                // it alleviates the memory and CPU too for weak devices.
                 pic = BitmapFactory.decodeStream(k, null, options)
                 k.close()
             } catch (e: IOException) {
@@ -67,15 +67,14 @@ class ImageGetterAsyncTask(
             val size = Point()
             (context as Activity).windowManager.defaultDisplay.getSize(size)
             // Lets calculate the ratio according to the screen width in px
-            val multiplier: Int = size.x / bitmap!!.width
-            //Log.d(LOG_CAT, "multiplier: $multiplier")
+            val multiplier: Double = (size.x).toDouble() / (bitmap!!.width.toDouble())
             levelListDrawable.addLevel(1, 1, d)
             // Set bounds width  and height according to the bitmap resized size
             levelListDrawable.setBounds(
                 0,
                 0,
-                bitmap.width * multiplier,
-                bitmap.height * multiplier
+                (bitmap.width.toDouble() * multiplier).toInt(),
+                (bitmap.height.toDouble() * multiplier).toInt()
             )
             levelListDrawable.level = 1
             t!!.text = t!!.text // invalidate() doesn't work correctly...
