@@ -36,7 +36,6 @@ import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.system.exitProcess
@@ -362,16 +361,6 @@ class RadioService : MediaBrowserServiceCompat() {
                     Log.e(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
                     // Note : Kotlin supports UTF-8 by default.
                     numberOfSongs++
-                    val s = entry.title!!
-                    val a = ArrayList<Int>()
-
-                    for (j in s.indices)
-                    {
-                        a.add(s[j].toInt())
-
-                    }
-                    Log.e(tag, a.toString())
-                    Log.e(tag, "raw: ${it}")
                     val data = entry.title!!
                     PlayerStore.instance.currentSong.setTitleArtist(data)
                 }
