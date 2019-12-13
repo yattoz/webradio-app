@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import fr.forum_thalie.tsumugi.R
 
 class NewsFragment : Fragment() {
@@ -47,17 +48,18 @@ class NewsFragment : Fragment() {
                 Log.d(tag, "webview already created!?")
             }
 
+            newsViewModel.root.addOnLayoutChangeListener(orientationLayoutListener)
             return newsViewModel.root
         }
 
         newsViewModel =
                 ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_news, container, false) as androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        newsViewModel.root = inflater.inflate(R.layout.fragment_news, container, false) as SwipeRefreshLayout
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = NewsAdapter(newsViewModel.newsArray, context!!)
-        recyclerView = root.findViewById<RecyclerView>(R.id.news_recycler).apply {
+        recyclerView = newsViewModel.root.findViewById<RecyclerView>(R.id.news_recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
@@ -69,13 +71,28 @@ class NewsFragment : Fragment() {
             adapter = viewAdapter
         }
 
-        root.setOnRefreshListener {
-
-            newsViewModel.fetch(root, viewAdapter, context!!)
-
+        (newsViewModel.root as SwipeRefreshLayout).setOnRefreshListener {
+            newsViewModel.fetch((newsViewModel.root as SwipeRefreshLayout), viewAdapter, context!!)
         }
 
-        return root
+        newsViewModel.root.addOnLayoutChangeListener(orientationLayoutListener)
+        return newsViewModel.root
+    }
+
+    private val orientationLayoutListener : View.OnLayoutChangeListener = View.OnLayoutChangeListener { _: View, _: Int, _: Int, _: Int, _: Int, _: Int, _: Int, _: Int, _: Int ->
+
+        val viewHeight = (newsViewModel.root.rootView?.height ?: 1)
+        val viewWidth = (newsViewModel.root.rootView?.width ?: 1)
+
+        val newRatio = if (viewWidth > 0)
+            (viewHeight*100)/viewWidth
+        else
+            100
+
+        if (newsViewModel.screenRatio != newRatio) {
+            newsViewModel.fetch((newsViewModel.root as SwipeRefreshLayout), viewAdapter, context!!)
+            newsViewModel.screenRatio = newRatio
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
