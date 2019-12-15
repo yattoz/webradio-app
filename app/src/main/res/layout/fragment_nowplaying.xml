@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
-            app:layout_constraintTop_toTopOf="@id/seek_bar_volume"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_roundsquare"
             tools:ignore="HardcodedText" />
 
