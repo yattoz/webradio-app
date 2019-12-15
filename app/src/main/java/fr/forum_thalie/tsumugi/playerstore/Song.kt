@@ -1,6 +1,7 @@
 package fr.forum_thalie.tsumugi.playerstore
 
 import androidx.lifecycle.MutableLiveData
+import fr.forum_thalie.tsumugi.noConnectionValue
 
 class Song(artistTitle: String = "", _id : Int = 0) {
 
@@ -35,9 +36,10 @@ class Song(artistTitle: String = "", _id : Int = 0) {
                 title.value = data.substring(hyphenPos + 3)
         } catch (e: Exception) {
             if (artist.value != "")
-                artist.postValue("")
+                artist.value = ""
             if (title.value != data)
-                title.postValue(data)
+                title.value = data
+            // else : do nothing
         }
     }
 
