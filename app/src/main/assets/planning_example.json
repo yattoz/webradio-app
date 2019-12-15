@@ -1,0 +1,22 @@
+{
+  "planning": [
+    {
+      "title": "Anime Matin",
+      "periodicity": "1111100",
+      "hour_begin": "9:00",
+      "hour_end": "10:30"
+    },
+    {
+      "title": "Jeux Vidéos Matin",
+      "periodicity": "1111100",
+      "hour_begin": "09:00",
+      "hour_end": "10:30"
+    },
+    {
+      "title": "Programmation nocturne",
+      "periodicity": "1111111",
+      "hour_begin": "23:00",
+      "hour_end": "5:30"
+    }
+  ]
+}

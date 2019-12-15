@@ -16,6 +16,7 @@ import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import java.util.Timer
 import android.view.MenuItem
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
+import fr.forum_thalie.tsumugi.planning.PlanningParser
 
 
 /* Log to file import
@@ -154,6 +155,9 @@ class MainActivity : BaseActivity() {
             )
             isTimerStarted = true
         }
+
+        // fetch program
+        PlanningParser.instance.parseUrl(/* getString(R.string.planning_url) */ context = this)
 
         // initialize the UI
         setTheme(R.style.AppTheme)
