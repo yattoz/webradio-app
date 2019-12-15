@@ -90,6 +90,7 @@ class NewsFragment : Fragment() {
             100
 
         if (newsViewModel.screenRatio != newRatio) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT)
             newsViewModel.fetch((newsViewModel.root as SwipeRefreshLayout), viewAdapter, context!!)
             newsViewModel.screenRatio = newRatio
         }
