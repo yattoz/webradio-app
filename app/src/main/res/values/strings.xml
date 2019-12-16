@@ -13,7 +13,6 @@
     <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
 
     <string name="volume">Volume: </string>
-    <string name="MAIN_API">https://r-a-d.io/api</string>
 
     <string name="up_next">Up next:</string>
     <string name="now_streaming">Now streaming</string>
@@ -47,5 +46,7 @@
     <string name="select_one_day">Select at least one day</string>
     <string name="no_alarm_set">No alarm set</string>
     <string name="next_alarm">Next alarm:</string>
+    <string name="lp">Last played</string>
+    <string name="programme">Programme</string>
 
 </resources>
