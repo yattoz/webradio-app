@@ -130,7 +130,7 @@ class RadioService : MediaBrowserServiceCompat() {
             PlayerStore.instance.updateLp()
         }
         nowPlayingNotification.update(this)
-        Log.d(tag, Planning.instance.currentProgramme())
+        Planning.instance.checkProgramme()
     }
 
     private val streamerPictureObserver = Observer<Bitmap> {
