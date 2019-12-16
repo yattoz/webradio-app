@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="weekdays">
-        <item name="monday">Monday</item>
-        <item name="tuesday">Tuesday</item>
-        <item name="wednesday">Wednesday</item>
-        <item name="thursday">Thursday</item>
-        <item name="friday">Friday</item>
-        <item name="saturday">Saturday</item>
-        <item name="sunday">Sunday</item>
-    </string-array>
     <string-array name="snoozeValues">
         <item name="0">@string/disable</item>
         <item name="1">1</item>

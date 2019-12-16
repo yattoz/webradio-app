@@ -20,7 +20,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
         }
 
-        if (arg1.getStringExtra("action") == "fr.forum_thalie.tsumugi.${Actions.PLAY_OR_FALLBACK.name}" )
+        if (arg1.getStringExtra("action") == "$tag.${Actions.PLAY_OR_FALLBACK.name}" )
         {
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
             if (PlayerStore.instance.streamerName.value.isNullOrBlank())
