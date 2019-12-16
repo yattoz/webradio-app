@@ -27,9 +27,11 @@ class SongsFragment : Fragment() {
         root = inflater.inflate(R.layout.fragment_songs, container, false)
         viewPager = root.findViewById(R.id.tabPager)
         adapter = SongsPagerAdapter(childFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        adapter.addFragment(LastPlayedFragment.newInstance(), "last played")
+        adapter.addFragment(LastPlayedFragment.newInstance(), getString(R.string.lp))
 
         // You can add more fragments to the adapter, to display more information (for example with R/a/dio, queue, request, faves...)
+        adapter.addFragment(ProgrammeFragment.newInstance(), getString(R.string.programme))
+
 
         viewPager.adapter = adapter
 

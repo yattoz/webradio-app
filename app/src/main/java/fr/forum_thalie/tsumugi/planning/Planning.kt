@@ -6,9 +6,19 @@ import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
 
-class PlanningParser {
+class Planning {
 
-    val programs: ArrayList<Program> = ArrayList()
+    private val programmes: ArrayList<Programme> = ArrayList()
+    private var regularProgramme: String? = null
+
+    fun currentProgramme(): String
+    {
+        programmes.forEach {
+            if (it.isCurrent())
+                return it.title
+        }
+        return regularProgramme ?: "none"
+    }
 
     fun parseUrl(url: String? = null, context: Context? = null)
     {
@@ -46,16 +56,18 @@ class PlanningParser {
                     val hourEndS = item.getString("hour_end").split(":")
                     val hourEnd = hourEndS.first().toInt()* 60 + hourEndS.last().toInt()
                     val title = item.getString("title")
-                    programs.add(Program(title, periodicity, hourBegin, hourEnd))
+                    programmes.add(Programme(title, periodicity, hourBegin, hourEnd))
                 }
             }
+            if (result.has("regular_programme"))
+                regularProgramme = result.getString("regular_programme")
         }
         Async(scrape, post)
     }
 
     companion object {
         val instance by lazy {
-            PlanningParser()
+            Planning()
         }
     }
 }
