@@ -1,6 +1,7 @@
 package fr.forum_thalie.tsumugi.planning
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.Async
 import org.json.JSONObject
 import java.io.IOException
@@ -10,14 +11,22 @@ class Planning {
 
     private val programmes: ArrayList<Programme> = ArrayList()
     private var regularProgramme: String? = null
+    val currentProgramme: MutableLiveData<String> = MutableLiveData()
 
-    fun currentProgramme(): String
+    private fun findCurrentProgramme(): String
     {
         programmes.forEach {
             if (it.isCurrent())
                 return it.title
         }
         return regularProgramme ?: "none"
+    }
+
+    fun checkProgramme()
+    {
+        val newProgramme = findCurrentProgramme()
+        if (currentProgramme.value != newProgramme)
+            currentProgramme.value = newProgramme
     }
 
     fun parseUrl(url: String? = null, context: Context? = null)
