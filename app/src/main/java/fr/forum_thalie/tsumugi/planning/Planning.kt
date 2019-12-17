@@ -3,15 +3,17 @@ package fr.forum_thalie.tsumugi.planning
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.Async
+import fr.forum_thalie.tsumugi.weekdays
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
 
 class Planning {
 
-    private val programmes: ArrayList<Programme> = ArrayList()
+    val programmes: ArrayList<Programme> = ArrayList()
     private var regularProgramme: String? = null
     val currentProgramme: MutableLiveData<String> = MutableLiveData()
+    val isProgrammeUpdated: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun findCurrentProgramme(): String
     {
@@ -59,7 +61,18 @@ class Planning {
                 for (i in 0 until programList.length())
                 {
                     val item = programList[i] as JSONObject
-                    val periodicity = item.getInt("periodicity")
+                    var periodicityDec = item.getInt("periodicity")
+                    var periodicity = 0b0000000
+                    var po = 1000000
+                    for (j in 0 until weekdays.size)
+                    {
+                        if (periodicityDec / (po) > 0)
+                        {
+                            periodicityDec -= po
+                            periodicity += 1 shl (weekdays.size-1 - j)
+                        }
+                        po /= 10
+                    }
                     val hourBeginS = item.getString("hour_begin").split(":")
                     val hourBegin = hourBeginS.first().toInt()*60 + hourBeginS.last().toInt()
                     val hourEndS = item.getString("hour_end").split(":")
@@ -70,6 +83,7 @@ class Planning {
             }
             if (result.has("regular_programme"))
                 regularProgramme = result.getString("regular_programme")
+            isProgrammeUpdated.value = true
         }
         Async(scrape, post)
     }

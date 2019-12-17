@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import fr.forum_thalie.tsumugi.R
+import fr.forum_thalie.tsumugi.ui.songs.programme.ProgrammeFragment
 import fr.forum_thalie.tsumugi.ui.songs.queuelp.LastPlayedFragment
 
 class SongsFragment : Fragment() {
@@ -32,13 +33,11 @@ class SongsFragment : Fragment() {
         // You can add more fragments to the adapter, to display more information (for example with R/a/dio, queue, request, faves...)
         adapter.addFragment(ProgrammeFragment.newInstance(), getString(R.string.programme))
 
-
         viewPager.adapter = adapter
 
         val tabLayout : TabLayout = root.findViewById(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
         Log.d(tag, "SongFragment view created")
-
 
         return root
     }
