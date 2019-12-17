@@ -2,6 +2,7 @@ package fr.forum_thalie.tsumugi.ui.songs.queuelp
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,6 +12,7 @@ import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.colorBlue
 import fr.forum_thalie.tsumugi.colorWhited
 import fr.forum_thalie.tsumugi.playerstore.Song
+import fr.forum_thalie.tsumugi.tag
 import kotlinx.android.synthetic.main.song_view.view.*
 import kotlin.collections.ArrayList
 

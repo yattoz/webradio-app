@@ -54,7 +54,7 @@ class NowPlayingFragment : Fragment() {
 
         // Note: these values are not used in the generic app, but if you want to, you can use them.
         val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)
-        val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
+        //val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
 
         /*
         val streamerNameText : TextView = root.findViewById(R.id.streamerName)
