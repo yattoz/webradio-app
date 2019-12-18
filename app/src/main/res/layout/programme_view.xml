@@ -16,27 +16,32 @@
 
     <TextView
         android:id="@+id/programme_start"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/programme_days"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="start"
         />
 
     <TextView
         android:id="@+id/programme_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/programme_start"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/programme_start"
+        app:layout_constraintStart_toEndOf="@id/programme_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="end"
+        android:textAlignment="textEnd"
         />
 
     <TextView
         android:id="@+id/programme_end"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/programme_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/programme_start"
+        app:layout_constraintStart_toStartOf="@id/programme_start"
+        android:gravity="start"
+
         />
 
     <View

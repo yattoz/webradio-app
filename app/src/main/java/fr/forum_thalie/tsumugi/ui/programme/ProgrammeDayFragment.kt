@@ -1,4 +1,4 @@
-package fr.forum_thalie.tsumugi.ui.songs.programme
+package fr.forum_thalie.tsumugi.ui.programme
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.planning.Planning
-import fr.forum_thalie.tsumugi.playerstore.PlayerStore
-import fr.forum_thalie.tsumugi.ui.songs.queuelp.LastPlayedFragment
-import fr.forum_thalie.tsumugi.ui.songs.queuelp.SongAdaptater
 
-class ProgrammeFragment  : Fragment() {
+class ProgrammeDayFragment(day: String) : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -25,9 +22,10 @@ class ProgrammeFragment  : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root = inflater.inflate(R.layout.fragment_programme, container, false)
+        val root = inflater.inflate(R.layout.fragment_programme_day, container, false)
         viewManager = LinearLayoutManager(context)
-        viewAdapter = ProgrammeAdapter(Planning.instance.programmes)
+        viewAdapter =
+            ProgrammeAdapter(Planning.instance.programmes)
         recyclerView = root.findViewById<RecyclerView>(R.id.programme_recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
@@ -50,6 +48,7 @@ class ProgrammeFragment  : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = ProgrammeFragment()
+        fun newInstance(day: String) =
+            ProgrammeDayFragment(day)
     }
 }

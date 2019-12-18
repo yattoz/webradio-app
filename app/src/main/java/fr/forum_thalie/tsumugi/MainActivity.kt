@@ -38,8 +38,11 @@ class MainActivity : BaseActivity() {
         val bottomNavigationView : BottomNavigationView = findViewById(R.id.bottom_nav)
 
         //val navGraphIds = listOf(R.navigation.home, R.navigation.list, R.navigation.form)
-        val navGraphIds = listOf(R.navigation.navigation_nowplaying, R.navigation.navigation_songs,
-            R.navigation.navigation_news)
+        val navGraphIds = listOf(
+                R.navigation.navigation_nowplaying,
+                R.navigation.navigation_songs,
+                R.navigation.navigation_news,
+                R.navigation.navigation_programme)
 
         // Setup the bottom navigation view with a list of navigation graphs
         val controller = bottomNavigationView.setupWithNavController(

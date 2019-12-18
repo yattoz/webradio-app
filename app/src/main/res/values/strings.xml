@@ -4,6 +4,7 @@
     <string name="title_queue_lp">Songs</string>
     <string name="title_chat">Chat</string>
     <string name="title_news">News</string>
+    <string name="title_programme">Programme</string>
 
     <string name="now_playing_notification_title_template">Now playing: %1$s</string>
 
