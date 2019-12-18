@@ -43,11 +43,12 @@
     <string name="disable">Disable</string>
     <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
     <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
-    <string name="planning_url">ADD SOME URL HERE...</string>
+    <string name="planning_url">ADD SOME URL HERE</string>
     <string name="select_one_day">Select at least one day</string>
     <string name="no_alarm_set">No alarm set</string>
     <string name="next_alarm">Next alarm:</string>
     <string name="lp">Last played</string>
     <string name="programme">Programme</string>
+    <string name="regular_programme">Programme régulier</string>
 
 </resources>

@@ -3,17 +3,22 @@ package fr.forum_thalie.tsumugi.planning
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.Async
+import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.weekdays
 import org.json.JSONObject
 import java.io.IOException
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Planning {
 
     val programmes: ArrayList<Programme> = ArrayList()
     private var regularProgramme: String? = null
     val currentProgramme: MutableLiveData<String> = MutableLiveData()
-    val isProgrammeUpdated: MutableLiveData<Boolean> = MutableLiveData()
+    val isDataFetched: MutableLiveData<Boolean> = MutableLiveData()
+
+    var timeZone: TimeZone = Calendar.getInstance().timeZone
 
     private fun findCurrentProgramme(): String
     {
@@ -21,7 +26,7 @@ class Planning {
             if (it.isCurrent())
                 return it.title
         }
-        return regularProgramme ?: "none"
+        return regularProgramme ?: "-"
     }
 
     fun checkProgramme()
@@ -81,9 +86,17 @@ class Planning {
                     programmes.add(Programme(title, periodicity, hourBegin, hourEnd))
                 }
             }
-            if (result.has("regular_programme"))
-                regularProgramme = result.getString("regular_programme")
-            isProgrammeUpdated.value = true
+            regularProgramme = if (result.has("regular_programme"))
+                result.getString("regular_programme")
+            else
+                context?.getString(R.string.regular_programme)
+
+            timeZone = if (result.has("timezone"))
+                TimeZone.getTimeZone(result.getString("timezone"))
+            else
+                Calendar.getInstance().timeZone
+
+            isDataFetched.value = true
         }
         Async(scrape, post)
     }
