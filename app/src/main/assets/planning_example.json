@@ -61,5 +61,6 @@
       "hour_end": "06:00"
     }
   ],
-  "regular_programme" : "Programmation habituelle"
+  "regular_programme" : "Programmation habituelle",
+  "timezone": "GMT+1"
 }

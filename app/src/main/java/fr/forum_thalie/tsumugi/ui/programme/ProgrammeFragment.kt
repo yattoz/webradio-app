@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayout
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.ui.APagerAdapter
 import fr.forum_thalie.tsumugi.weekdays
+import fr.forum_thalie.tsumugi.weekdaysSundayFirst
+import java.util.*
 
 class ProgrammeFragment : Fragment() {
 
@@ -34,6 +36,8 @@ class ProgrammeFragment : Fragment() {
         }
 
         viewPager.adapter = adapter
+        val todaySundayFirst = Calendar.getInstance(TimeZone.getTimeZone("GMT+1")).get(Calendar.DAY_OF_WEEK) - 1
+        viewPager.currentItem = (todaySundayFirst - 1)%7
 
         val tabLayout : TabLayout = root.findViewById(R.id.dayTabLayout)
         tabLayout.setupWithViewPager(viewPager)
