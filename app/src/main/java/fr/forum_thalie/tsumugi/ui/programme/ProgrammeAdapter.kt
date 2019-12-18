@@ -1,19 +1,13 @@
-package fr.forum_thalie.tsumugi.ui.songs.programme
+package fr.forum_thalie.tsumugi.ui.programme
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
-import fr.forum_thalie.tsumugi.colorBlue
-import fr.forum_thalie.tsumugi.colorWhited
 import fr.forum_thalie.tsumugi.planning.Programme
-import fr.forum_thalie.tsumugi.tag
-import kotlinx.android.synthetic.main.programme_view.view.*
-import kotlinx.android.synthetic.main.song_view.view.*
 
 class ProgrammeAdapter(private val dataSet: ArrayList<Programme>
     /*,
@@ -30,7 +24,9 @@ class ProgrammeAdapter(private val dataSet: ArrayList<Programme>
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.programme_view, parent, false) as ConstraintLayout
-        return MyViewHolder(view)
+        return MyViewHolder(
+            view
+        )
     }
 
     // Replace the contents of a view (invoked by the layout manager)

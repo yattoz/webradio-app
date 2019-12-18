@@ -61,7 +61,6 @@ class Programme (val title: String, private val periodicity: Int, private val ho
             {
                 res.add(weekdays[i])
             }
-
         }
         return res.toString().drop(1).dropLast(1) //  drop '[' and ']'
     }
