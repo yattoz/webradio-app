@@ -41,22 +41,19 @@ class ProgrammeDayFragment(private val day: String) : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-        Planning.instance.currentProgramme.observeForever(isProgrammeUpdatedObserver)
+        Planning.instance.currentProgramme.observe(viewLifecycleOwner,  Observer<String> {
+            programmeOfTheDay.clear()
+            Planning.instance.programmes.forEach {
+                if (it.isThisDay(day = weekdays.indexOf(day)))
+                    programmeOfTheDay.add(it)
+            }
+            viewAdapter.notifyDataSetChanged()
+        })
+
+        Planning.instance.isDataFetched.observe(viewLifecycleOwner, Observer<Boolean> {
+            viewAdapter.notifyDataSetChanged()
+        })
         return root
-    }
-
-    private val isProgrammeUpdatedObserver = Observer<String> {
-        programmeOfTheDay.clear()
-        Planning.instance.programmes.forEach {
-            if (it.isThisDay(day = weekdays.indexOf(day)))
-                programmeOfTheDay.add(it)
-        }
-        viewAdapter.notifyDataSetChanged()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Planning.instance.currentProgramme.removeObserver(isProgrammeUpdatedObserver)
     }
 
     companion object {

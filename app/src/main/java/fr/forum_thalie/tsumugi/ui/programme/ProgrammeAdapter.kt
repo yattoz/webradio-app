@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.colorBlue
+import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.planning.Programme
 import fr.forum_thalie.tsumugi.weekdays
 import fr.forum_thalie.tsumugi.weekdaysSundayFirst
@@ -45,7 +46,7 @@ class ProgrammeAdapter(private val dataSet: ArrayList<Programme>, private val da
         programmeName.text = dataSet[position].title
         programmeEnd.text = dataSet[position].end()
 
-        if (dataSet[position].isCurrent() && (Calendar.getInstance(TimeZone.getTimeZone("GMT+1")).get(Calendar.DAY_OF_WEEK) - 1 == weekdaysSundayFirst.indexOf(day)))
+        if (dataSet[position].isCurrent() && (Calendar.getInstance(Planning.instance.timeZone).get(Calendar.DAY_OF_WEEK) - 1 == weekdaysSundayFirst.indexOf(day)))
         {
             programmeStart.setTextColor(colorBlue)
             programmeEnd.setTextColor(colorBlue)

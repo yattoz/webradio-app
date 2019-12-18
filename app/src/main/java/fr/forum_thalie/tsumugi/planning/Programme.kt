@@ -21,7 +21,7 @@ class Programme (val title: String, private val periodicity: Int, private val ho
     }
 
     fun isCurrent(): Boolean {
-        val now = Calendar.getInstance(TimeZone.getTimeZone("GMT+1"))
+        val now = Calendar.getInstance(Planning.instance.timeZone)
         val currentDay =
             if (now.get(Calendar.DAY_OF_WEEK) - 1 == 0) 6 else now.get(Calendar.DAY_OF_WEEK) - 2
         // 0 (Monday) to 5 (Saturday) + 6 (Sunday)
@@ -59,14 +59,20 @@ class Programme (val title: String, private val periodicity: Int, private val ho
         return "Title: $title, time info (periodicity, begin, end): $periodicity, $hourBegin, $hourEnd"
     }
 
+    private val offset1 = (Planning.instance.timeZone.getOffset(System.currentTimeMillis())) / (60*1000)
+    private val offset2 = (Calendar.getInstance().timeZone.getOffset(System.currentTimeMillis())) / (60*1000)
+
     fun begin(): String {
-        return "%02d:%02d".format(hourBegin/60, hourBegin%60)
+        val hourBeginTZCorrect = hourBegin // + offset1 - offset2
+        return "%02d:%02d".format(hourBeginTZCorrect/60, hourBeginTZCorrect%60)
     }
 
     fun end(): String {
-        return "%02d:%02d".format(hourEnd/60, hourEnd%60)
+        val hourEndTZCorrect = hourEnd // + offset1 - offset2
+        return "%02d:%02d".format(hourEndTZCorrect/60, hourEndTZCorrect%60)
     }
 
+    /*
     fun days(): String {
         val res = ArrayList<String>()
         for (i in 0 until weekdays.size) {
@@ -77,6 +83,8 @@ class Programme (val title: String, private val periodicity: Int, private val ho
         }
         return res.toString().drop(1).dropLast(1) //  drop '[' and ']'
     }
+
+     */
 
     init {
         Log.d(tag, this.toString())
