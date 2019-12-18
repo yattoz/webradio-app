@@ -7,6 +7,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Programme (val title: String, private val periodicity: Int, private val hourBegin: Int, private val hourEnd: Int) {
+
+    fun isThisDay(day: Int): Boolean {
+
+        // 0 (Monday) to 5 (Saturday) + 6 (Sunday)
+
+        // this translates to "true" when:
+        // - the currentDay is flagged in the "periodicity" bit array
+        // OR
+        // - Yesterday is flagged in the "periodicity" bit array AND the program does span over 2 days (night programs).
+        // We'll check a after this whether the current hour is within the span.
+        return (((0b1000000 shr day) and (periodicity)) != 0)
+    }
+
     fun isCurrent(): Boolean {
         val now = Calendar.getInstance(TimeZone.getTimeZone("GMT+1"))
         val currentDay =
