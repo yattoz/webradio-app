@@ -26,7 +26,7 @@ class Planning {
             if (it.isCurrent())
                 return it.title
         }
-        return regularProgramme ?: "-"
+        return regularProgramme ?: "—"
     }
 
     fun checkProgramme()
