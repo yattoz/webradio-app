@@ -122,11 +122,12 @@ class MainActivity : BaseActivity() {
         RadioAlarm.instance.setNextAlarm(c = this) // this checks the preferenceStore before actually setting an alarm, don't worry.
 
         // initialize programmatically accessible colors
-        colorBlue = ResourcesCompat.getColor(resources, R.color.bluereq, null)
+        colorBlue = ResourcesCompat.getColor(resources, R.color.rblue, null)
         colorWhited = ResourcesCompat.getColor(resources, R.color.whited, null)
         colorGreenList = (ResourcesCompat.getColorStateList(resources, R.color.button_green, null))
         colorRedList = (ResourcesCompat.getColorStateList(resources, R.color.button_red, null))
         colorGreenListCompat = (ResourcesCompat.getColorStateList(resources, R.color.button_green_compat, null))
+        colorAccent = (ResourcesCompat.getColor(resources, R.color.colorAccent, null))
 
         // Post-UI Launch
         if (PlayerStore.instance.isInitialized)
