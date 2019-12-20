@@ -10,6 +10,7 @@ import fr.forum_thalie.tsumugi.BootBroadcastReceiver
 import androidx.preference.PreferenceManager
 import fr.forum_thalie.tsumugi.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RadioAlarm {
 
@@ -38,7 +39,7 @@ class RadioAlarm {
 
         val alarmManager = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(c, BootBroadcastReceiver::class.java).let { intent ->
-            intent.putExtra("action", "fr.forum_thalie.tsumugi.${Actions.PLAY_OR_FALLBACK.name}")
+            intent.putExtra("action", "$tag.${Actions.PLAY_OR_FALLBACK.name}")
             PendingIntent.getBroadcast(c, 0, intent, 0)
         }
         val showIntent = Intent(c, ParametersActivity::class.java).let { intent ->
@@ -60,7 +61,7 @@ class RadioAlarm {
         val hourOfDay = time / 60 //time is in minutes
         val minute = time % 60
 
-        val fullWeekOrdered = arrayListOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+        val fullWeekOrdered = weekdaysSundayFirst //Sunday --> Saturday
         val selectedDays = arrayListOf<Int>()
         for (item in fullWeekOrdered)
         {
@@ -100,7 +101,7 @@ class RadioAlarm {
         {
             val alarmManager = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmIntent = Intent(c, BootBroadcastReceiver::class.java).let { intent ->
-                intent.putExtra("action", "fr.forum_thalie.tsumugi.${Actions.PLAY_OR_FALLBACK.name}")
+                intent.putExtra("action", "$tag.${Actions.PLAY_OR_FALLBACK.name}")
                 PendingIntent.getBroadcast(c, 0, intent, 0)
             }
             val showIntent = Intent(c, ParametersActivity::class.java).let { intent ->

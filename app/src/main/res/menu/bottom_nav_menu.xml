@@ -16,5 +16,10 @@
         android:icon="@drawable/ic_newspaper"
         android:title="@string/title_news"/>
 
+    <item
+        android:id="@+id/navigation_programme"
+        android:icon="@drawable/ic_programme"
+        android:title="@string/programme"/>
+
 
 </menu>

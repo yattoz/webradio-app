@@ -23,9 +23,7 @@
         app:iconSpaceReserved="false"
         app:title="Select days of the week"
         app:singleLineTitle="false"
-        android:entries="@array/weekdays"
-        android:entryValues="@array/weekdays"
-        android:defaultValue="@array/weekdays"
+
         />
 
     <ListPreference

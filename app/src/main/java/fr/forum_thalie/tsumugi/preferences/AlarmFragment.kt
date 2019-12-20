@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.*
+import fr.forum_thalie.tsumugi.*
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import java.util.*
@@ -18,6 +19,9 @@ class AlarmFragment : PreferenceFragmentCompat() {
         val alarmDays = findPreference<MultiSelectListPreference>("alarmDays")
         val snoozeDuration = findPreference<ListPreference>("snoozeDuration")
 
+        alarmDays?.entries = weekdaysArray
+        alarmDays?.entryValues = weekdaysArray
+        alarmDays?.setDefaultValue(weekdaysArray)
 
         fun updateIsWakingUpSummary(preference: SwitchPreferenceCompat?, newValue: Boolean? = true,  forceTime: Int? = null, forceDays: Set<String>? = null)
         {
@@ -26,15 +30,13 @@ class AlarmFragment : PreferenceFragmentCompat() {
             calendar.timeInMillis = dateLong
             if (newValue == true && calendar.timeInMillis > 0)
             {
-                val fullWeekOrdered = arrayListOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-                preference?.summary = "Next alarm on ${fullWeekOrdered[calendar.get(Calendar.DAY_OF_WEEK) - 1]} " +
-                        "at ${if (calendar.get(Calendar.HOUR_OF_DAY) < 10) "0" else ""}${calendar.get(Calendar.HOUR_OF_DAY)}" +
-                        ":${if (calendar.get(Calendar.MINUTE) < 10) "0" else ""}${calendar.get(Calendar.MINUTE)}"
+                val fullWeekOrdered = weekdaysSundayFirst
+                preference?.summary = getString(R.string.next_alarm) + " ${fullWeekOrdered[calendar.get(Calendar.DAY_OF_WEEK) - 1]} ${if (calendar.get(Calendar.HOUR_OF_DAY) < 10) "0" else ""}${calendar.get(Calendar.HOUR_OF_DAY)}:${if (calendar.get(Calendar.MINUTE) < 10) "0" else ""}${calendar.get(Calendar.MINUTE)}"
             } else if (newValue == true)
-                preference?.summary = "Select at least one day"
+                preference?.summary = getString(R.string.select_one_day)
             else
             {
-                preference?.summary = "No alarm set"
+                preference?.summary = getString(R.string.no_alarm_set)
             }
         }
 
@@ -76,17 +78,15 @@ class AlarmFragment : PreferenceFragmentCompat() {
 
         fun updateDays(preference : MultiSelectListPreference?, newValue : Set<String>?)
         {
-            Log.d(tag, newValue.toString())
-            val listOfDays : String
-            val fullWeek = context!!.resources.getStringArray(R.array.weekdays).toSet()
-            val workingWeek = context!!.resources.getStringArray(R.array.weekdays).toSet().minusElement("Saturday").minusElement("Sunday")
-            listOfDays = when (newValue) {
+            val fullWeek = weekdays.toSet()
+            val workingWeek = weekdays.toSet().minusElement(weekdays.last()).minusElement(weekdays.elementAt(weekdays.size - 2))
+            val listOfDays = when (newValue) {
                 fullWeek -> context!!.getString(R.string.every_day)
                 workingWeek -> context!!.getString(R.string.working_days)
                 else -> {
                     // build ORDERED LIST of days... I don't know why the original one is in shambles!!
-                    val fullWeekOrdered = arrayListOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-                    val selectedDays = arrayListOf<String>()
+                    val fullWeekOrdered = weekdays
+                    val selectedDays = ArrayList<String>()
                     for (item in fullWeekOrdered) {
                         if (newValue!!.contains(item))
                             selectedDays.add(item)

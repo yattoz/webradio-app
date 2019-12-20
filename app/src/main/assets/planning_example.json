@@ -1,0 +1,66 @@
+{
+  "planning": [
+    {
+      "title": "Musique Classique",
+      "periodicity": "1111111",
+      "hour_begin": "6:00",
+      "hour_end": "7:00"
+    },
+    {
+      "title": "Jeux Vidéos Matin",
+      "periodicity": "1111100",
+      "hour_begin": "09:00",
+      "hour_end": "10:30"
+    },
+    {
+      "title": "Anime Matin",
+      "periodicity": "1111100",
+      "hour_begin": "10:30",
+      "hour_end": "12:00"
+    },
+    {
+      "title": "Jeux Vidéos Aprem'",
+      "periodicity": "1111111",
+      "hour_begin": "14:00",
+      "hour_end": "15:30"
+    },
+    {
+      "title": "Anime Aprem'",
+      "periodicity": "1111111",
+      "hour_begin": "15:30",
+      "hour_end": "17:00"
+    },
+    {
+      "title": "Jeux Vidéos Soirée",
+      "periodicity": "1111100",
+      "hour_begin": "19:00",
+      "hour_end": "20:00"
+    },
+    {
+      "title": "Anime Soirée",
+      "periodicity": "1111100",
+      "hour_begin": "20:00",
+      "hour_end": "21:00"
+    },
+    {
+      "title": "Anime Nuit",
+      "periodicity": "1111111",
+      "hour_begin": "00:00",
+      "hour_end": "01:00"
+    },
+    {
+      "title": "Jeux Vidéos Nuit",
+      "periodicity": "1111111",
+      "hour_begin": "01:00",
+      "hour_end": "02:00"
+    },
+    {
+      "title": "Programmation nocturne",
+      "periodicity": "1111111",
+      "hour_begin": "02:00",
+      "hour_end": "06:00"
+    }
+  ],
+  "regular_programme" : "Programmation habituelle",
+  "timezone": "GMT+1"
+}
