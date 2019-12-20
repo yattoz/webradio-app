@@ -4,7 +4,7 @@
     <string name="title_queue_lp">Songs</string>
     <string name="title_chat">Chat</string>
     <string name="title_news">News</string>
-    <string name="title_programme">Programme</string>
+    <string name="title_programme">Planning</string>
 
     <string name="now_playing_notification_title_template">Now playing: %1$s</string>
 
@@ -48,7 +48,7 @@
     <string name="no_alarm_set">No alarm set</string>
     <string name="next_alarm">Next alarm:</string>
     <string name="lp">Last played</string>
-    <string name="programme">Programme</string>
+    <string name="programme">Planning</string>
     <string name="regular_programme">Programme régulier</string>
 
 </resources>
