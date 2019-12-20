@@ -12,14 +12,15 @@ import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.planning.Programme
 import fr.forum_thalie.tsumugi.weekdays
-import kotlinx.android.synthetic.main.fragment_programme.*
 
-class ProgrammeDayFragment(private val day: String) : Fragment() {
+
+class ProgrammeDayFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val programmeOfTheDay: ArrayList<Programme> = ArrayList()
+    private val day = arguments?.getString("day") ?: weekdays.first()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +57,15 @@ class ProgrammeDayFragment(private val day: String) : Fragment() {
         return root
     }
 
+
     companion object {
         @JvmStatic
-        fun newInstance(day: String) =
-            ProgrammeDayFragment(day)
+        fun newInstance(day: String): ProgrammeDayFragment {
+            val args = Bundle()
+            args.putString("day", day)
+            val f = ProgrammeDayFragment()
+            f.arguments = args
+            return f
+        }
     }
 }
