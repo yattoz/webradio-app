@@ -34,6 +34,7 @@ import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.metadata.icy.*
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
+import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import java.util.*
 import kotlin.math.exp
@@ -129,6 +130,7 @@ class RadioService : MediaBrowserServiceCompat() {
             PlayerStore.instance.updateLp()
         }
         nowPlayingNotification.update(this)
+        Planning.instance.checkProgramme()
     }
 
     private val streamerPictureObserver = Observer<Bitmap> {

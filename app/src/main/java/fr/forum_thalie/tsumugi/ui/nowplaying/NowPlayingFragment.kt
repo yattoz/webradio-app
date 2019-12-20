@@ -21,8 +21,10 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import fr.forum_thalie.tsumugi.*
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
+import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import fr.forum_thalie.tsumugi.playerstore.Song
+import kotlinx.android.synthetic.main.fragment_nowplaying.*
 
 
 class NowPlayingFragment : Fragment() {
@@ -51,10 +53,11 @@ class NowPlayingFragment : Fragment() {
         val streamerPictureImageView: ImageView = root.findViewById(R.id.streamerPicture)
 
         // Note: these values are not used in the generic app, but if you want to, you can use them.
+        val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)
+        //val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
+
         /*
         val streamerNameText : TextView = root.findViewById(R.id.streamerName)
-        val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)
-        val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
         val listenersText : TextView = root.findViewById(R.id.listenersCount)
          */
 
@@ -86,11 +89,15 @@ class NowPlayingFragment : Fragment() {
 
 
         PlayerStore.instance.currentSong.title.observe(viewLifecycleOwner, Observer {
-                songTitleText.text = it
+            songTitleText.text = it
+        })
+
+        Planning.instance.currentProgramme.observe(viewLifecycleOwner, Observer {
+            songTitleNextText.text = it
         })
 
         PlayerStore.instance.currentSong.artist.observe(viewLifecycleOwner, Observer {
-                songArtistText.text = it
+            songArtistText.text = it
         })
 
         PlayerStore.instance.playbackState.observe(viewLifecycleOwner, Observer {
