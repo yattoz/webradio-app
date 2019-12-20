@@ -21,8 +21,8 @@ val weekdaysSundayFirst = ArrayList<String>().apply {
 
 var colorBlue: Int = 0
 var colorWhited: Int = 0
+var colorAccent : Int = 0
 var colorGreenList: ColorStateList? = ColorStateList.valueOf(0)
 var colorRedList: ColorStateList? = ColorStateList.valueOf(0)
 var colorGreenListCompat : ColorStateList? = ColorStateList.valueOf(0)
-
 lateinit var preferenceStore : SharedPreferences
