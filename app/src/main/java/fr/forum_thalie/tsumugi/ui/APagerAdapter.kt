@@ -1,11 +1,11 @@
-package fr.forum_thalie.tsumugi.ui.songs
+package fr.forum_thalie.tsumugi.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentManager
 
 
-class SongsPagerAdapter(f: FragmentManager, t: Int) : FragmentPagerAdapter(f, t){
+class APagerAdapter(f: FragmentManager, t: Int) : FragmentPagerAdapter(f, t){
 
     private val fragmentList = ArrayList<Fragment>()
     private val fragmentTitleList = ArrayList<String>()
