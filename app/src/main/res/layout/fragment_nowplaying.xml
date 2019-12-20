@@ -30,18 +30,19 @@
         <ImageView
             android:id="@+id/streamerPicture"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:adjustViewBounds="true"
             android:contentDescription="dj-image"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@id/imageLeftGuideline"
             app:layout_constraintEnd_toEndOf="parent"
 
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_roundsquare"
+            android:layout_margin="8dp"
             tools:ignore="HardcodedText" />
+        <!--             app:layout_constraintBottom_toTopOf="@id/imageLeftGuideline" -->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/imageGuideline"
@@ -97,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.80" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <TextView
             android:id="@+id/sleepInfo"
