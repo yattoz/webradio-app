@@ -233,7 +233,7 @@ class RadioService : MediaBrowserServiceCompat() {
             Actions.NOTIFY.name -> nowPlayingNotification.update(this)
             Actions.PLAY_OR_FALLBACK.name -> beginPlayingOrFallback()
             Actions.FADE_OUT.name -> {
-                for (i in 1 until 30) // we schedule 30 "LowerVolumeRunnable" every 2 seconds (i * 2)
+                for (i in 1 until 28) // we schedule 28 "LowerVolumeRunnable" every 2 seconds (i * 2)
                 {
                     // I couldn't find how to send multiple times the same PendingIntent using AlarmManager, so I relied on Handler instead.
                     // I think there's no guarantee of exact time with the Handler, especially when the device is in deep sleep,
@@ -290,7 +290,8 @@ class RadioService : MediaBrowserServiceCompat() {
         apiTicker.cancel() // stops the timer.
         Log.d(tag, radioTag + "destroyed")
         // if the service is destroyed, the application had become useless.
-        exitProcess(0)
+        // exitProcess(0)
+        Process.killProcess(Process.myPid())
     }
 
     // ########################################
@@ -360,7 +361,7 @@ class RadioService : MediaBrowserServiceCompat() {
                     Log.d(tag, radioTag + "onMetadata: IcyHeaders $entry")
                 }
                 if (entry is IcyInfo) {
-                    Log.e(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
+                    Log.d(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
                     // Note : Kotlin supports UTF-8 by default.
                     numberOfSongs++
                     val data = entry.title!!
