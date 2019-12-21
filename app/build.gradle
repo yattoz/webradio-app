@@ -65,7 +65,9 @@ dependencies {
      */
 
     implementation "androidx.media:media:1.1.0"
-    implementation 'com.google.android.exoplayer:exoplayer:2.11.0'
+    //implementation 'com.google.android.exoplayer:exoplayer:2.11.1'
+    implementation project(':exoplayer-library') // uses local ExoPlayer clone, from dev-v2 branch (fixes ISO-8859-1 ICY metadata
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 

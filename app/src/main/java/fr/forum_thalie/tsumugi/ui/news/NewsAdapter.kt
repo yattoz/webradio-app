@@ -134,7 +134,7 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
             HtmlCompat.FROM_HTML_MODE_LEGACY,
             ImageGetter { source ->
                 val d = LevelListDrawable()
-                val empty: Drawable? = ContextCompat.getDrawable(c, R.drawable.exo_icon_circular_play)
+                val empty: Drawable? = ContextCompat.getDrawable(c, R.drawable.exo_icon_play)
 
                 d.addLevel(0, 0, empty!!)
                 d.setBounds(0, 0, empty.intrinsicWidth, empty.intrinsicHeight)
