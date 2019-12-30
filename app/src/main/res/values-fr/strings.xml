@@ -33,7 +33,7 @@
     <string name="select_one_day">Sélectionner au moins un jour.</string>
     <string name="no_alarm_set">Pas d\'alarme</string>
     <string name="next_alarm">Prochaine alarme :</string>
-    <string name="lp">Dernières titres</string>
+    <string name="lp">Derniers titres</string>
     <string name="programme">Planning</string>
     <string name="regular_programme">Programme régulier</string>
     <string name="useAlarmClock">Activer l\'alarme</string>
