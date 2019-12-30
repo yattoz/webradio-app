@@ -8,11 +8,6 @@
 
     <string name="now_playing_notification_title_template">Maintenant: %1$s</string>
 
-    <string name="MEDIA_ROOT_ID">radio_root_id</string>
-    <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
-    <string name="STREAM_URL_TSUMUGI">https://radio.mahoro-net.org/streams/tsumugi</string>
-    <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
-
     <string name="volume">Volume : </string>
 
     <string name="up_next">Émission en cours :</string>
@@ -20,11 +15,6 @@
     <string name="error_webView">Erreur du chargement de WebView. Téléchargez Google Chrome sur le Play Store, ou activez le si vous l\'avez désactivé.</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_bug_submit">Reporter un bug (GitHub)</string>
-    <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
-
-    <string name="nowPlayingNotificationChannel">Tsumugi Stream Service</string>
-    <string name="nowPlayingChannelId">fr.forum_thalie.tsumugi.PLAYER_SERVICE</string>
-
     <string name="snackbarPersistent">Restent visibles, peuvent être fermées avec un bouton \"OK\" ou en glissant.</string>
     <string name="snackbarNonPersistent">Disparaissent après quelques instants</string>
     <string name="every_day">Tous les jours</string>
@@ -37,13 +27,9 @@
     <string name="action_sleep">Minuterie avant fermeture</string>
     <string name="dont_fetch_on_background">Désactiver</string>
     <string name="restart_the_app">Vous devez redémarrer l\'application pour valider ces changements.</string>
-
     <string name="action_alarm">Alarme</string>
     <string name="sleep_fade_out_text">Une minute avant la fin de la minuterie, le volume va décroitre progressivement.</string>
     <string name="disable">Désactiver</string>
-    <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
-    <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
-    <string name="planning_url">ADD SOME URL HERE</string>
     <string name="select_one_day">Sélectionner au moins un jour.</string>
     <string name="no_alarm_set">Pas d\'alarme</string>
     <string name="next_alarm">Prochaine alarme :</string>

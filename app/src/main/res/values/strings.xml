@@ -1,4 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- URLs -->
+    <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
+    <string name="STREAM_URL_TSUMUGI">http://shelter.mahoro-net.org:8000/tsumugi</string>
+    <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
+    <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
+    <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
+    <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
+    <string name="planning_url">ADD SOME URL HERE</string>
+
+
     <string name="app_name">Tsumugi</string>
     <string name="title_nowplaying">Tsumugi</string>
     <string name="title_queue_lp">Songs</string>
@@ -9,9 +20,7 @@
     <string name="now_playing_notification_title_template">Now playing: %1$s</string>
 
     <string name="MEDIA_ROOT_ID">radio_root_id</string>
-    <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
-    <string name="STREAM_URL_TSUMUGI">https://radio.mahoro-net.org/streams/tsumugi</string>
-    <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
+
 
     <string name="volume">Volume: </string>
 
@@ -20,9 +29,8 @@
     <string name="error_webView">Error loading WebView. Try downloading Google Chrome on Google Play, or enabling it if you disabled it.</string>
     <string name="action_settings">Settings</string>
     <string name="action_bug_submit">Submit a bug (GitHub)</string>
-    <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
 
-    <string name="nowPlayingNotificationChannel">R/a/dio Stream Service</string>
+    <string name="nowPlayingNotificationChannel">Tsumugi Stream Service</string>
     <string name="nowPlayingChannelId">fr.forum_thalie.tsumugi.PLAYER_SERVICE</string>
 
     <string name="snackbarPersistent">Stay visible, can be closed with \"OK\" button</string>
@@ -41,9 +49,6 @@
     <string name="action_alarm">Alarm</string>
     <string name="sleep_fade_out_text">One minute before the end of the timer, the volume will gradually decrease.</string>
     <string name="disable">Disable</string>
-    <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
-    <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
-    <string name="planning_url">ADD SOME URL HERE</string>
     <string name="select_one_day">Select at least one day</string>
     <string name="no_alarm_set">No alarm set</string>
     <string name="next_alarm">Next alarm:</string>
