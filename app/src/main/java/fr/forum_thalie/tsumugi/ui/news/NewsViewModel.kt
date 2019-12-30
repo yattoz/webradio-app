@@ -8,16 +8,13 @@ import android.webkit.WebView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Parser
-import fr.forum_thalie.tsumugi.Async
 import fr.forum_thalie.tsumugi.R
+import fr.forum_thalie.tsumugi.newsDateTimePattern
 import fr.forum_thalie.tsumugi.tag
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import org.json.JSONObject
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,6 +27,7 @@ class NewsViewModel : ViewModel() {
     lateinit var root: View
     var webView: WebView? = null
     var webViewNews: WebViewNews? = null
+    var isPreLoadingNews = false
 
     val newsArray : ArrayList<News> = ArrayList()
     var isWebViewLoaded = false
@@ -37,7 +35,7 @@ class NewsViewModel : ViewModel() {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun fetch(root: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null, viewAdapter: RecyclerView.Adapter<*>? = null, c: Context)
+    fun fetch(root: androidx.swiperefreshlayout.widget.SwipeRefreshLayout? = null, viewAdapter: RecyclerView.Adapter<*>? = null, c: Context, isPreloading: Boolean = false)
     {
         val urlToScrape = c.getString(R.string.rss_url)
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
@@ -60,9 +58,9 @@ class NewsViewModel : ViewModel() {
                     news.text = item.content ?: ""
                     news.header = item.description ?: ""
 
-                    val formatter6 = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
+                    val formatter6 = SimpleDateFormat(newsDateTimePattern, Locale.ENGLISH)
                     val dateString = item.pubDate.toString()
-                    Log.d(tag, "$news --- ${dateString}")
+                    Log.d(tag, "$news --- $dateString")
 
                     news.date = formatter6.parse(dateString) ?: Date(0)
 
@@ -70,6 +68,7 @@ class NewsViewModel : ViewModel() {
                 }
                 // The list contains all article's data. For example you can use it for your adapter.
                 root?.isRefreshing = false
+                isPreLoadingNews = isPreloading
                 viewAdapter?.notifyDataSetChanged()
             }catch (e: Exception)
             {

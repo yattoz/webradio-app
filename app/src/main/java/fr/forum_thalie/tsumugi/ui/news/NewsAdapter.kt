@@ -21,6 +21,7 @@ import androidx.core.text.HtmlCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.forum_thalie.tsumugi.R
+import fr.forum_thalie.tsumugi.newsDisplayDatePattern
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL
@@ -84,7 +85,7 @@ class ImageGetterAsyncTask(
 
 }
 
-class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
+class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context, private val vm: NewsViewModel
     /*,
     context: Context,
     resource: Int,
@@ -125,23 +126,34 @@ class NewsAdapter(private val dataSet: ArrayList<News>, private val c: Context
 
         header.text = HtmlCompat.fromHtml(dataSet[position].header, HtmlCompat.FROM_HTML_MODE_LEGACY).replace(Regex("\n"), " ")
         author.text = "| ${dataSet[position].author}"
-        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat(newsDisplayDatePattern, Locale.getDefault())
         date.text = sdf.format(dataSet[position].date)
         TextViewCompat.setAutoSizeTextTypeWithDefaults(author, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
 
-        val spanned = HtmlCompat.fromHtml(
-            dataSet[position].text,
-            HtmlCompat.FROM_HTML_MODE_LEGACY,
-            ImageGetter { source ->
-                val d = LevelListDrawable()
-                val empty: Drawable? = ContextCompat.getDrawable(c, R.drawable.exo_icon_play)
+        val spanned = // the trick is to avoid loading images when the adapter is called with preloading.
+            if (vm.isPreLoadingNews) {
+                HtmlCompat.fromHtml(
+                    dataSet[position].text,
+                    HtmlCompat.FROM_HTML_MODE_LEGACY)
+            } else {
+                HtmlCompat.fromHtml(
+                    dataSet[position].text,
+                    HtmlCompat.FROM_HTML_MODE_LEGACY,
+                    ImageGetter { source ->
+                        val d = LevelListDrawable()
+                        /*
+                        val empty: Drawable? = ContextCompat.getDrawable(c, R.drawable.exo_icon_play)
+                        d.addLevel(0, 0, empty!!)
+                        d.setBounds(0, 0, empty.intrinsicWidth, empty.intrinsicHeight)
+                         */
+                        ImageGetterAsyncTask(c, source, d).execute(text)
+                        d
+                    }, null
+                )
+            }
 
-                d.addLevel(0, 0, empty!!)
-                d.setBounds(0, 0, empty.intrinsicWidth, empty.intrinsicHeight)
-                ImageGetterAsyncTask(c, source, d).execute(text)
-                d
-            }, null
-        )
+
+
         text.text = spanned
         text.movementMethod = LinkMovementMethod.getInstance()
     }

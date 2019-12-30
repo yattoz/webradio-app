@@ -8,7 +8,8 @@ const val tag = "fr.forum_thalie.tsumugi"
 const val noConnectionValue = "—"
 const val streamDownValue = "Tsumugi est HS !" // we don't want this value to be displaed in the "last played" screen.
 val weekdaysArray : Array<String> = arrayOf( "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche")
-
+const val newsDateTimePattern = "EEE, d MMM yyyy HH:mm:ss Z"
+const val newsDisplayDatePattern = "dd MMM yyyy"
 // Below this line is only automatically programmed values. Unless your week does not start with Monday, you don't need to change this.
 
 val weekdays = ArrayList<String>().apply { weekdaysArray.forEach { add(it) } }

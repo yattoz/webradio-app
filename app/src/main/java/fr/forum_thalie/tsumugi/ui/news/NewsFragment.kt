@@ -58,7 +58,7 @@ class NewsFragment : Fragment() {
         newsViewModel.root = inflater.inflate(R.layout.fragment_news, container, false) as SwipeRefreshLayout
 
         viewManager = LinearLayoutManager(context)
-        viewAdapter = NewsAdapter(newsViewModel.newsArray, context!!)
+        viewAdapter = NewsAdapter(newsViewModel.newsArray, context!!, newsViewModel)
         recyclerView = newsViewModel.root.findViewById<RecyclerView>(R.id.news_recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
@@ -100,7 +100,7 @@ class NewsFragment : Fragment() {
         newsViewModel =
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
-        newsViewModel.fetch(c = context!!)
+        newsViewModel.fetch(c = context!!, isPreloading = true)
         Log.d(tag, "news fetched onCreate")
         super.onCreate(savedInstanceState)
     }
