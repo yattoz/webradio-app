@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Tsumugi</string>
     <string name="title_nowplaying">Tsumugi</string>
     <string name="title_queue_lp">Songs</string>
@@ -50,5 +50,19 @@
     <string name="lp">Last played</string>
     <string name="programme">Planning</string>
     <string name="regular_programme">Programme régulier</string>
+    <string name="useAlarmClock">Use as alarm clock</string>
+    <string name="setTime">Set time</string>
+    <string name="selectDaysOfWeek">Select days of the week</string>
+    <string name="SetSnoozeDuration">Set snooze duration (minutes)</string>
+    <string name="volumeAtStartup">Volume at startup</string>
+    <string name="useHorizontalSplitLayout">Use horizontal split layout</string>
+    <string name="makeSnackbarsPersistent">Make Snackbars persistent</string>
+    <string name="setupAlarmClock">Set up alarm clock</string>
+    <string name="setSleepTimer">Set sleep timer</string>
+    <string name="costumizeAppBehavior">Customize app behavior</string>
+    <string name="submitABug">Submit a bug (opens GitHub in a web browser)</string>
+    <string name="sleepClosesApp">Sleep - close app after some time</string>
+    <string name="setSleepDuration">Set duration (minutes)</string>
+    <string name="willCloseIn">Will close in %1$d minutes</string>
 
 </resources>

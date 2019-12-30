@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <Preference
         app:icon="@drawable/ic_alarm"
         app:key="alarmScreen"
-        app:title="Set up alarm clock"
+        app:title="@string/setupAlarmClock"
         app:fragment="fr.forum_thalie.tsumugi.preferences.AlarmFragment"
         />
 
     <Preference
         app:icon="@drawable/ic_av_timer"
         app:key="sleepScreen"
-        app:title="Set sleep timer"
+        app:title="@string/setSleepTimer"
         app:fragment="fr.forum_thalie.tsumugi.preferences.SleepFragment"
         />
 
     <Preference
         app:icon="@drawable/ic_customize"
         app:key="CustomizeFragment"
-        app:title="Customize app behavior"
+        app:title="@string/costumizeAppBehavior"
         app:fragment="fr.forum_thalie.tsumugi.preferences.CustomizeFragment"
         />
 
     <Preference
         app:key="submitBug"
-        app:title="Submit a bug (opens GitHub in a web browser)"
+        app:title="@string/submitABug"
         app:icon="@drawable/ic_bug"
         />
 

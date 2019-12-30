@@ -6,7 +6,7 @@
     <SwitchPreferenceCompat
         app:key="isWakingUp"
         app:iconSpaceReserved="false"
-        app:title="Use as alarm clock"
+        app:title="@string/useAlarmClock"
         app:singleLineTitle="false"
         app:defaultValue="false"
         />
@@ -14,14 +14,14 @@
     <Preference
         app:key="timeSet"
         app:iconSpaceReserved="false"
-        app:title="Set time"
+        app:title="@string/setTime"
         app:singleLineTitle="false"
         app:defaultValue="false"/>
 
     <MultiSelectListPreference
         app:key="alarmDays"
         app:iconSpaceReserved="false"
-        app:title="Select days of the week"
+        app:title="@string/selectDaysOfWeek"
         app:singleLineTitle="false"
 
         />
@@ -29,7 +29,7 @@
     <ListPreference
         app:key="snoozeDuration"
         app:iconSpaceReserved="false"
-        android:title="Set snooze duration (minutes)"
+        android:title="@string/SetSnoozeDuration"
         app:singleLineTitle="false"
         android:entries="@array/snoozeValues"
         android:entryValues="@array/snoozeValues"

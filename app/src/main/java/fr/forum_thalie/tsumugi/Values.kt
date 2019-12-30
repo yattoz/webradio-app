@@ -5,9 +5,11 @@ import android.content.res.ColorStateList
 import kotlin.collections.ArrayList
 
 const val tag = "fr.forum_thalie.tsumugi"
-const val noConnectionValue = "Arrêté."
-const val streamDownValue = "Tsumugi est HS !"
+const val noConnectionValue = "—"
+const val streamDownValue = "Tsumugi est HS !" // we don't want this value to be displaed in the "last played" screen.
 val weekdaysArray : Array<String> = arrayOf( "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche")
+
+// Below this line is only automatically programmed values. Unless your week does not start with Monday, you don't need to change this.
 
 val weekdays = ArrayList<String>().apply { weekdaysArray.forEach { add(it) } }
 val weekdaysSundayFirst = ArrayList<String>().apply {

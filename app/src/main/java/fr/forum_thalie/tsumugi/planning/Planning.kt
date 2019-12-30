@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.Async
 import fr.forum_thalie.tsumugi.R
+import fr.forum_thalie.tsumugi.noConnectionValue
 import fr.forum_thalie.tsumugi.weekdays
 import org.json.JSONObject
 import java.io.IOException
@@ -26,7 +27,7 @@ class Planning {
             if (it.isCurrent())
                 return it.title
         }
-        return regularProgramme ?: "—"
+        return regularProgramme ?: noConnectionValue
     }
 
     fun checkProgramme()
