@@ -30,13 +30,13 @@
         <ImageView
             android:id="@+id/streamerPicture"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="top|center_horizontal"
             android:adjustViewBounds="true"
             android:contentDescription="dj-image"
-            android:scaleType="fitCenter"
+            android:scaleType="fitStart"
             app:layout_constraintEnd_toEndOf="parent"
-
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_roundsquare"

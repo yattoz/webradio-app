@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- URLs -->
+    <string name="STREAM_URL_TSUMUGI">https://radio.mahoro-net.org/streams/tsumugi</string>
+
+</resources>

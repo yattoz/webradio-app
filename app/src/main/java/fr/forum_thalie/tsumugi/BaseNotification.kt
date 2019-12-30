@@ -68,8 +68,8 @@ abstract class BaseNotification(private val notificationChannelId: String,
         builder = NotificationCompat.Builder(c, channelID)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setSmallIcon(R.drawable.lollipop_logo)
-            builder.color = -0xf58b01 // same color as Accent. Can't use c.getColor since it's API23+
+            builder.setSmallIcon(R.drawable.ic_notif_lollipop_icon)
+            builder.color = 0xf58b01 // same color as Accent. Can't use c.getColor since it's API23+
         } else {
             builder.setSmallIcon(R.drawable.logo_roundsquare)
         }
