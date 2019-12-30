@@ -32,7 +32,6 @@ import androidx.media.AudioManagerCompat
 import androidx.preference.PreferenceManager
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.metadata.icy.*
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
 import fr.forum_thalie.tsumugi.planning.Planning
@@ -282,17 +281,18 @@ class RadioService : MediaBrowserServiceCompat() {
         PlayerStore.instance.isServiceStarted.value = false
         PlayerStore.instance.isInitialized = false
 
+
+        RadioSleeper.instance.cancelSleep(this, isClosing = true)
+
         PreferenceManager.getDefaultSharedPreferences(this).edit {
             this.putBoolean("isSleeping", false)
             this.commit()
         }
-        RadioSleeper.instance.cancelSleep(this)
 
         apiTicker.cancel() // stops the timer.
         Log.d(tag, radioTag + "destroyed")
         // if the service is destroyed, the application had become useless.
-        // exitProcess(0)
-        Process.killProcess(Process.myPid())
+        exitProcess(0)
     }
 
     // ########################################
@@ -351,13 +351,11 @@ class RadioService : MediaBrowserServiceCompat() {
             setBufferDurationsMs(minBufferMillis, maxBufferMillis, bufferForPlayback, bufferForPlaybackAfterRebuffer)
         }.createDefaultLoadControl()
 
-        /*
+
         val playerBuilder = SimpleExoPlayer.Builder(this)
         playerBuilder.setLoadControl(loadControl)
         player = playerBuilder.build()
-        */
 
-        player = ExoPlayerFactory.newSimpleInstance(this, DefaultTrackSelector(), loadControl)
 
         player.addMetadataOutput {
             for (i in 0 until it.length()) {

@@ -30,8 +30,21 @@ class RadioSleeper {
     private lateinit var sleepIntent: PendingIntent
     private lateinit var fadeOutIntent: PendingIntent
 
+    private fun defineIntents(c: Context)
+    {
+        sleepIntent = Intent(c, RadioService::class.java).let { intent ->
+            intent.putExtra("action", Actions.KILL.name)
+            PendingIntent.getService(c, 99, intent, 0)
+        }
+        fadeOutIntent = Intent(c, RadioService::class.java).let { intent ->
+            intent.putExtra("action", Actions.FADE_OUT.name)
+            PendingIntent.getService(c, 98, intent, 0)
+        }
+    }
+
     fun setSleep(c: Context, isForce: Boolean = false, forceDuration: Long? = null)
     {
+        defineIntents(c)
         // don't do anything if the preference is set to FALSE, of course.
         if (!PreferenceManager.getDefaultSharedPreferences(c).getBoolean("isSleeping", false) && !isForce)
             return
@@ -39,19 +52,13 @@ class RadioSleeper {
         val minutes: Long = forceDuration ?: Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(c).getString("sleepDuration", "1") ?: "1").toLong()
 
         val alarmManager = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        sleepIntent = Intent(c, RadioService::class.java).let { intent ->
-            intent.putExtra("action", Actions.KILL.name)
-            PendingIntent.getService(c, 99, intent, 0)
-        }
+
 
         val currentMillis = System.currentTimeMillis()
         if (minutes > 0)
         {
             AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, currentMillis + (minutes * 60 * 1000),  sleepIntent)
-            fadeOutIntent = Intent(c, RadioService::class.java).let { intent ->
-                intent.putExtra("action", Actions.FADE_OUT.name)
-                PendingIntent.getService(c, 98, intent, 0)
-            }
+
             AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, currentMillis + (minutes * 60 * 1000) - (1 * 60 * 1000), fadeOutIntent)
             sleepAtMillis.value = System.currentTimeMillis() + (minutes * 60 * 1000) - 1 // this -1 allows to round the division for display at the right integer
             Log.d(tag, "set sleep to $minutes minutes")
@@ -59,19 +66,20 @@ class RadioSleeper {
     }
 
 
-    fun cancelSleep(c: Context)
+    fun cancelSleep(c: Context, isClosing: Boolean = false)
     {
-        if (::sleepIntent.isInitialized)
-        {
-            val alarmManager = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.cancel(sleepIntent)
-            alarmManager.cancel(fadeOutIntent)
+        defineIntents(c)
+        val alarmManager = c.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancel(sleepIntent)
+        alarmManager.cancel(fadeOutIntent)
 
+        if (!isClosing)
+        {
             val cancelFadeOutIntent = Intent(c, RadioService::class.java).putExtra("action", Actions.CANCEL_FADE_OUT.name)
             c.startService(cancelFadeOutIntent)
-
-            Log.d(tag, "cancelled sleep")
         }
+
+        Log.d(tag, "cancelled sleep")
         sleepAtMillis.value = null
     }
 }
