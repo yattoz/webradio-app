@@ -56,7 +56,7 @@ class PlayerStore {
                 lp.add(0, n)
             currentSongBackup.copy(currentSong)
             isLpUpdated.value = true
-            Log.d(tag, playerStoreTag +  lp.toString())
+            //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  lp.toString())
         //}
     }
 

@@ -40,7 +40,7 @@ class ImageGetterAsyncTask(
     override fun doInBackground(vararg params: TextView?): Bitmap? {
         t = params[0]
         return try {
-            //Log.d(LOG_CAT, "Downloading the image from: $source")
+            ////[REMOVE LOG CALLS]Log.d(LOG_CAT, "Downloading the image from: $source")
             var k: InputStream? = null
             var pic: Bitmap? = null
             try {
