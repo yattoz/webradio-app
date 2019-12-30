@@ -36,7 +36,7 @@
     <string name="lp">Dernières titres</string>
     <string name="programme">Planning</string>
     <string name="regular_programme">Programme régulier</string>
-    <string name="useAlarmClock">Activer l\alarme</string>
+    <string name="useAlarmClock">Activer l\'alarme</string>
     <string name="setTime">Choisir l\'heure</string>
     <string name="selectDaysOfWeek">Choisir les jours</string>
     <string name="SetSnoozeDuration">Choisir le délai de snooze (minutes)</string>
