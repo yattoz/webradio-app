@@ -21,7 +21,7 @@ abstract class BaseActivity : AppCompatActivity() {
         val height =  ((rootLayout?.height ?: 0))
         val width =  ((rootLayout?.width ?: 0))
 
-        //[REMOVE LOG CALLS]Log.d(tag, "$viewWidth, $viewHeight, $width, $height, ${viewHeight.toDouble()/viewWidth.toDouble()}, ${height.toDouble()/width.toDouble()}")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "$viewWidth, $viewHeight, $width, $height, ${viewHeight.toDouble()/viewWidth.toDouble()}, ${height.toDouble()/width.toDouble()}")
 
         val broadcastManager = LocalBroadcastManager.getInstance(this@BaseActivity)
         if(height <= viewHeight * 2 / 3 /*height.toDouble()/width.toDouble() < 1.20 */){
@@ -49,14 +49,14 @@ abstract class BaseActivity : AppCompatActivity() {
         // do things when keyboard is shown
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavigationView.visibility = View.GONE
-        //[REMOVE LOG CALLS]Log.d(tag, "bottomNav visibility set to GONE (height $keyboardHeight)")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "bottomNav visibility set to GONE (height $keyboardHeight)")
     }
 
      private fun onHideKeyboard() {
         // do things when keyboard is hidden
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavigationView.visibility = View.VISIBLE
-        //[REMOVE LOG CALLS]Log.d(tag, "bottomNav visibility set to VISIBLE")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "bottomNav visibility set to VISIBLE")
     }
 
     protected fun attachKeyboardListeners() {

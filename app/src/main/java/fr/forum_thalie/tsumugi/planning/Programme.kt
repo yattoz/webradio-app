@@ -35,7 +35,7 @@ class Programme (val title: String, private val periodicity: Int, private val ho
         val isSpanningOverNight =
             (((0b1000000 shr ((currentDay - 1) % 7) and (periodicity)) != 0) && hourEnd < hourBegin)
 
-        //[REMOVE LOG CALLS]Log.d(tag, "$title is today: $isToday or spanning $isSpanningOverNight")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "$title is today: $isToday or spanning $isSpanningOverNight")
         // shr = shift-right. It's a binary mask.
 
         // if the program started yesterday, and spanned over night, it means that there could be a chance that it's still active.
@@ -87,6 +87,6 @@ class Programme (val title: String, private val periodicity: Int, private val ho
      */
 
     init {
-        //[REMOVE LOG CALLS]Log.d(tag, this.toString())
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, this.toString())
     }
 }

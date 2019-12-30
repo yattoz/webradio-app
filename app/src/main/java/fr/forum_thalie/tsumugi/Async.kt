@@ -13,7 +13,7 @@ class Async(val handler: (Any?) -> Any?, val post: (Any?) -> Unit = {},
             execute()
         } catch (e: Exception)
         {
-            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag,e.toString())
+            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag,e.toString())
         }
     }
 
@@ -46,14 +46,14 @@ class Async(val handler: (Any?) -> Any?, val post: (Any?) -> Unit = {},
         }
 
 
-        //[REMOVE LOG CALLS]Log.d(tag, "fallback for no network. Store reset : $storeReset")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "fallback for no network. Store reset : $storeReset")
     }
 
     override fun doInBackground(vararg params: Any?): Any? {
         try {
             return handler(parameters)
         } catch (e: Exception) {
-            //[REMOVE LOG CALLS]Log.d(tag,e.toString())
+            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag,e.toString())
             onException(e)
         }
         return null
@@ -63,7 +63,7 @@ class Async(val handler: (Any?) -> Any?, val post: (Any?) -> Unit = {},
         try {
             post(result)
         } catch (e: Exception) {
-            //[REMOVE LOG CALLS]Log.d(tag,e.toString())
+            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag,e.toString())
             onException(e)
         }
     }

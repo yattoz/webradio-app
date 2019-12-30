@@ -61,7 +61,7 @@ class RadioSleeper {
 
             AlarmManagerCompat.setExactAndAllowWhileIdle(alarmManager, AlarmManager.RTC_WAKEUP, currentMillis + (minutes * 60 * 1000) - (1 * 60 * 1000), fadeOutIntent)
             sleepAtMillis.value = System.currentTimeMillis() + (minutes * 60 * 1000) - 1 // this -1 allows to round the division for display at the right integer
-            //[REMOVE LOG CALLS]Log.d(tag, "set sleep to $minutes minutes")
+            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "set sleep to $minutes minutes")
         }
     }
 
@@ -79,7 +79,7 @@ class RadioSleeper {
             c.startService(cancelFadeOutIntent)
         }
 
-        //[REMOVE LOG CALLS]Log.d(tag, "cancelled sleep")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "cancelled sleep")
         sleepAtMillis.value = null
     }
 }

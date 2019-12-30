@@ -12,7 +12,7 @@ import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 class BootBroadcastReceiver : BroadcastReceiver(){
 
     override fun onReceive(context: Context, arg1: Intent) {
-        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "Broadcast Receiver received $arg1")
+        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "Broadcast Receiver received $arg1")
         // define preferenceStore for places of the program that needs to access Preferences without a context
         preferenceStore = PreferenceManager.getDefaultSharedPreferences(context)
 
