@@ -39,7 +39,7 @@
     <string name="useAlarmClock">Activer l\'alarme</string>
     <string name="setTime">Choisir l\'heure</string>
     <string name="selectDaysOfWeek">Choisir les jours</string>
-    <string name="SetSnoozeDuration">Choisir le délai de snooze (minutes)</string>
+    <string name="SetSnoozeDuration">Choisir le délai de répétition d\'alarme (minutes)</string>
     <string name="volumeAtStartup">Volume au démarrage</string>
     <string name="useHorizontalSplitLayout">Utiliser une disposition horizontale adaptée</string>
     <string name="makeSnackbarsPersistent">Rendre les barres d\information persistantes</string>
