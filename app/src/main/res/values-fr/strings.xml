@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Tsumugi</string>
+    <string name="title_nowplaying">Tsumugi</string>
+    <string name="title_queue_lp">Titres</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_news">Actus</string>
+    <string name="title_programme">Planning</string>
+
+    <string name="now_playing_notification_title_template">Maintenant: %1$s</string>
+
+    <string name="MEDIA_ROOT_ID">radio_root_id</string>
+    <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
+    <string name="STREAM_URL_TSUMUGI">https://radio.mahoro-net.org/streams/tsumugi</string>
+    <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
+
+    <string name="volume">Volume : </string>
+
+    <string name="up_next">Émission en cours :</string>
+    <string name="now_streaming">En cours</string>
+    <string name="error_webView">Erreur du chargement de WebView. Téléchargez Google Chrome sur le Play Store, ou activez le si vous l\'avez désactivé.</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_bug_submit">Reporter un bug (GitHub)</string>
+    <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
+
+    <string name="nowPlayingNotificationChannel">Tsumugi Stream Service</string>
+    <string name="nowPlayingChannelId">fr.forum_thalie.tsumugi.PLAYER_SERVICE</string>
+
+    <string name="snackbarPersistent">Restent visibles, peuvent être fermées avec un bouton \"OK\" ou en glissant.</string>
+    <string name="snackbarNonPersistent">Disparaissent après quelques instants</string>
+    <string name="every_day">Tous les jours</string>
+    <string name="working_days">Semaine ouvrée</string>
+    <string name="song_to_clipboard">Titre copié dans le presse-papier !</string>
+    <string name="listeners">Auditeurs</string>
+    <string name="r_a_dio_icon">Icone de la radio</string>
+    <string name="split_layout">Divise l\'écran en 2 parties quand l\'appareil est à l\'horizontale</string>
+    <string name="not_split_layout">Garde la même disposition à l\'horizontale et à la verticale</string>
+    <string name="action_sleep">Minuterie avant fermeture</string>
+    <string name="dont_fetch_on_background">Désactiver</string>
+    <string name="restart_the_app">Vous devez redémarrer l\'application pour valider ces changements.</string>
+
+    <string name="action_alarm">Alarme</string>
+    <string name="sleep_fade_out_text">Une minute avant la fin de la minuterie, le volume va décroitre progressivement.</string>
+    <string name="disable">Désactiver</string>
+    <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
+    <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
+    <string name="planning_url">ADD SOME URL HERE</string>
+    <string name="select_one_day">Sélectionner au moins un jour.</string>
+    <string name="no_alarm_set">Pas d\'alarme</string>
+    <string name="next_alarm">Prochaine alarme :</string>
+    <string name="lp">Dernières titres</string>
+    <string name="programme">Planning</string>
+    <string name="regular_programme">Programme régulier</string>
+    <string name="useAlarmClock">Activer l\alarme</string>
+    <string name="setTime">Choisir l\'heure</string>
+    <string name="selectDaysOfWeek">Choisir les jours</string>
+    <string name="SetSnoozeDuration">Choisir le délai de snooze (minutes)</string>
+    <string name="volumeAtStartup">Volume au démarrage</string>
+    <string name="useHorizontalSplitLayout">Utiliser une disposition horizontale adaptée</string>
+    <string name="makeSnackbarsPersistent">Rendre les barres d\information persistantes</string>
+    <string name="setupAlarmClock">Configurer l\'alarme</string>
+    <string name="setSleepTimer">Configurer la minuterie avant extinction</string>
+    <string name="costumizeAppBehavior">Paramètres de l\'application</string>
+    <string name="submitABug">Reporter un bug</string>
+    <string name="sleepClosesApp">Minuterie avant fermeture de l\'application</string>
+    <string name="setSleepDuration">Choisir une durée (en minutes)</string>
+    <string name="willCloseIn">Extinction dans %1$d minutes</string>
+
+</resources>

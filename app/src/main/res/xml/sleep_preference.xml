@@ -5,7 +5,7 @@
     <SwitchPreferenceCompat
         app:key="isSleeping"
         app:iconSpaceReserved="false"
-        app:title="Sleep - close app after some time"
+        app:title="@string/sleepClosesApp"
         app:singleLineTitle="false"
         app:defaultValue="false"
         />
@@ -13,7 +13,7 @@
     <EditTextPreference
         app:key="sleepDuration"
         app:iconSpaceReserved="false"
-        app:title="Set duration (minutes)"
+        app:title="@string/setSleepDuration"
         app:singleLineTitle="false"
         app:defaultValue="15"
         />
