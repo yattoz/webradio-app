@@ -5,7 +5,7 @@
     <SeekBarPreference
         app:key="volume"
         app:iconSpaceReserved="false"
-        app:title="Volume at startup"
+        app:title="@string/volumeAtStartup"
         app:singleLineTitle="false"
         app:min="0"
         android:max="100"
@@ -16,7 +16,7 @@
     <SwitchPreferenceCompat
         app:key="splitLayout"
         app:iconSpaceReserved="false"
-        app:title="Use horizontal split layout"
+        app:title="@string/useHorizontalSplitLayout"
         app:singleLineTitle="false"
         app:defaultValue="true"
         />
@@ -24,7 +24,7 @@
     <SwitchPreferenceCompat
         app:key="snackbarPersistent"
         app:iconSpaceReserved="false"
-        app:title="Make Snackbars persistent"
+        app:title="@string/makeSnackbarsPersistent"
         app:singleLineTitle="false"
         app:defaultValue="false"
         />

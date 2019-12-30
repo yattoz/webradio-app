@@ -162,7 +162,7 @@ class NowPlayingFragment : Fragment() {
             if (sleepAtMillis != null)
             {
                 val duration = ((sleepAtMillis - System.currentTimeMillis()).toFloat() / (60f * 1000f) + 1).toInt() // I put 1 + it because the division rounds to the lower integer. I'd like to display the round up, like it's usually done.
-                sleepInfoText.text = "Will close in $duration minute${if (duration > 1) "s" else ""}"
+                sleepInfoText.text = String.format(getString(R.string.willCloseIn), duration) // "Will close in $duration minute${if (duration > 1) "s" else ""}"
                 sleepInfoText.visibility = View.VISIBLE
             } else {
                 sleepInfoText.visibility = View.GONE
