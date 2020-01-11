@@ -25,7 +25,8 @@
 
     <string name="volume">Volume: </string>
 
-    <string name="up_next">Émission en cours :</string>
+    <string name="up_next">Up next :</string>
+    <string name="current_programme">Current programme :</string>
     <string name="now_streaming">Now streaming</string>
     <string name="error_webView">Error loading WebView. Try downloading Google Chrome on Google Play, or enabling it if you disabled it.</string>
     <string name="action_settings">Settings</string>

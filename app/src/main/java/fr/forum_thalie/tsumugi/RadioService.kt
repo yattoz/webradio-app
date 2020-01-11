@@ -149,6 +149,7 @@ class RadioService : MediaBrowserServiceCompat() {
             && it != noConnectionValue)
         {
             PlayerStore.instance.updateLp()
+            PlayerStore.instance.updateQueue()
         }
         nowPlayingNotification.update(this)
         Planning.instance.checkProgramme()

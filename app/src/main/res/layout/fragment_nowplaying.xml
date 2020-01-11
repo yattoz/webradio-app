@@ -74,7 +74,7 @@
             app:layout_constraintVertical_weight="3"
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
             app:layout_constraintTop_toBottomOf="@id/streamerPicture"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
         <TextView
             android:id="@+id/listenersCount"
             android:layout_width="0dp"
@@ -202,7 +202,7 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/upNext"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/text_song_title_next"
@@ -214,7 +214,8 @@
                     android:textColor="@color/whited"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_song_artist_next" />
+                    app:layout_constraintTop_toBottomOf="@id/text_song_artist_next"
+                    android:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
