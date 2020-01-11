@@ -50,5 +50,6 @@
     <string name="sleepClosesApp">Minuterie avant fermeture de l\'application</string>
     <string name="setSleepDuration">Choisir une durée (en minutes)</string>
     <string name="willCloseIn">Extinction dans %1$d minutes</string>
+    <string name="fetchPeriod">Choisir la fréquence de mise à jour quand la radio est stoppée</string>
 
 </resources>

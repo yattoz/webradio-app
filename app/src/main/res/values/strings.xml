@@ -70,5 +70,6 @@
     <string name="sleepClosesApp">Sleep - close app after some time</string>
     <string name="setSleepDuration">Set duration (minutes)</string>
     <string name="willCloseIn">Will close in %1$d minutes</string>
+    <string name="fetchPeriod">Set update period when stopped</string>
 
 </resources>
