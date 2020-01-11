@@ -305,7 +305,7 @@
             android:progressDrawable="@drawable/progress_bar_progress"
             app:layout_constraintBottom_toTopOf="@id/play_pause"
             tools:layout_editor_absoluteX="0dp"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <TextView
@@ -318,7 +318,7 @@
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="@id/progressBar"
             app:layout_constraintTop_toBottomOf="@id/progressBar"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <TextView
@@ -331,7 +331,7 @@
             android:textAlignment="textStart"
             app:layout_constraintStart_toStartOf="@id/progressBar"
             app:layout_constraintTop_toBottomOf="@id/progressBar"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
 
 

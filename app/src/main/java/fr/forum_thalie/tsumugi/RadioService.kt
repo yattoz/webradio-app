@@ -124,6 +124,27 @@ class RadioService : MediaBrowserServiceCompat() {
 
     private val titleObserver = Observer<String> {
         // We're checking if a new song arrives. If so, we put the currentSong in Lp and update the backup.
+
+        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
+        {
+            Log.d(tag, radioTag + "SONG CHANGED AND PLAYING")
+            // we activate latency compensation only if it's been at least 2 songs...
+            when {
+                PlayerStore.instance.isStreamDown -> {
+                    // if we reach here, it means that the observer has been called by a new song and that the stream was down previously.
+                    // so the stream is now back to normal.
+                    PlayerStore.instance.isStreamDown = false
+                    PlayerStore.instance.initApi()
+                }
+                PlayerStore.instance.currentSong.title.value == noConnectionValue -> {
+                    PlayerStore.instance.isStreamDown = true
+                }
+                else -> {
+                    PlayerStore.instance.fetchApi(numberOfSongs >= 2)
+                }
+            }
+        }
+
         if (PlayerStore.instance.currentSong != PlayerStore.instance.currentSongBackup
             && it != noConnectionValue)
         {
@@ -162,6 +183,12 @@ class RadioService : MediaBrowserServiceCompat() {
         super.onCreate()
 
         preferenceStore = PreferenceManager.getDefaultSharedPreferences(this)
+
+        // start ticker for when the player is stopped
+        val periodString = PreferenceManager.getDefaultSharedPreferences(this).getString("fetchPeriod", "10") ?: "10"
+        val period: Long = Integer.parseInt(periodString).toLong()
+        if (period > 0)
+            apiTicker.schedule(ApiFetchTick(), 0, period * 1000)
 
         // Define managers
         telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

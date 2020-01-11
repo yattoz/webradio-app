@@ -129,6 +129,9 @@ class MainActivity : BaseActivity() {
         colorGreenListCompat = (ResourcesCompat.getColorStateList(resources, R.color.button_green_compat, null))
         colorAccent = (ResourcesCompat.getColor(resources, R.color.colorAccent, null))
 
+        PlayerStore.instance.initUrl(this)
+        PlayerStore.instance.initApi()
+
         // Post-UI Launch
         if (PlayerStore.instance.isInitialized)
         {

@@ -22,9 +22,13 @@ class BootBroadcastReceiver : BroadcastReceiver(){
 
         if (arg1.getStringExtra("action") == "$tag.${Actions.PLAY_OR_FALLBACK.name}" )
         {
+
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
+            if (!PlayerStore.instance.isInitialized)
+                PlayerStore.instance.initApi()
             if (PlayerStore.instance.streamerName.value.isNullOrBlank())
                 PlayerStore.instance.initPicture(context)
+            // TODO: add initialization for programme.
 
             val i = Intent(context, RadioService::class.java)
             i.putExtra("action", Actions.PLAY_OR_FALLBACK.name)
