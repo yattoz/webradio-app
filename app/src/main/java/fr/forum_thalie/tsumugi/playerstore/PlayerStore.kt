@@ -127,7 +127,7 @@ class PlayerStore {
             {
                 updateApi(result)
                 currentSongBackup.copy(currentSong)
-
+                fetchLastRequest()
                 isQueueUpdated.value = true
 
                 isLpUpdated.value = true
@@ -229,7 +229,7 @@ class PlayerStore {
                     val queueJSON =
                         resMain.getJSONObject("next")
                     val t = extractSong(queueJSON)
-                    if (queue.isNotEmpty() && t == queue.last())
+                    if (queue.isNotEmpty() && (t == queue.last() || t == currentSong))
                     {
                         //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "Song already in there: $t")
                         Async(sleepScrape, post)

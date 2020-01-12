@@ -72,5 +72,7 @@
     <string name="setSleepDuration">Set duration (minutes)</string>
     <string name="willCloseIn">Will close in %1$d minutes</string>
     <string name="fetchPeriod">Set update period when stopped</string>
+    <string name="refreshing">Refreshing data…</string>
+    <string name="action_refresh">Refresh data</string>
 
 </resources>
