@@ -129,10 +129,16 @@ class MainActivity : BaseActivity() {
         colorGreenListCompat = (ResourcesCompat.getColorStateList(resources, R.color.button_green_compat, null))
         colorAccent = (ResourcesCompat.getColor(resources, R.color.colorAccent, null))
 
+        // fetch program
+        Planning.instance.parseUrl(/* getString(R.string.planning_url) */ context = this)
+
+        PlayerStore.instance.initUrl(this)
+        PlayerStore.instance.initApi()
+
         // Post-UI Launch
         if (PlayerStore.instance.isInitialized)
         {
-            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "skipped initialization")
+            //[REMOVE LOG CALLS]Log.d(tag, "skipped initialization")
         } else {
             // if the service is not started, start it in STOP mode.
             // It's not a dummy action : with STOP mode, the player does not buffer audio (and does not use data connection without the user's consent).
@@ -159,9 +165,6 @@ class MainActivity : BaseActivity() {
             )
             isTimerStarted = true
         }
-
-        // fetch program
-        Planning.instance.parseUrl(/* getString(R.string.planning_url) */ context = this)
 
         // initialize the UI
         setTheme(R.style.AppTheme)
@@ -193,7 +196,7 @@ class MainActivity : BaseActivity() {
             val i = Intent(this, RadioService::class.java)
             i.putExtra("action", a.name)
             i.putExtra("value", v)
-            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "Sending intent ${a.name}")
+            //[REMOVE LOG CALLS]Log.d(tag, "Sending intent ${a.name}")
             startService(i)
     }
 
@@ -238,7 +241,7 @@ class MainActivity : BaseActivity() {
                 // File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) + "/MyPersonalAppFolder")
                 val logDirectory = File("$appDirectory/log")
                 val logFile = File(logDirectory, "logcat" + System.currentTimeMillis() + ".txt")
-                //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(
+                //[REMOVE LOG CALLS]Log.d(
                     tag,
                     "appDirectory : $appDirectory, logDirectory : $logDirectory, logFile : $logFile"
                 )
@@ -246,20 +249,20 @@ class MainActivity : BaseActivity() {
                 // create app folder
                 if (!appDirectory.exists()) {
                     appDirectory.mkdir()
-                    //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "$appDirectory created")
+                    //[REMOVE LOG CALLS]Log.d(tag, "$appDirectory created")
                 }
 
                 // create log folder
                 if (!logDirectory.exists()) {
                     logDirectory.mkdir()
-                    //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "$logDirectory created")
+                    //[REMOVE LOG CALLS]Log.d(tag, "$logDirectory created")
                 }
 
                 // clear the previous logcat and then write the new one to the file
                 try {
                     Runtime.getRuntime().exec("logcat -c")
                     Runtime.getRuntime().exec("logcat -v time -f $logFile *:E $tag:V ")
-                    //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "logcat started")
+                    //[REMOVE LOG CALLS]Log.d(tag, "logcat started")
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

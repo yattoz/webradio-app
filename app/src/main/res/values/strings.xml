@@ -7,6 +7,7 @@
     <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
     <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
     <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
+    <string name="API_URL">https://radio.mahoro-net.org/airtime/api/live-info-v2</string>
     <string name="planning_url">ADD SOME URL HERE</string>
 
 
@@ -24,7 +25,8 @@
 
     <string name="volume">Volume: </string>
 
-    <string name="up_next">Émission en cours :</string>
+    <string name="up_next">Up next :</string>
+    <string name="current_programme">Current programme : </string>
     <string name="now_streaming">Now streaming</string>
     <string name="error_webView">Error loading WebView. Try downloading Google Chrome on Google Play, or enabling it if you disabled it.</string>
     <string name="action_settings">Settings</string>
@@ -69,5 +71,6 @@
     <string name="sleepClosesApp">Sleep - close app after some time</string>
     <string name="setSleepDuration">Set duration (minutes)</string>
     <string name="willCloseIn">Will close in %1$d minutes</string>
+    <string name="fetchPeriod">Set update period when stopped</string>
 
 </resources>
