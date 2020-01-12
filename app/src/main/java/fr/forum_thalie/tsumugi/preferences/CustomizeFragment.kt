@@ -12,7 +12,7 @@ class CustomizeFragment : PreferenceFragmentCompat() {
 
 
         val snackbarPersistent = preferenceScreen.findPreference<SwitchPreferenceCompat>("snackbarPersistent")
-        snackbarPersistent!!.summary = if (preferenceStore.getBoolean("snackbarPersistent", true))
+        snackbarPersistent!!.summary = if (preferenceStore.getBoolean("snackbarPersistent", false))
             getString(R.string.snackbarPersistent)
         else
             getString(R.string.snackbarNonPersistent)
