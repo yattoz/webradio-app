@@ -129,6 +129,12 @@ class MainActivity : BaseActivity() {
         colorGreenListCompat = (ResourcesCompat.getColorStateList(resources, R.color.button_green_compat, null))
         colorAccent = (ResourcesCompat.getColor(resources, R.color.colorAccent, null))
 
+        // fetch program
+        Planning.instance.parseUrl(/* getString(R.string.planning_url) */ context = this)
+
+        PlayerStore.instance.initUrl(this)
+        PlayerStore.instance.initApi()
+
         // Post-UI Launch
         if (PlayerStore.instance.isInitialized)
         {
@@ -159,9 +165,6 @@ class MainActivity : BaseActivity() {
             )
             isTimerStarted = true
         }
-
-        // fetch program
-        Planning.instance.parseUrl(/* getString(R.string.planning_url) */ context = this)
 
         // initialize the UI
         setTheme(R.style.AppTheme)
