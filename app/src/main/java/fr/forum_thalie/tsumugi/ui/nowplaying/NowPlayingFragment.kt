@@ -275,7 +275,7 @@ class NowPlayingFragment : Fragment() {
                 (viewHeight*100)/viewWidth
         else
             100
-        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "orientation set")
+        //[REMOVE LOG CALLS]Log.d(tag, "orientation set")
     }
 
     override fun onResume() {

@@ -97,14 +97,14 @@ class PlayerStore {
         if(isCompensatingLatency)
         {
             latencyCompensator = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (currentSong.startTime.value ?: getTimestamp(res.getJSONObject("station").getString("schedulerTime")))
-            Log.d(tag, "latency compensator set to ${(latencyCompensator).toFloat()/1000} s")
+            //[REMOVE LOG CALLS]Log.d((tag, "latency compensator set to ${(latencyCompensator).toFloat()/1000} s")
         }
         currentTime.value = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (latencyCompensator)
 
         /*
         val listeners = resMain.getInt("listeners")
         listenersCount.value = listeners
-        Log.d(tag, playerStoreTag +  "store updated")
+        //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "store updated")
          */
     }
 
@@ -165,13 +165,13 @@ class PlayerStore {
     fun updateQueue() {
         if (queue.isNotEmpty()) {
             queue.remove(queue.first())
-            Log.d(tag, queue.toString())
+            //[REMOVE LOG CALLS]Log.d((tag, queue.toString())
             fetchLastRequest()
             isQueueUpdated.value = true
         } else if (isInitialized) {
             fetchLastRequest()
         } else {
-            Log.d(tag,  "queue is empty! fetching anyway !!")
+            //[REMOVE LOG CALLS]Log.d((tag,  "queue is empty! fetching anyway !!")
             fetchLastRequest()
         }
     }
@@ -185,7 +185,7 @@ class PlayerStore {
                 lp.add(0, n)
             currentSongBackup.copy(currentSong)
             isLpUpdated.value = true
-            //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  lp.toString())
+            //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  lp.toString())
         //}
     }
 
@@ -231,11 +231,11 @@ class PlayerStore {
                     val t = extractSong(queueJSON)
                     if (queue.isNotEmpty() && t == queue.last())
                     {
-                        Log.d(tag, playerStoreTag +  "Song already in there: $t")
+                        //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "Song already in there: $t")
                         Async(sleepScrape, post)
                     } else {
                         queue.add(queue.size, t)
-                        Log.d(tag, playerStoreTag +  "added last queue song: $t")
+                        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  "added last queue song: $t")
                         isQueueUpdated.value = true
                     }
                 }

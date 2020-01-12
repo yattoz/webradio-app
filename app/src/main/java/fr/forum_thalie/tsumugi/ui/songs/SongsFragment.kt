@@ -39,7 +39,7 @@ class SongsFragment : Fragment() {
 
         val tabLayout : TabLayout = root.findViewById(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
-        //[REMOVE LOG CALLS]//[REMOVE LOG CALLS]Log.d(tag, "SongFragment view created")
+        //[REMOVE LOG CALLS]Log.d(tag, "SongFragment view created")
 
         return root
     }
