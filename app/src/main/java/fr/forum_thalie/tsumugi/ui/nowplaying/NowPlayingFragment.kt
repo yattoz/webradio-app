@@ -69,6 +69,9 @@ class NowPlayingFragment : Fragment() {
             listenersText,8, 16, 2, TypedValue.COMPLEX_UNIT_SP)
          */
 
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+            currentProgrammeText,8, 20, 2, TypedValue.COMPLEX_UNIT_SP)
+
 
         // trick : I can't observe the queue because it's an ArrayDeque that doesn't trigger any change...
         // so I observe a dedicated Mutable that gets set when the queue is updated.

@@ -15,6 +15,7 @@ import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 
 import java.util.Timer
 import android.view.MenuItem
+import com.google.android.material.snackbar.Snackbar
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
 import fr.forum_thalie.tsumugi.planning.Planning
 
@@ -86,6 +87,14 @@ class MainActivity : BaseActivity() {
                 true
             }
             */
+            R.id.action_refresh -> {
+                PlayerStore.instance.queue.clear()
+                //PlayerStore.instance.lp.clear()
+                PlayerStore.instance.initApi()
+                val s = Snackbar.make(findViewById(R.id.nav_host_container), getString(R.string.refreshing) as CharSequence, Snackbar.LENGTH_LONG)
+                s.show()
+                true
+            }
             R.id.action_settings -> {
                 val i = Intent(this, ParametersActivity::class.java)
                 startActivity(i)

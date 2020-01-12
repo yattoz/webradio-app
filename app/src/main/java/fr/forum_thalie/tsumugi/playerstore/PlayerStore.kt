@@ -127,7 +127,7 @@ class PlayerStore {
             {
                 updateApi(result)
                 currentSongBackup.copy(currentSong)
-
+                fetchLastRequest()
                 isQueueUpdated.value = true
 
                 isLpUpdated.value = true

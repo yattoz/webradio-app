@@ -52,5 +52,7 @@
     <string name="setSleepDuration">Choisir une durée (en minutes)</string>
     <string name="willCloseIn">Extinction dans %1$d minutes</string>
     <string name="fetchPeriod">Choisir la fréquence de mise à jour quand la radio est stoppée</string>
+    <string name="refreshing">Actualisation…</string>
+    <string name="action_refresh">Raffraîchir les données</string>
 
 </resources>

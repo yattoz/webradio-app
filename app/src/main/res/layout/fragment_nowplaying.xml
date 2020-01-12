@@ -193,7 +193,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited3"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/upNext"
                     android:visibility="visible"/>
@@ -206,7 +206,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_song_artist_next"
                     android:visibility="visible" />
@@ -222,7 +222,7 @@
             android:text="@string/current_programme"
             android:textAlignment="center"
             android:textColor="@color/whited3"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/topInfoGuideline"
             android:visibility="visible" />
@@ -237,7 +237,7 @@
             android:gravity="start|bottom"
             android:textAlignment="textStart"
             android:textColor="@color/whited"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/current_programme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/topInfoGuideline"
@@ -298,7 +298,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -310,7 +310,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited3"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@id/text_song_title"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -376,7 +376,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.58" />
+            app:layout_constraintGuide_percent="0.63" />
 
 
         <ImageButton
