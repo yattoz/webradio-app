@@ -10,8 +10,8 @@
 
     <string name="volume">Volume : </string>
 
-    <string name="up_next">Prochain titre :</string>
-    <string name="current_programme">Émission en cours : </string>
+    <string name="up_next">À suivre :</string>
+    <string name="current_programme">Émission : </string>
     <string name="now_streaming">En cours</string>
     <string name="error_webView">Erreur du chargement de WebView. Téléchargez Google Chrome sur le Play Store, ou activez le si vous l\'avez désactivé.</string>
     <string name="action_settings">Paramètres</string>
