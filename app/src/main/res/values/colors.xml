@@ -11,7 +11,7 @@
     <color name="whited3">#999999</color>
     <color name="whited4">#999999</color>
     <color name="whited5">#7F7F7F</color>
-    <color name="rblue">#4FC3F7</color>
+    <color name="rblue">#3A7AAF</color>
     <color name="bluereq">#527a8e</color>
     <color name="blueTitle">#527a8e</color>
     <color name="reqButtonPressed">#5cb85c</color>
@@ -20,10 +20,10 @@
 
     <color name="seek_bar_background">#585858</color>
     <color name="seek_bar_progress">#f58b01</color>
-    <color name="seek_bar_secondary_progress">#4FC3F7</color>
+    <color name="seek_bar_secondary_progress">#3A7AAF</color>
 
     <color name="progress_bar_background">#585858</color>
-    <color name="progress_bar_progress">#4FC3F7</color>
+    <color name="progress_bar_progress">#3A7AAF</color>
     <color name="progress_bar_secondary_progress">#f58b01</color>
 
     <color name="white">#FFFFFF</color>
