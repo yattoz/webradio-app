@@ -36,7 +36,7 @@
             android:contentDescription="dj-image"
             android:scaleType="fitStart"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/scrollViewMetadataNext"
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_roundsquare"
@@ -160,7 +160,7 @@
             app:layout_constraintEnd_toStartOf="@id/streamerPicture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_volume"
-            app:layout_constraintVertical_weight="3">
+            >
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -180,7 +180,7 @@
                     android:text="@string/up_next"
                     android:textAlignment="center"
                     android:textColor="@color/whited5"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -218,14 +218,14 @@
         <ScrollView
             android:id="@+id/scrollProgramme"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:layout_marginBottom="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scrollViewMetadataNext"
             app:layout_constraintBottom_toBottomOf="@id/topInfoGuideline"
-            app:layout_constraintVertical_weight="1">
+            >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -46,8 +46,8 @@ class PlayerStore {
         isQueueUpdated.value = false
         isLpUpdated.value = false
         isMuted.value = false
-        currentSong.title.value = noConnectionValue
-        currentSongBackup.title.value = noConnectionValue
+        currentSong.setTitleArtist(noConnectionValue)
+        currentSongBackup.setTitleArtist(noConnectionValue)
         listenersCount.value = 0
     }
 
@@ -181,7 +181,7 @@ class PlayerStore {
         //if (lp.isNotEmpty()){
             val n = Song()
             n.copy(currentSongBackup)
-            if (n.title.value != noConnectionValue && n.title.value != streamDownValue)
+            if (n != Song(noConnectionValue) && n != Song(streamDownValue))
                 lp.add(0, n)
             currentSongBackup.copy(currentSong)
             isLpUpdated.value = true

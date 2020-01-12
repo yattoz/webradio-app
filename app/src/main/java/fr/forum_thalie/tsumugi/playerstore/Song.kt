@@ -52,7 +52,8 @@ class Song(artistTitle: String = "", _id : Int = 0) {
     }
 
     fun copy(song: Song) {
-        this.setTitleArtist(song.artist.value + " - " + song.title.value)
+        this.artist.value = song.artist.value
+        this.title. value = song.title.value
         this.startTime.value = song.startTime.value
         this.stopTime.value = song.stopTime.value
         this.type.value = song.type.value
