@@ -178,7 +178,7 @@
                     android:layout_gravity="top"
                     android:text="@string/up_next"
                     android:textAlignment="center"
-                    android:textColor="@color/whited3"
+                    android:textColor="@color/whited5"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +193,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited3"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/upNext"
                     android:visibility="visible"/>
@@ -206,7 +206,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_song_artist_next"
                     android:visibility="visible" />
@@ -298,7 +298,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -310,7 +310,7 @@
                     android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/whited3"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/text_song_title"
                     app:layout_constraintStart_toStartOf="parent" />
 
