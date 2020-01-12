@@ -74,7 +74,7 @@
             app:layout_constraintVertical_weight="3"
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
             app:layout_constraintTop_toBottomOf="@id/streamerPicture"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/listenersCount"
             android:layout_width="0dp"
@@ -92,13 +92,6 @@
             app:layout_constraintTop_toBottomOf="@id/streamerName"
             android:visibility="gone"
             />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/topInfoGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95" />
 
         <TextView
             android:id="@+id/sleepInfo"
@@ -162,7 +155,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@id/topInfoGuideline"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@id/text_current_programme"
             app:layout_constraintEnd_toStartOf="@id/streamerPicture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seek_bar_volume">
@@ -220,7 +214,42 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
+        <TextView
+            android:id="@+id/current_programme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="@string/current_programme"
+            android:textAlignment="center"
+            android:textColor="@color/whited3"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/topInfoGuideline"
+            android:visibility="visible" />
 
+        <TextView
+            android:id="@+id/text_current_programme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginStart="8sp"
+            android:layout_marginLeft="8sp"
+            android:gravity="start|bottom"
+            android:textAlignment="textStart"
+            android:textColor="@color/whited"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/current_programme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/topInfoGuideline"
+            android:visibility="visible"
+             />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topInfoGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.97" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
