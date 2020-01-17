@@ -140,7 +140,7 @@ class RadioService : MediaBrowserServiceCompat() {
                     PlayerStore.instance.isStreamDown = true
                 }
                 else -> {
-                    PlayerStore.instance.fetchApi(numberOfSongs >= 2)
+                    PlayerStore.instance.fetchApi(/* numberOfSongs >= 2 */)
                 }
             }
         }

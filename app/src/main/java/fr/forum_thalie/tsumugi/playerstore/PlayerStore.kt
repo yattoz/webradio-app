@@ -7,6 +7,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.*
+import fr.forum_thalie.tsumugi.planning.Planning
 import org.json.JSONObject
 import java.net.URL
 import java.text.ParseException
@@ -58,9 +59,10 @@ class PlayerStore {
 
     private fun getTimestamp(s: String) : Long
     {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss z", Locale.getDefault())
         try {
-            val t: Date? = dateFormat.parse(s)
+            val t: Date? = dateFormat.parse("$s ${Planning.instance.timeZone.id}")
+            //[REMOVE LOG CALLS]Log.d(tag, "date: $s -> $t")
             return t!!.time
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -90,16 +92,17 @@ class PlayerStore {
 
         currentSong.stopTime.value = ends
 
+        val apiTime = getTimestamp(res.getJSONObject("station").getString("schedulerTime"))
         // I noticed that the server has a big (3 to 9 seconds !!) offset for current time.
         // we can measure it when the player is playing, to compensate it and have our progress bar perfectly timed
         // latencyCompensator is set to null when beginPlaying() (we can't measure it at the moment we start playing, since we're in the middle of a song),
         // at this moment, we set it to 0. Then, next time the updateApi is called when we're playing, we measure the latency and we set out latencyComparator.
         if(isCompensatingLatency)
         {
-            latencyCompensator = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (currentSong.startTime.value ?: getTimestamp(res.getJSONObject("station").getString("schedulerTime")))
-            //[REMOVE LOG CALLS]Log.d((tag, "latency compensator set to ${(latencyCompensator).toFloat()/1000} s")
+            latencyCompensator = apiTime - (currentSong.startTime.value!!)
+            //[REMOVE LOG CALLS]Log.d(tag, "latency compensator set to ${(latencyCompensator).toFloat() / 1000} s")
         }
-        currentTime.value = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (latencyCompensator)
+        currentTime.value = apiTime - (latencyCompensator)
 
         /*
         val listeners = resMain.getInt("listeners")
@@ -163,17 +166,8 @@ class PlayerStore {
     // ##################################################
 
     fun updateQueue() {
-        if (queue.isNotEmpty()) {
-            queue.remove(queue.first())
-            //[REMOVE LOG CALLS]Log.d((tag, queue.toString())
-            fetchLastRequest()
-            isQueueUpdated.value = true
-        } else if (isInitialized) {
-            fetchLastRequest()
-        } else {
-            //[REMOVE LOG CALLS]Log.d((tag,  "queue is empty! fetching anyway !!")
-            fetchLastRequest()
-        }
+        //[REMOVE LOG CALLS]Log.d(tag, queue.toString())
+        fetchLastRequest()
     }
 
     fun updateLp() {
@@ -192,6 +186,7 @@ class PlayerStore {
 
     private fun fetchLastRequest()
     {
+        isQueueUpdated.value = false
         val sleepScrape: (Any?) -> String = {
             /* we can maximize our chances to retrieve the last queued song by specifically waiting for the number of seconds we measure between ICY metadata and API change.
              we add 2 seconds just to get a higher probability that the API has correctly updated. (the latency compensator can have a jitter of 1 second usually)
@@ -225,18 +220,21 @@ class PlayerStore {
                     initApi()
                 } else
                 */
-                if (resMain.has("next") /*&& queue.isNotEmpty()*/) {
+                if (resMain.has("next")) {
                     val queueJSON =
                         resMain.getJSONObject("next")
                     val t = extractSong(queueJSON)
-                    if (queue.isNotEmpty() && (t == queue.last() || t == currentSong))
+                    if (queue.isNotEmpty() && (t == queue.last() || t == currentSong) && isQueueUpdated.value == false)
                     {
-                        //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "Song already in there: $t")
+                        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  "Song already in there: $t\nQueue:$queue")
                         Async(sleepScrape, post)
                     } else {
+                        if (queue.isNotEmpty())
+                            queue.remove(queue.first())
                         queue.add(queue.size, t)
                         //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  "added last queue song: $t")
                         isQueueUpdated.value = true
+                        return // FUUUCK IT WAS CALLING THE ASYNC ONE MORE TIME AFTERWARDS !?
                     }
                 }
             }
