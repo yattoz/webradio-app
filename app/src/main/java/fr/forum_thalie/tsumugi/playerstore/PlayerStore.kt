@@ -7,6 +7,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.*
+import fr.forum_thalie.tsumugi.planning.Planning
 import org.json.JSONObject
 import java.net.URL
 import java.text.ParseException
@@ -58,9 +59,10 @@ class PlayerStore {
 
     private fun getTimestamp(s: String) : Long
     {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss z", Locale.getDefault())
         try {
-            val t: Date? = dateFormat.parse(s)
+            val t: Date? = dateFormat.parse("$s ${Planning.instance.timeZone.id}")
+            Log.d(tag, "date: $s -> $t")
             return t!!.time
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -90,16 +92,17 @@ class PlayerStore {
 
         currentSong.stopTime.value = ends
 
+        val apiTime = getTimestamp(res.getJSONObject("station").getString("schedulerTime"))
         // I noticed that the server has a big (3 to 9 seconds !!) offset for current time.
         // we can measure it when the player is playing, to compensate it and have our progress bar perfectly timed
         // latencyCompensator is set to null when beginPlaying() (we can't measure it at the moment we start playing, since we're in the middle of a song),
         // at this moment, we set it to 0. Then, next time the updateApi is called when we're playing, we measure the latency and we set out latencyComparator.
         if(isCompensatingLatency)
         {
-            latencyCompensator = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (currentSong.startTime.value ?: getTimestamp(res.getJSONObject("station").getString("schedulerTime")))
-            //[REMOVE LOG CALLS]Log.d((tag, "latency compensator set to ${(latencyCompensator).toFloat()/1000} s")
+            latencyCompensator = apiTime - (currentSong.startTime.value!!)
+            //[REMOVE LOG CALLS]Log.d(tag, "latency compensator set to ${(latencyCompensator).toFloat() / 1000} s")
         }
-        currentTime.value = getTimestamp(res.getJSONObject("station").getString("schedulerTime")) - (latencyCompensator)
+        currentTime.value = apiTime - (latencyCompensator)
 
         /*
         val listeners = resMain.getInt("listeners")
