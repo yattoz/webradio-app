@@ -7,6 +7,7 @@ import android.os.Build
 import android.util.Log
 import androidx.preference.PreferenceManager
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
+import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 
 class BootBroadcastReceiver : BroadcastReceiver(){
@@ -24,6 +25,7 @@ class BootBroadcastReceiver : BroadcastReceiver(){
         {
 
             RadioAlarm.instance.setNextAlarm(context) // schedule next alarm
+            Planning.instance.parseUrl(context = context)
             if (!PlayerStore.instance.isInitialized)
                 PlayerStore.instance.initApi()
             if (PlayerStore.instance.streamerName.value.isNullOrBlank())
