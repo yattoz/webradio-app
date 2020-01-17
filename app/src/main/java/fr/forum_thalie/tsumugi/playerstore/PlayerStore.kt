@@ -62,7 +62,7 @@ class PlayerStore {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss z", Locale.getDefault())
         try {
             val t: Date? = dateFormat.parse("$s ${Planning.instance.timeZone.id}")
-            Log.d(tag, "date: $s -> $t")
+            //[REMOVE LOG CALLS]Log.d(tag, "date: $s -> $t")
             return t!!.time
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -166,17 +166,8 @@ class PlayerStore {
     // ##################################################
 
     fun updateQueue() {
-        if (queue.isNotEmpty()) {
-            queue.remove(queue.first())
-            //[REMOVE LOG CALLS]Log.d((tag, queue.toString())
-            fetchLastRequest()
-            isQueueUpdated.value = true
-        } else if (isInitialized) {
-            fetchLastRequest()
-        } else {
-            //[REMOVE LOG CALLS]Log.d((tag,  "queue is empty! fetching anyway !!")
-            fetchLastRequest()
-        }
+        //[REMOVE LOG CALLS]Log.d(tag, queue.toString())
+        fetchLastRequest()
     }
 
     fun updateLp() {
@@ -195,6 +186,7 @@ class PlayerStore {
 
     private fun fetchLastRequest()
     {
+        isQueueUpdated.value = false
         val sleepScrape: (Any?) -> String = {
             /* we can maximize our chances to retrieve the last queued song by specifically waiting for the number of seconds we measure between ICY metadata and API change.
              we add 2 seconds just to get a higher probability that the API has correctly updated. (the latency compensator can have a jitter of 1 second usually)
@@ -228,18 +220,21 @@ class PlayerStore {
                     initApi()
                 } else
                 */
-                if (resMain.has("next") /*&& queue.isNotEmpty()*/) {
+                if (resMain.has("next")) {
                     val queueJSON =
                         resMain.getJSONObject("next")
                     val t = extractSong(queueJSON)
-                    if (queue.isNotEmpty() && (t == queue.last() || t == currentSong))
+                    if (queue.isNotEmpty() && (t == queue.last() || t == currentSong) && isQueueUpdated.value == false)
                     {
-                        //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "Song already in there: $t")
+                        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  "Song already in there: $t\nQueue:$queue")
                         Async(sleepScrape, post)
                     } else {
+                        if (queue.isNotEmpty())
+                            queue.remove(queue.first())
                         queue.add(queue.size, t)
                         //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag +  "added last queue song: $t")
                         isQueueUpdated.value = true
+                        return // FUUUCK IT WAS CALLING THE ASYNC ONE MORE TIME AFTERWARDS !?
                     }
                 }
             }
