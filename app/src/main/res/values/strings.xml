@@ -64,9 +64,9 @@
     <string name="volumeAtStartup">Volume at startup</string>
     <string name="useHorizontalSplitLayout">Use horizontal split layout</string>
     <string name="makeSnackbarsPersistent">Make Snackbars persistent</string>
-    <string name="setupAlarmClock">Set up alarm clock</string>
-    <string name="setSleepTimer">Set sleep timer</string>
-    <string name="costumizeAppBehavior">Customize app behavior</string>
+    <string name="setupAlarmClock">Alarm</string>
+    <string name="setSleepTimer">Sleep timer</string>
+    <string name="customizeAppBehavior">Customize app behavior</string>
     <string name="submitABug">Submit a bug (opens GitHub in a web browser)</string>
     <string name="sleepClosesApp">Sleep - close app after some time</string>
     <string name="setSleepDuration">Set duration (minutes)</string>
@@ -75,5 +75,6 @@
     <string name="refreshing">Refreshing data…</string>
     <string name="action_refresh">Refresh data</string>
     <string name="autoPlay">Auto play when plugging headphones</string>
+    <string name="settings">Settings</string>
 
 </resources>

@@ -5,9 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import fr.forum_thalie.tsumugi.R
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.*
 
 class MainPreferenceFragment : PreferenceFragmentCompat() {
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = context?.getString(R.string.settings)
+    }
 
     @SuppressLint("ApplySharedPref")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

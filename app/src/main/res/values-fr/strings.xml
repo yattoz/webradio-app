@@ -37,16 +37,16 @@
     <string name="lp">Derniers titres</string>
     <string name="programme">Planning</string>
     <string name="regular_programme">Programme régulier</string>
-    <string name="useAlarmClock">Activer l\'alarme</string>
+    <string name="useAlarmClock">Activer le réveil</string>
     <string name="setTime">Choisir l\'heure</string>
     <string name="selectDaysOfWeek">Choisir les jours</string>
     <string name="SetSnoozeDuration">Choisir le délai de répétition d\'alarme (minutes)</string>
     <string name="volumeAtStartup">Volume au démarrage</string>
     <string name="useHorizontalSplitLayout">Utiliser une disposition horizontale adaptée</string>
     <string name="makeSnackbarsPersistent">Rendre les barres d\information persistantes</string>
-    <string name="setupAlarmClock">Configurer l\'alarme</string>
-    <string name="setSleepTimer">Configurer la minuterie avant extinction</string>
-    <string name="costumizeAppBehavior">Paramètres de l\'application</string>
+    <string name="setupAlarmClock">Réveil</string>
+    <string name="setSleepTimer">Minuterie avant extinction</string>
+    <string name="customizeAppBehavior">Comportement de l\'application</string>
     <string name="submitABug">Reporter un bug</string>
     <string name="sleepClosesApp">Minuterie avant fermeture de l\'application</string>
     <string name="setSleepDuration">Choisir une durée (en minutes)</string>
@@ -55,5 +55,6 @@
     <string name="refreshing">Actualisation…</string>
     <string name="action_refresh">Raffraîchir les données</string>
     <string name="autoPlay">\"Play\" au branchement de la prise casque</string>
+    <string name="settings">Paramètres</string>
 
 </resources>
