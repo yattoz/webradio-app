@@ -1,5 +1,6 @@
 package fr.forum_thalie.tsumugi.playerstore
 
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.noConnectionValue
 
@@ -24,8 +25,9 @@ class Song(artistTitle: String = "", _id : Int = 0) {
         return "id=$id | ${artist.value} - ${title.value} | type=${type.value} | times ${startTime.value} - ${stopTime.value}\n"
     }
 
-    fun setTitleArtist(data: String)
+    fun setTitleArtist(dataHtml: String)
     {
+        val data = HtmlCompat.fromHtml(dataHtml, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
         val hyphenPos = data.indexOf(" - ")
         try {
             if (hyphenPos < 0)
@@ -46,12 +48,12 @@ class Song(artistTitle: String = "", _id : Int = 0) {
     override fun equals(other: Any?) : Boolean
     {
         val song: Song = other as Song
-        return this.title.value == song.title.value && this.artist.value == song.artist.value
+        return this.title.value === song.title.value && this.artist.value === song.artist.value
     }
 
     fun copy(song: Song) {
-        this.title.value = song.title.value
         this.artist.value = song.artist.value
+        this.title. value = song.title.value
         this.startTime.value = song.startTime.value
         this.stopTime.value = song.stopTime.value
         this.type.value = song.type.value

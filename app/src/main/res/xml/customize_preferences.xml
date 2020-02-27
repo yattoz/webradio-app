@@ -29,4 +29,14 @@
         app:defaultValue="false"
         />
 
+    <ListPreference
+        app:key="fetchPeriod"
+        app:iconSpaceReserved="false"
+        android:title="@string/fetchPeriod"
+        app:singleLineTitle="false"
+        android:entries="@array/fetchPeriodString"
+        android:entryValues="@array/fetchPeriodValues"
+        android:defaultValue="10"
+        />
+
 </PreferenceScreen>

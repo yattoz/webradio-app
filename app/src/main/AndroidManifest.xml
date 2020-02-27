@@ -31,9 +31,6 @@
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
         </service>
-        <service android:name=".streamerNotificationService.StreamerMonitorService"
-            android:enabled="true"
-            android:exported="true"/>
 
         <receiver android:name=".BootBroadcastReceiver"
             android:directBootAware="true"

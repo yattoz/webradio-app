@@ -37,11 +37,11 @@ class ProgrammeFragment : Fragment() {
 
         viewPager.adapter = adapter
         val todaySundayFirst = Calendar.getInstance(Planning.instance.timeZone).get(Calendar.DAY_OF_WEEK) - 1
-        viewPager.currentItem = (todaySundayFirst - 1)%7
+        viewPager.currentItem = (todaySundayFirst - 1 + 7)%7 // don't do modulos on negative, seems like it's weird
 
         val tabLayout : TabLayout = root.findViewById(R.id.dayTabLayout)
         tabLayout.setupWithViewPager(viewPager)
-        Log.d(tag, "SongFragment view created")
+        //[REMOVE LOG CALLS]Log.d(tag, "SongFragment view created")
 
         return root
     }

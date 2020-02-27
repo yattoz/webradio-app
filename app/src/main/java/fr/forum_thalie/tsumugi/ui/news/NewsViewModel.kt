@@ -43,14 +43,14 @@ class NewsViewModel : ViewModel() {
 
         val maxNumberOfArticles = 5
         coroutineScope.launch(Dispatchers.Main) {
-            Log.d(tag, "launching coroutine")
+            //[REMOVE LOG CALLS]Log.d(tag, "launching coroutine")
                 val parser = Parser()
             try {
                 val articleList = parser.getArticles(urlToScrape)
                 newsArray.clear()
                 for (i in 0 until min(articleList.size, maxNumberOfArticles)) {
                     val item = articleList[i]
-                    Log.d(tag, "i = $i / ${articleList.size}")
+                    //[REMOVE LOG CALLS]Log.d(tag, "i = $i / ${articleList.size}")
                     val news = News()
                     news.title = item.title ?: ""
                     news.link = item.link ?: urlToScrape
@@ -60,7 +60,7 @@ class NewsViewModel : ViewModel() {
 
                     val formatter6 = SimpleDateFormat(newsDateTimePattern, Locale.ENGLISH)
                     val dateString = item.pubDate.toString()
-                    Log.d(tag, "$news --- $dateString")
+                    //[REMOVE LOG CALLS]Log.d(tag, "$news --- $dateString")
 
                     news.date = formatter6.parse(dateString) ?: Date(0)
 

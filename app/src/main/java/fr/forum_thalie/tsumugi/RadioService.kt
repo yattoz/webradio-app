@@ -68,14 +68,14 @@ class RadioService : MediaBrowserServiceCompat() {
                 // This *should* work in any case...
                 when (intent.getIntExtra("state", -1)) {
                 0 -> {
-                    Log.d(tag, radioTag + "Headset is unplugged")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "Headset is unplugged")
                 }
                 1 -> {
-                    Log.d(tag, radioTag + "Headset is plugged")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "Headset is plugged")
                     headsetPluggedIn = true
                 }
                 else -> {
-                    Log.d(tag, radioTag + "I have no idea what the headset state is")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "I have no idea what the headset state is")
                 }
                 }
                 /*
@@ -91,7 +91,7 @@ class RadioService : MediaBrowserServiceCompat() {
                 }
                 else
                 {
-                    Log.d(tag, radioTag + "Can't get state?")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "Can't get state?")
                 }
 
                  */
@@ -124,10 +124,32 @@ class RadioService : MediaBrowserServiceCompat() {
 
     private val titleObserver = Observer<String> {
         // We're checking if a new song arrives. If so, we put the currentSong in Lp and update the backup.
+
+        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
+        {
+            //[REMOVE LOG CALLS]Log.d((tag, radioTag + "SONG CHANGED AND PLAYING")
+            // we activate latency compensation only if it's been at least 2 songs...
+            when {
+                PlayerStore.instance.isStreamDown -> {
+                    // if we reach here, it means that the observer has been called by a new song and that the stream was down previously.
+                    // so the stream is now back to normal.
+                    PlayerStore.instance.isStreamDown = false
+                    PlayerStore.instance.initApi()
+                }
+                PlayerStore.instance.currentSong.title.value == noConnectionValue -> {
+                    PlayerStore.instance.isStreamDown = true
+                }
+                else -> {
+                    PlayerStore.instance.fetchApi(/* numberOfSongs >= 2 */)
+                }
+            }
+        }
+
         if (PlayerStore.instance.currentSong != PlayerStore.instance.currentSongBackup
             && it != noConnectionValue)
         {
             PlayerStore.instance.updateLp()
+            PlayerStore.instance.updateQueue()
         }
         nowPlayingNotification.update(this)
         Planning.instance.checkProgramme()
@@ -162,6 +184,12 @@ class RadioService : MediaBrowserServiceCompat() {
         super.onCreate()
 
         preferenceStore = PreferenceManager.getDefaultSharedPreferences(this)
+
+        // start ticker for when the player is stopped
+        val periodString = PreferenceManager.getDefaultSharedPreferences(this).getString("fetchPeriod", "10") ?: "10"
+        val period: Long = Integer.parseInt(periodString).toLong()
+        if (period > 0)
+            apiTicker.schedule(ApiFetchTick(), 0, period * 1000)
 
         // Define managers
         telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -205,7 +233,7 @@ class RadioService : MediaBrowserServiceCompat() {
         startForeground(radioServiceId, nowPlayingNotification.notification)
 
         PlayerStore.instance.isServiceStarted.value = true
-        Log.d(tag, radioTag + "created")
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "created")
     }
 
     private val handler = Handler()
@@ -246,7 +274,7 @@ class RadioService : MediaBrowserServiceCompat() {
             Actions.CANCEL_FADE_OUT.name -> { handler.removeCallbacks(lowerVolumeRunnable) }
             Actions.SNOOZE.name -> { RadioAlarm.instance.snooze(this) }
         }
-        Log.d(tag, radioTag + "intent received : " + intent.getStringExtra("action"))
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "intent received : " + intent.getStringExtra("action"))
         super.onStartCommand(intent, flags, startId)
         // The service must be re-created if it is destroyed by the system. This allows the user to keep actions like Bluetooth and headphones plug available.
         return START_STICKY
@@ -258,7 +286,7 @@ class RadioService : MediaBrowserServiceCompat() {
             stopSelf()
         }
         super.onTaskRemoved(rootIntent)
-        Log.d(tag, radioTag + "task removed")
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "task removed")
     }
 
     override fun onDestroy() {
@@ -290,7 +318,7 @@ class RadioService : MediaBrowserServiceCompat() {
         }
 
         apiTicker.cancel() // stops the timer.
-        Log.d(tag, radioTag + "destroyed")
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "destroyed")
         // if the service is destroyed, the application had become useless.
         exitProcess(0)
     }
@@ -361,10 +389,10 @@ class RadioService : MediaBrowserServiceCompat() {
             for (i in 0 until it.length()) {
                 val entry  = it.get(i)
                 if (entry is IcyHeaders) {
-                    Log.d(tag, radioTag + "onMetadata: IcyHeaders $entry")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "onMetadata: IcyHeaders $entry")
                 }
                 if (entry is IcyInfo) {
-                    Log.d(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
+                    //[REMOVE LOG CALLS]Log.d(tag, radioTag + "onMetadata: Title ----> ${entry.title}")
                     // Note : Kotlin supports UTF-8 by default.
                     numberOfSongs++
                     val data = entry.title!!
@@ -439,7 +467,7 @@ class RadioService : MediaBrowserServiceCompat() {
             {
                 Thread.sleep(1000)
                 i++
-                Log.d(tag, "$i, isAlarmStopped=$isAlarmStopped")
+                //[REMOVE LOG CALLS]Log.d(tag, "$i, isAlarmStopped=$isAlarmStopped")
             }
         }
         val post: (Any?) -> Unit = {
@@ -512,7 +540,7 @@ class RadioService : MediaBrowserServiceCompat() {
             SystemClock.elapsedRealtime()
         )
         mediaSession.setPlaybackState(playbackStateBuilder.build())
-        Log.d(tag, radioTag + "begin playing")
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "begin playing")
     }
 
     private fun pausePlaying()
@@ -541,7 +569,7 @@ class RadioService : MediaBrowserServiceCompat() {
             1.0f,
             SystemClock.elapsedRealtime()
         )
-        Log.d(tag, radioTag + "stopped")
+        //[REMOVE LOG CALLS]Log.d(tag, radioTag + "stopped")
 
         mediaSession.setPlaybackState(playbackStateBuilder.build())
     }
@@ -629,7 +657,7 @@ class RadioService : MediaBrowserServiceCompat() {
                 Player.STATE_ENDED -> state = "Player.STATE_ENDED"
                 Player.STATE_READY -> state = "Player.STATE_READY"
             }
-            Log.d(tag, radioTag + "Player changed state: ${state}. numberOfSongs reset.")
+            //[REMOVE LOG CALLS]Log.d(tag, radioTag + "Player changed state: ${state}. numberOfSongs reset.")
         }
     }
 

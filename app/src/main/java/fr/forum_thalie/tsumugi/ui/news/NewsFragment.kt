@@ -43,9 +43,9 @@ class NewsFragment : Fragment() {
                 }
 
                 newsViewModel.isWebViewLoaded = true
-                Log.d(tag, "webview created")
+                //[REMOVE LOG CALLS]Log.d(tag, "webview created")
             } else {
-                Log.d(tag, "webview already created!?")
+                //[REMOVE LOG CALLS]Log.d(tag, "webview already created!?")
             }
 
             newsViewModel.root.addOnLayoutChangeListener(orientationLayoutListener)
@@ -101,7 +101,7 @@ class NewsFragment : Fragment() {
             ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
         newsViewModel.fetch(c = context!!, isPreloading = true)
-        Log.d(tag, "news fetched onCreate")
+        //[REMOVE LOG CALLS]Log.d(tag, "news fetched onCreate")
         super.onCreate(savedInstanceState)
     }
 }
