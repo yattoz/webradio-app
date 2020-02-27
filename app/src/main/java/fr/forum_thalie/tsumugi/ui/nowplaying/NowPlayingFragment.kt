@@ -6,8 +6,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.media.session.PlaybackStateCompat
-import android.util.Log
-import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.widget.TextViewCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +21,6 @@ import fr.forum_thalie.tsumugi.alarm.RadioSleeper
 import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
 import fr.forum_thalie.tsumugi.playerstore.Song
-import kotlinx.android.synthetic.main.fragment_nowplaying.*
 
 
 class NowPlayingFragment : Fragment() {
@@ -49,12 +45,12 @@ class NowPlayingFragment : Fragment() {
         val volumeText: TextView = root.findViewById(R.id.volume_text)
         val progressBar: ProgressBar = root.findViewById(R.id.progressBar)
         val volumeIconImage : ImageView = root.findViewById(R.id.volume_icon)
-
+        val currentProgrammeText: TextView  = root.findViewById(R.id.current_programme)
         val streamerPictureImageView: ImageView = root.findViewById(R.id.streamerPicture)
 
         // Note: these values are not used in the generic app, but if you want to, you can use them.
         val songTitleNextText: TextView = root.findViewById(R.id.text_song_title_next)
-        //val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
+        val songArtistNextText: TextView = root.findViewById(R.id.text_song_artist_next)
 
         /*
         val streamerNameText : TextView = root.findViewById(R.id.streamerName)
@@ -69,15 +65,14 @@ class NowPlayingFragment : Fragment() {
             listenersText,8, 16, 2, TypedValue.COMPLEX_UNIT_SP)
          */
 
-        /*
         // trick : I can't observe the queue because it's an ArrayDeque that doesn't trigger any change...
         // so I observe a dedicated Mutable that gets set when the queue is updated.
         PlayerStore.instance.isQueueUpdated.observe(viewLifecycleOwner, Observer {
-            val t = if (PlayerStore.instance.queue.size > 0) PlayerStore.instance.queue[0] else Song("No queue - ") // (it.peekFirst != null ? it.peekFirst : Song() )
+            val t = if (PlayerStore.instance.queue.size > 0) PlayerStore.instance.queue[0] else Song(noConnectionValue) // (it.peekFirst != null ? it.peekFirst : Song() )
             songTitleNextText.text = t.title.value
             songArtistNextText.text = t.artist.value
         })
-
+        /*
         PlayerStore.instance.streamerName.observe(viewLifecycleOwner, Observer {
             streamerNameText.text = it
         })
@@ -92,9 +87,11 @@ class NowPlayingFragment : Fragment() {
             songTitleText.text = it
         })
 
+
         Planning.instance.currentProgramme.observe(viewLifecycleOwner, Observer {
-            songTitleNextText.text = it
+            currentProgrammeText.text = "${context!!.getString(R.string.current_programme)} $it"
         })
+
 
         PlayerStore.instance.currentSong.artist.observe(viewLifecycleOwner, Observer {
             songArtistText.text = it
@@ -273,7 +270,7 @@ class NowPlayingFragment : Fragment() {
                 (viewHeight*100)/viewWidth
         else
             100
-        Log.d(tag, "orientation set")
+        //[REMOVE LOG CALLS]Log.d(tag, "orientation set")
     }
 
     override fun onResume() {

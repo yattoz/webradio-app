@@ -15,23 +15,22 @@
         app:showAsAction="ifRoom"/>
 
     <!--
-    <item
-        android:id="@+id/action_refresh"
-        android:title="@string/action_refresh"
-        app:showAsAction="never"/>
-    -->
 
-    <!--
     <item
         android:id="@+id/action_bug_submit"
         android:title="@string/action_bug_submit"
         app:showAsAction="never"/>
     -->
 
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
 
 </menu>
