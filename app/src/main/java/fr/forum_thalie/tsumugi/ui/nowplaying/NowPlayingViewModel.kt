@@ -1,9 +1,11 @@
 package fr.forum_thalie.tsumugi.ui.nowplaying
 
 import android.widget.SeekBar
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
+import fr.forum_thalie.tsumugi.preferenceStore
 
 class NowPlayingViewModel: ViewModel() {
 
@@ -21,6 +23,10 @@ class NowPlayingViewModel: ViewModel() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // updated continuously as the user slides the thumb
                 PlayerStore.instance.volume.value = progress
+                preferenceStore.edit {
+                    putInt("volume", progress)
+                    commit()
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {

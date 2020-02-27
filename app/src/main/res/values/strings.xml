@@ -74,5 +74,6 @@
     <string name="fetchPeriod">Set update period when stopped</string>
     <string name="refreshing">Refreshing data…</string>
     <string name="action_refresh">Refresh data</string>
+    <string name="autoPlay">Auto play when plugging headphones</string>
 
 </resources>

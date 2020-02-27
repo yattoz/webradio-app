@@ -39,7 +39,7 @@ class NowPlayingNotification(
 
         mediaStyle = androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle().also {
             it.setMediaSession(m.sessionToken)
-            it.setShowActionsInCompactView(0) // index 0 = show actions 0 and 1 (show action #0 (play/pause))
+            it.setShowActionsInCompactView(0, 1) // index 0 = show actions 0 and 1 (show action #0 (play/pause))
             it.setCancelButtonIntent(deleteIntent)
         }
         builder.setStyle(mediaStyle)
@@ -83,7 +83,7 @@ class NowPlayingNotification(
             val intent2 = Intent(c, RadioService::class.java)
             intent2.putExtra("action", Actions.KILL.name)
             val pendingButtonIntent = PendingIntent.getService(c, 2, intent2, PendingIntent.FLAG_UPDATE_CURRENT)
-            val stopAction = NotificationCompat.Action.Builder(R.drawable.ic_stop,"Stop", pendingButtonIntent).build()
+            val stopAction = NotificationCompat.Action.Builder(R.drawable.ic_close,"Stop", pendingButtonIntent).build()
             builder.addAction(stopAction)
 
             if (isRinging) {

@@ -54,5 +54,6 @@
     <string name="fetchPeriod">Choisir la fréquence de mise à jour quand la radio est stoppée</string>
     <string name="refreshing">Actualisation…</string>
     <string name="action_refresh">Raffraîchir les données</string>
+    <string name="autoPlay">\"Play\" au branchement de la prise casque</string>
 
 </resources>

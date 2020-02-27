@@ -72,7 +72,7 @@ class RadioService : MediaBrowserServiceCompat() {
                 }
                 1 -> {
                     //[REMOVE LOG CALLS]Log.d(tag, radioTag + "Headset is plugged")
-                    headsetPluggedIn = true
+                    headsetPluggedIn = true && PreferenceManager.getDefaultSharedPreferences(context).getBoolean("autoStartOnPlug", false)
                 }
                 else -> {
                     //[REMOVE LOG CALLS]Log.d(tag, radioTag + "I have no idea what the headset state is")
