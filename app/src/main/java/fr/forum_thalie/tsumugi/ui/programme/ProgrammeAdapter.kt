@@ -1,18 +1,18 @@
 package fr.forum_thalie.tsumugi.ui.programme
 
 import android.annotation.SuppressLint
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import fr.forum_thalie.tsumugi.*
+import fr.forum_thalie.tsumugi.R
+import fr.forum_thalie.tsumugi.colorAccent
+import fr.forum_thalie.tsumugi.colorWhited
 import fr.forum_thalie.tsumugi.planning.Planning
 import fr.forum_thalie.tsumugi.planning.Programme
+import fr.forum_thalie.tsumugi.weekdaysSundayFirst
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ProgrammeAdapter(private val dataSet: ArrayList<Programme>, private val day: String
     /*,
