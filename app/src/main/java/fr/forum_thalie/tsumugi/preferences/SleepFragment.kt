@@ -1,13 +1,20 @@
 package fr.forum_thalie.tsumugi.preferences
 
+import android.content.Context
 import android.os.Bundle
 import androidx.preference.*
 import fr.forum_thalie.tsumugi.R
 import android.text.InputType
+import androidx.appcompat.app.AppCompatActivity
 import fr.forum_thalie.tsumugi.alarm.RadioSleeper
 
 
 class SleepFragment : PreferenceFragmentCompat() {
+    override fun onAttach(context: Context) {
+        (activity as AppCompatActivity).supportActionBar?.title = context.getString(R.string.setSleepTimer)
+        super.onAttach(context)
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.sleep_preference, rootKey)
 

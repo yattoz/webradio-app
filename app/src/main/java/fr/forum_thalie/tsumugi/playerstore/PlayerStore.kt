@@ -12,6 +12,7 @@ import org.json.JSONObject
 import java.net.URL
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.format.TextStyle
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -61,7 +62,7 @@ class PlayerStore {
     {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss z", Locale.getDefault())
         try {
-            val t: Date? = dateFormat.parse("$s ${Planning.instance.timeZone.id}")
+            val t: Date? = dateFormat.parse("$s ${Planning.instance.timeZone.getDisplayName(Planning.instance.timeZone.useDaylightTime(), TimeZone.SHORT)}")
             //[REMOVE LOG CALLS]Log.d(tag, "date: $s -> $t")
             return t!!.time
         } catch (e: ParseException) {

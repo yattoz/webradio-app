@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<!--
     <SeekBarPreference
         app:key="volume"
         app:iconSpaceReserved="false"
@@ -12,6 +12,14 @@
         android:defaultValue="100"
         app:showSeekBarValue="true"
         />
+-->
+    <SwitchPreferenceCompat
+        app:key="autoStartOnPlug"
+        app:iconSpaceReserved="false"
+        app:title="@string/autoPlay"
+        app:singleLineTitle="false"
+        app:defaultValue="false"
+    />
 
     <SwitchPreferenceCompat
         app:key="splitLayout"

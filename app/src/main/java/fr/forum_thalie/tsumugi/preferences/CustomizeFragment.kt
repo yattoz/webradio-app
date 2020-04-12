@@ -1,12 +1,19 @@
 package fr.forum_thalie.tsumugi.preferences
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.*
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.preferenceStore
 
 class CustomizeFragment : PreferenceFragmentCompat() {
+    override fun onAttach(context: Context) {
+        (activity as AppCompatActivity).supportActionBar?.title = context.getString(R.string.customizeAppBehavior)
+        super.onAttach(context)
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.customize_preferences, rootKey)
 
