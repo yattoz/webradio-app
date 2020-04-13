@@ -32,13 +32,13 @@ class ProgrammeDayFragment : Fragment() {
         viewModel.day = arguments?.getString("day") ?: ""
 
         val root = inflater.inflate(R.layout.fragment_programme_day, container, false)
+
         Planning.instance.programmes.forEach {
             if (it.isThisDay(day = weekdays.indexOf(viewModel.day)))
                 programmeOfTheDay.add(it)
         }
         viewManager = LinearLayoutManager(context)
-        viewAdapter =
-            ProgrammeAdapter(programmeOfTheDay, viewModel.day)
+        viewAdapter = ProgrammeAdapter(programmeOfTheDay, viewModel.day)
         recyclerView = root.findViewById<RecyclerView>(R.id.programme_recycler).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
