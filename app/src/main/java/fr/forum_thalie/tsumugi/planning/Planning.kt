@@ -64,6 +64,7 @@ class Planning {
             if (result.has("planning"))
             {
                 val programList = result.getJSONArray("planning")
+                programmes.clear()
                 for (i in 0 until programList.length())
                 {
                     val item = programList[i] as JSONObject
