@@ -166,10 +166,10 @@ class NowPlayingFragment : Fragment() {
             }
         })
 
-
-        seekBarVolume.setOnSeekBarChangeListener(nowPlayingViewModel.seekBarChangeListener)
         seekBarVolume.progress = PlayerStore.instance.volume.value!!
-        progressBar.max = 1000
+        seekBarVolume.setOnSeekBarChangeListener(nowPlayingViewModel.seekBarChangeListener)
+
+        progressBar.max = 100
         progressBar.progress = 0
 
         syncPlayPauseButtonImage(root)

@@ -78,7 +78,10 @@
     <string name="settings">Settings</string>
     <string name="test_alarm_volume">Test and change alarm volume</string>
     <string name="test_alarm_volume_summary">Touch this to listen to the alarm volume and set it up</string>
-    <string name="popupTestAlarmVolume">The radio stream is now started in alarm mode. Adjust the volume with the volume buttons on your device.</string>
+    <string name="popupTestAlarmVolume">The radio stream is now started in alarm mode. Adjust the volume with the volume buttons on your device. You can make a finer adjustment of the volume with the slider below.</string>
     <string name="finished">Done</string>
+    <string name="alarmVolumeSeekBar">Adjust alarm volume</string>
+    <string name="setupAlarmClockVolume">Set up alarm volume</string>
+    <string name="alarm_volume">Alarm volume</string>
 
 </resources>

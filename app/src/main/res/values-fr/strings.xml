@@ -58,7 +58,11 @@
     <string name="settings">Paramètres</string>
     <string name="test_alarm_volume">Tester et ajuster le volume de l\'alarme</string>
     <string name="test_alarm_volume_summary">Touchez pour écouter et régler le volume</string>
-    <string name="popupTestAlarmVolume">La radio est à présent lancée en mode alarme. Ajustez le volume avec les boutons de volume de votre appareil.</string>
+    <string name="popupTestAlarmVolume">La radio est à présent lancée en mode alarme. Ajustez le volume avec les boutons de volume de votre appareil. Vous pouvez faire un réglage plus fin du volume avec la réglette ci-dessous.</string>
     <string name="finished">Terminé</string>
+    <string name="alarmVolumeSeekBar">Ajuster le volume de l\'alarme</string>
+    <string name="setupAlarmClockVolume">Régler le volume de l\'alarme</string>
+    <string name="alarm_volume">Volume de l\'alarme</string>
+
 
 </resources>

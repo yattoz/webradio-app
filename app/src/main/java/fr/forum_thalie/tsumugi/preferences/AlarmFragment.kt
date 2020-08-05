@@ -143,88 +143,10 @@ class AlarmFragment : PreferenceFragmentCompat() {
             true
         }
 
-
-        val testAlarmVolume: Preference? = findPreference("testAlarmVolume")
-        testAlarmVolume!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-
-            // get previous state: if it's playing, we'll resume playing as multimedia; if it was stopped, we'll stop
-            val isPlayingMultimedia: Boolean = PlayerStore.instance.isPlaying.value ?: false
-
-            val builder1 = AlertDialog.Builder(requireContext())
-            builder1.setTitle(R.string.test_alarm_volume)
-            builder1.setMessage(R.string.popupTestAlarmVolume)
-            builder1.setCancelable(false)
-            builder1.setPositiveButton(
-                getString(R.string.finished)
-            ) { dialog, _ ->
-                // put the radio back to media sound, or off if it was off.
-                if (isPlayingMultimedia)
-                {
-                    actionOnService(Actions.PLAY)
-                } else {
-                    actionOnService(Actions.STOP)
-                }
-                dialog.cancel()
-            }
-
-            val adjustAlarmVolume: (Int) -> Unit = debounce<Int>(50, coroutineContext) {
-                val keyCode = it
-
-                val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM)
-                val minVolume = 0 // audioManager.getStreamMinVolume(AudioManager.STREAM_ALARM) <- require API28+
-                val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
-                Log.d(tag, "current, max = $currentVolume, $maxVolume")
-                if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, max(currentVolume - 1, minVolume), AudioManager.FLAG_SHOW_UI)
-
-                } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, min(currentVolume + 1, maxVolume), AudioManager.FLAG_SHOW_UI)
-                }
-
-            }
-
-            builder1.setOnKeyListener { dialogInterface, i, event ->
-                adjustAlarmVolume(i)
-                true
-            }
-
-            val alert11 = builder1.create()
-
-            // start as alarm
-            actionOnService(Actions.PLAY_OR_FALLBACK)
-
-            alert11.show()
-
-            true
-        }
-
         alarmDays?.isEnabled = isWakingUp?.isChecked ?: false
         timeSet?.isEnabled = isWakingUp?.isChecked ?: false
         snoozeDuration?.isEnabled = isWakingUp?.isChecked ?: false
 
     }
-
-    private fun actionOnService (a: Actions) {
-        // start as alarm
-        val i = Intent(requireContext(), RadioService::class.java)
-        i.putExtra("action", a.name)
-        requireContext().startService(i)
-    }
-
-    private fun <T> debounce(delayMs: Long = 500L,
-                             coroutineContext: CoroutineContext,
-                             f: (T) -> Unit): (T) -> Unit {
-        var debounceJob: Job? = null
-        return { param: T ->
-            if (debounceJob?.isCompleted != false) {
-                debounceJob = CoroutineScope(coroutineContext).launch {
-                    delay(delayMs)
-                    f(param)
-                }
-            }
-        }
-    }
-
 
 }

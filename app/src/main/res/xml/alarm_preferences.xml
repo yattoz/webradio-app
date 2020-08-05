@@ -38,9 +38,12 @@
         />
 
     <Preference
-        app:iconSpaceReserved="false"
+        app:iconSpaceReserved="true"
         android:key="testAlarmVolume"
         android:title="@string/test_alarm_volume"
-        android:summary="@string/test_alarm_volume_summary" />
+        android:summary="@string/test_alarm_volume_summary"
+        app:icon="@drawable/ic_volume_high"
+        app:fragment="fr.forum_thalie.tsumugi.preferences.AlarmAdjustVolumeFragment"
+        />
 
 </PreferenceScreen>
