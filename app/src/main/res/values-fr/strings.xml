@@ -56,5 +56,9 @@
     <string name="action_refresh">Raffraîchir les données</string>
     <string name="autoPlay">\"Play\" au branchement de la prise casque</string>
     <string name="settings">Paramètres</string>
+    <string name="test_alarm_volume">Tester et ajuster le volume de l\'alarme</string>
+    <string name="test_alarm_volume_summary">Touchez pour écouter et régler le volume</string>
+    <string name="popupTestAlarmVolume">La radio est à présent lancée en mode alarme. Ajustez le volume avec les boutons de volume de votre appareil.</string>
+    <string name="finished">Terminé</string>
 
 </resources>

@@ -76,5 +76,9 @@
     <string name="action_refresh">Refresh data</string>
     <string name="autoPlay">Auto play when plugging headphones</string>
     <string name="settings">Settings</string>
+    <string name="test_alarm_volume">Test and change alarm volume</string>
+    <string name="test_alarm_volume_summary">Touch this to listen to the alarm volume and set it up</string>
+    <string name="popupTestAlarmVolume">The radio stream is now started in alarm mode. Adjust the volume with the volume buttons on your device.</string>
+    <string name="finished">Done</string>
 
 </resources>

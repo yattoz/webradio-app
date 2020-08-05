@@ -37,4 +37,10 @@
         android:summary="%s"
         />
 
+    <Preference
+        app:iconSpaceReserved="false"
+        android:key="testAlarmVolume"
+        android:title="@string/test_alarm_volume"
+        android:summary="@string/test_alarm_volume_summary" />
+
 </PreferenceScreen>
