@@ -499,6 +499,7 @@ class RadioService : MediaBrowserServiceCompat() {
                 .setUsage(C.USAGE_ALARM)
                 .build()
         } else {
+            isAlarmStopped = true // if we're not ringing and it tries playing, it means the user opened the app somehow
             audioAttributes.setUsage(AudioAttributesCompat.USAGE_MEDIA)
             audioFocusRequestBuilder.setAudioAttributes(audioAttributes.build())
             audioFocusRequest = audioFocusRequestBuilder.build()
@@ -513,11 +514,6 @@ class RadioService : MediaBrowserServiceCompat() {
         if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             return
         }
-
-        // TODO: Remove this
-        if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_PLAYING && !isRinging && isAlarmStopped)
-             return // nothing to do here
-        isAlarmStopped = true
 
         PlayerStore.instance.playbackState.value = PlaybackStateCompat.STATE_PLAYING
 
@@ -534,7 +530,6 @@ class RadioService : MediaBrowserServiceCompat() {
         }
 
         // START PLAYBACK, LET'S ROCK
-        player.playWhenReady = true
         nowPlayingNotification.update(this, isUpdatingNotificationButton =  true, isRinging = isRinging)
 
         playbackStateBuilder.setState(
@@ -544,6 +539,8 @@ class RadioService : MediaBrowserServiceCompat() {
             SystemClock.elapsedRealtime()
         )
         mediaSession.setPlaybackState(playbackStateBuilder.build())
+        player.playWhenReady = true
+
         //[REMOVE LOG CALLS]Log.d(tag, radioTag + "begin playing")
     }
 
@@ -557,8 +554,8 @@ class RadioService : MediaBrowserServiceCompat() {
     {
         if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_STOPPED)
             return // nothing to do here
-
-        isAlarmStopped = true
+        if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
+            isAlarmStopped = true
 
         PlayerStore.instance.playbackState.value = PlaybackStateCompat.STATE_STOPPED
 
