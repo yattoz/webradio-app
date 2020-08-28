@@ -27,7 +27,7 @@
         <service
             android:name=".RadioService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
@@ -61,7 +61,7 @@
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullUser" />
 
         <receiver android:name="androidx.media.session.MediaButtonReceiver">
             <intent-filter>
