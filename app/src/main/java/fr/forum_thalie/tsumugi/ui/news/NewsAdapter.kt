@@ -32,7 +32,7 @@ import java.util.*
 // but without Picasso (just fetching image by myself.)
 class ImageGetterAsyncTask(
     private val context: Context,
-    private val source: String,
+    private val source: String?,
     private val levelListDrawable: LevelListDrawable
 ) :
     AsyncTask<TextView?, Void?, Bitmap?>() {
