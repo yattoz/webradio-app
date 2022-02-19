@@ -454,12 +454,13 @@ class RadioService : MediaBrowserServiceCompat() {
     // this function is playing the stream if available, or a default sound if there's a problem.
     private fun beginPlayingOrFallback()
     {
-        PlayerStore.instance.volume.value = 100 // we set the max volume for exoPlayer to be sure it rings correctly.
+        PlayerStore.instance.volume.value = PreferenceManager.getDefaultSharedPreferences(this).getInt("alarmVolume", 100)
+                // we set the max volume for exoPlayer to be sure it rings correctly.
         beginPlaying(isRinging = true, isFallback = false)
         val wait: (Any?) -> Any = {
             /*
             Here we lower the isAlarmStopped flag and we wait for 17s. (seems like 12 could be a bit too short since I increased the buffer!!)
-            If the player stops the alarm (by calling an intent), the isAlarmStopped flag will be raised.
+            If the user stops the alarm (by calling an intent), the isAlarmStopped flag will be raised.
              */
             isAlarmStopped = false // reset the flag
             var i = 0
@@ -498,6 +499,7 @@ class RadioService : MediaBrowserServiceCompat() {
                 .setUsage(C.USAGE_ALARM)
                 .build()
         } else {
+            isAlarmStopped = true // if we're not ringing and it tries playing, it means the user opened the app somehow
             audioAttributes.setUsage(AudioAttributesCompat.USAGE_MEDIA)
             audioFocusRequestBuilder.setAudioAttributes(audioAttributes.build())
             audioFocusRequest = audioFocusRequestBuilder.build()
@@ -513,8 +515,6 @@ class RadioService : MediaBrowserServiceCompat() {
             return
         }
 
-        if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_PLAYING && !isRinging)
-            return // nothing to do here
         PlayerStore.instance.playbackState.value = PlaybackStateCompat.STATE_PLAYING
 
         // Reinitialize media player. Otherwise the playback doesn't resume when beginPlaying. Dunno why.
@@ -530,7 +530,6 @@ class RadioService : MediaBrowserServiceCompat() {
         }
 
         // START PLAYBACK, LET'S ROCK
-        player.playWhenReady = true
         nowPlayingNotification.update(this, isUpdatingNotificationButton =  true, isRinging = isRinging)
 
         playbackStateBuilder.setState(
@@ -540,6 +539,8 @@ class RadioService : MediaBrowserServiceCompat() {
             SystemClock.elapsedRealtime()
         )
         mediaSession.setPlaybackState(playbackStateBuilder.build())
+        player.playWhenReady = true
+
         //[REMOVE LOG CALLS]Log.d(tag, radioTag + "begin playing")
     }
 
@@ -553,7 +554,6 @@ class RadioService : MediaBrowserServiceCompat() {
     {
         if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_STOPPED)
             return // nothing to do here
-
         if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
             isAlarmStopped = true
 

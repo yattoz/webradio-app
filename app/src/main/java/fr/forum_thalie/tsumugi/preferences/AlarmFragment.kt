@@ -2,15 +2,29 @@ package fr.forum_thalie.tsumugi.preferences
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.preference.*
 import fr.forum_thalie.tsumugi.*
 import fr.forum_thalie.tsumugi.R
 import fr.forum_thalie.tsumugi.alarm.RadioAlarm
+import fr.forum_thalie.tsumugi.playerstore.PlayerStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope.coroutineContext
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.math.max
+import kotlin.math.min
+
 
 class AlarmFragment : PreferenceFragmentCompat() {
 
@@ -129,12 +143,10 @@ class AlarmFragment : PreferenceFragmentCompat() {
             true
         }
 
-
         alarmDays?.isEnabled = isWakingUp?.isChecked ?: false
         timeSet?.isEnabled = isWakingUp?.isChecked ?: false
         snoozeDuration?.isEnabled = isWakingUp?.isChecked ?: false
 
     }
-
 
 }

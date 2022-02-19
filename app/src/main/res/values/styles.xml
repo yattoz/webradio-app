@@ -11,8 +11,14 @@
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="AppTheme.Parameters" parent="AppTheme">
-        <item name="icon"/>
+    <style name="AppTheme.Parameters" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/rblue</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="icon">@drawable/none</item>
     </style>
 
     <style name="AppTheme.BottomBar" parent="AppTheme">
