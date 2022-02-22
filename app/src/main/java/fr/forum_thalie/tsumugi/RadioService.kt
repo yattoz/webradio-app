@@ -514,6 +514,10 @@ class RadioService : MediaBrowserServiceCompat() {
         if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             return
         }
+        if (mediaSession.controller.playbackState.state == PlaybackStateCompat.STATE_PLAYING && !isRinging && isAlarmStopped)
+        {
+            return //nothing to do here
+        }
 
         PlayerStore.instance.playbackState.value = PlaybackStateCompat.STATE_PLAYING
 
@@ -530,6 +534,7 @@ class RadioService : MediaBrowserServiceCompat() {
         }
 
         // START PLAYBACK, LET'S ROCK
+        player.playWhenReady = true
         nowPlayingNotification.update(this, isUpdatingNotificationButton =  true, isRinging = isRinging)
 
         playbackStateBuilder.setState(
@@ -539,7 +544,6 @@ class RadioService : MediaBrowserServiceCompat() {
             SystemClock.elapsedRealtime()
         )
         mediaSession.setPlaybackState(playbackStateBuilder.build())
-        player.playWhenReady = true
 
         //[REMOVE LOG CALLS]Log.d(tag, radioTag + "begin playing")
     }
