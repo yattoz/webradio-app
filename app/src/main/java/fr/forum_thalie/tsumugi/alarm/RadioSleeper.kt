@@ -4,7 +4,9 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.AlarmManagerCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
@@ -30,18 +32,20 @@ class RadioSleeper {
     private lateinit var sleepIntent: PendingIntent
     private lateinit var fadeOutIntent: PendingIntent
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun defineIntents(c: Context)
     {
         sleepIntent = Intent(c, RadioService::class.java).let { intent ->
             intent.putExtra("action", Actions.KILL.name)
-            PendingIntent.getService(c, 99, intent, 0)
+            PendingIntent.getService(c, 99, intent, PendingIntent.FLAG_IMMUTABLE)
         }
         fadeOutIntent = Intent(c, RadioService::class.java).let { intent ->
             intent.putExtra("action", Actions.FADE_OUT.name)
-            PendingIntent.getService(c, 98, intent, 0)
+            PendingIntent.getService(c, 98, intent, PendingIntent.FLAG_IMMUTABLE)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun setSleep(c: Context, isForce: Boolean = false, forceDuration: Long? = null)
     {
         defineIntents(c)

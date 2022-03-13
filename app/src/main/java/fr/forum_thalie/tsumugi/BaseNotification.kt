@@ -50,6 +50,7 @@ abstract class BaseNotification(private val notificationChannelId: String,
         notificationManager.notify(notificationId, notification)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     open fun create(c: Context) {
         notificationManager = c.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -58,7 +59,7 @@ abstract class BaseNotification(private val notificationChannelId: String,
         // thanks to the launchMode specified in the Manifest : android:launchMode="singleTop"
         val pendingIntent = PendingIntent.getActivity(
             c, 0,
-            notificationIntent, 0
+            notificationIntent, PendingIntent.FLAG_IMMUTABLE
         )
         var channelID = ""
 
