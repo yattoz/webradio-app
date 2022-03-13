@@ -47,7 +47,7 @@ class AlarmFragment : PreferenceFragmentCompat() {
 
         fun updateIsWakingUpSummary(preference: SwitchPreferenceCompat?, newValue: Boolean? = true,  forceTime: Int? = null, forceDays: Set<String>? = null)
         {
-            val dateLong = RadioAlarm.instance.findNextAlarmTime(context!!, forceTime, forceDays)
+            val dateLong = RadioAlarm.instance.findNextAlarmTime(requireContext(), forceTime, forceDays)
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = dateLong
             if (newValue == true && calendar.timeInMillis > 0)
@@ -65,14 +65,14 @@ class AlarmFragment : PreferenceFragmentCompat() {
 
         val hourOfDayDefault = 7
         val minuteDefault = 0
-        if (!PreferenceManager.getDefaultSharedPreferences(context!!).contains("alarmTimeFromMidnight"))
+        if (!PreferenceManager.getDefaultSharedPreferences(requireContext()).contains("alarmTimeFromMidnight"))
         {
-            PreferenceManager.getDefaultSharedPreferences(context!!).edit {
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
                 putInt("alarmTimeFromMidnight", (60*hourOfDayDefault+minuteDefault))
                 commit()
             }
         }
-        val time = PreferenceManager.getDefaultSharedPreferences(context!!).getInt("alarmTimeFromMidnight", (60*hourOfDayDefault+minuteDefault))
+        val time = PreferenceManager.getDefaultSharedPreferences(requireContext()).getInt("alarmTimeFromMidnight", (60*hourOfDayDefault+minuteDefault))
         val hourOfDay = time / 60
         val minute = time % 60
         timeSet?.summary = "${if (hourOfDay < 10) "0" else ""}$hourOfDay:${if (minute < 10) "0" else ""}$minute"
@@ -80,16 +80,16 @@ class AlarmFragment : PreferenceFragmentCompat() {
 
         timeSet?.setOnPreferenceClickListener {
             val timePickerOnTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                PreferenceManager.getDefaultSharedPreferences(context!!).edit {
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
                     putInt("alarmTimeFromMidnight", (60*hourOfDay+minute))
                     commit()
                 }
                 timeSet.summary = "${if (hourOfDay < 10) "0" else ""}$hourOfDay:${if (minute < 10) "0" else ""}$minute"
-                RadioAlarm.instance.cancelAlarm(context!!)
-                RadioAlarm.instance.setNextAlarm(context!!, isForce = true, forceTime = hourOfDay*60+minute)
+                RadioAlarm.instance.cancelAlarm(requireContext())
+                RadioAlarm.instance.setNextAlarm(requireContext(), isForce = true, forceTime = hourOfDay*60+minute)
                 updateIsWakingUpSummary(isWakingUp, isWakingUp?.isChecked, forceTime = hourOfDay*60+minute)
             }
-            val timeNew = PreferenceManager.getDefaultSharedPreferences(context!!).getInt("alarmTimeFromMidnight", 7*60)
+            val timeNew = PreferenceManager.getDefaultSharedPreferences(requireContext()).getInt("alarmTimeFromMidnight", 7*60)
             val hourOfDayNew = timeNew / 60
             val minuteNew = timeNew % 60
             val timePicker = TimePickerDialog(context, timePickerOnTimeSetListener, hourOfDayNew, minuteNew, true)
@@ -103,8 +103,8 @@ class AlarmFragment : PreferenceFragmentCompat() {
             val fullWeek = weekdays.toSet()
             val workingWeek = weekdays.toSet().minusElement(weekdays.last()).minusElement(weekdays.elementAt(weekdays.size - 2))
             val listOfDays = when (newValue) {
-                fullWeek -> context!!.getString(R.string.every_day)
-                workingWeek -> context!!.getString(R.string.working_days)
+                fullWeek -> requireContext().getString(R.string.every_day)
+                workingWeek -> requireContext().getString(R.string.working_days)
                 else -> {
                     // build ORDERED LIST of days... I don't know why the original one is in shambles!!
                     val fullWeekOrdered = weekdays
@@ -119,12 +119,12 @@ class AlarmFragment : PreferenceFragmentCompat() {
             preference?.summary = listOfDays
         }
 
-        updateDays(alarmDays, PreferenceManager.getDefaultSharedPreferences(context).getStringSet("alarmDays", setOf()))
+        updateDays(alarmDays, PreferenceManager.getDefaultSharedPreferences(requireContext()).getStringSet("alarmDays", setOf()))
         alarmDays?.setOnPreferenceChangeListener { preference, newValue ->
             @Suppress("UNCHECKED_CAST")
             updateDays(preference as MultiSelectListPreference, newValue as Set<String>)
-            RadioAlarm.instance.cancelAlarm(context!!)
-            RadioAlarm.instance.setNextAlarm(context!!, isForce = true, forceDays = newValue)
+            RadioAlarm.instance.cancelAlarm(requireContext())
+            RadioAlarm.instance.setNextAlarm(requireContext(), isForce = true, forceDays = newValue)
             updateIsWakingUpSummary(isWakingUp, isWakingUp?.isChecked, forceDays = newValue)
             true
         }
@@ -133,9 +133,9 @@ class AlarmFragment : PreferenceFragmentCompat() {
 
         isWakingUp?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean)
-                RadioAlarm.instance.setNextAlarm(context!!, isForce = true)
+                RadioAlarm.instance.setNextAlarm(requireContext(), isForce = true)
             else
-                RadioAlarm.instance.cancelAlarm(context!!)
+                RadioAlarm.instance.cancelAlarm(requireContext())
             timeSet?.isEnabled = newValue
             alarmDays?.isEnabled = newValue
             snoozeDuration?.isEnabled = newValue

@@ -4,7 +4,9 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.AlarmManagerCompat
 import fr.forum_thalie.tsumugi.BootBroadcastReceiver
 import androidx.preference.PreferenceManager
@@ -27,11 +29,29 @@ class RadioAlarm {
     {
         alarmIntent = Intent(c, BootBroadcastReceiver::class.java).let { intent ->
             intent.putExtra("action", "$tag.${Actions.PLAY_OR_FALLBACK.name}")
-            PendingIntent.getBroadcast(c, 0, intent, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.getBroadcast(
+                    c,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE
+                )
+            } else {
+                PendingIntent.getBroadcast(
+                    c,
+                    0,
+                    intent,
+                    0
+                )
+            }
         }
         showIntent = Intent(c, ParametersActivity::class.java).let { intent ->
             intent.putExtra("action", "alarm")
-            PendingIntent.getActivity(c, 0, intent, 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.getActivity(c, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            } else {
+                PendingIntent.getActivity(c, 0, intent, 0)
+            }
         }
     }
 
@@ -43,6 +63,7 @@ class RadioAlarm {
         alarmManager.cancel(alarmIntent)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun setNextAlarm(c: Context, isForce: Boolean = false, forceTime: Int? = null, forceDays: Set<String>? = null)
     {
         defineIntents(c)
@@ -54,7 +75,7 @@ class RadioAlarm {
 
         val showIntent = Intent(c, ParametersActivity::class.java).let { intent ->
             intent.putExtra("action", ActionOpenParam.ALARM.name)
-            PendingIntent.getActivity(c, 0, intent, 0)
+            PendingIntent.getActivity(c, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         }
         val time = findNextAlarmTime(c, forceTime, forceDays)
         if (time > 0)
