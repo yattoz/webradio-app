@@ -193,7 +193,8 @@ class RadioService : MediaBrowserServiceCompat() {
 
         // Define managers
         telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        telephonyManager?.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
+        // telephonyManager?.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
+
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
         //define the audioFocusRequest
