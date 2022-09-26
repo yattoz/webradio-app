@@ -78,9 +78,8 @@ class PlayerStore {
 
     private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = false) {
         // If we're not in PLAYING state, update title / artist metadata. If we're playing, the ICY will take care of that.
-
-        val resMain = res.getJSONObject("tracks").getJSONObject("current")
-        val s = extractSong(resMain)
+        //[REMOVE LOG CALLS]Log.d(tag, "${playerStoreTag} CALLING UPDATEAPI")
+        val s = extractSong(res.getJSONObject("now_playing"))
         if (playbackState.value != PlaybackStateCompat.STATE_PLAYING || currentSong.title.value.isNullOrEmpty()
             || currentSong.title.value == noConnectionValue)
             currentSong.setTitleArtist("${s.artist.value} - ${s.title.value}")
@@ -93,7 +92,7 @@ class PlayerStore {
 
         currentSong.stopTime.value = ends
 
-        val apiTime = getTimestamp(res.getJSONObject("station").getString("schedulerTime"))
+        val apiTime = res.getJSONObject("now_playing").getInt("played_at") + res.getJSONObject("now_playing").getInt("elapsed")
         // I noticed that the server has a big (3 to 9 seconds !!) offset for current time.
         // we can measure it when the player is playing, to compensate it and have our progress bar perfectly timed
         // latencyCompensator is set to null when beginPlaying() (we can't measure it at the moment we start playing, since we're in the middle of a song),
@@ -127,7 +126,7 @@ class PlayerStore {
     {
         val post : (parameter: Any?) -> Unit = {
             val result = JSONObject(it as String)
-            if (result.has("tracks"))
+            if (result.has("now_playing"))
             {
                 updateApi(result)
                 currentSongBackup.copy(currentSong)
@@ -144,7 +143,7 @@ class PlayerStore {
     fun fetchApi(isCompensatingLatency: Boolean = false) {
         val post: (parameter: Any?) -> Unit = {
             val result = JSONObject(it as String)
-            if (!result.isNull("tracks"))
+            if (!result.isNull("now_playing"))
             {
                 updateApi(result, isCompensatingLatency)
             }
@@ -154,10 +153,13 @@ class PlayerStore {
 
     private fun extractSong(songJSON: JSONObject) : Song {
         val song = Song()
-        song.setTitleArtist(songJSON.getString("name"))
-        song.startTime.value = getTimestamp(songJSON.getString("starts"))
-        song.stopTime.value = getTimestamp(songJSON.getString("ends"))
+        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag)
+        song.setTitleArtist(songJSON.getJSONObject("song").getString("text"))
+        song.startTime.value = (songJSON.getLong("played_at"))  // getTimestamp(songJSON.getString("starts"))
+        song.stopTime.value = (songJSON.getLong("played_at") + songJSON.getLong("duration"))  // getTimestamp(songJSON.getString("ends"))
         song.type.value = 0 // only used for R/a/dio
+        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag + "${song.startTime.value} + ${song.stopTime.value} ")
+
         return song
     }
 
@@ -207,8 +209,8 @@ class PlayerStore {
 
         fun postFun(result: JSONObject)
         {
-            if (result.has("tracks")) {
-                val resMain = result.getJSONObject("tracks")
+            if (result.has("playing_next")) {
+                val resMain = result
                 /*
                 if ((resMain.has("isafkstream") && !resMain.getBoolean("isafkstream")) &&
                     queue.isNotEmpty())
@@ -221,9 +223,9 @@ class PlayerStore {
                     initApi()
                 } else
                 */
-                if (resMain.has("next")) {
+                if (resMain.has("playing_next")) {
                     val queueJSON =
-                        resMain.getJSONObject("next")
+                        resMain.getJSONObject("playing_next")
                     val t = extractSong(queueJSON)
                     if (queue.isNotEmpty() && (t == queue.last() || t == currentSong) && isQueueUpdated.value == false)
                     {

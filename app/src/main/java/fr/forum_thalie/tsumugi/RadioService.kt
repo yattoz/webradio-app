@@ -127,7 +127,7 @@ class RadioService : MediaBrowserServiceCompat() {
 
         if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
         {
-            //[REMOVE LOG CALLS]Log.d((tag, radioTag + "SONG CHANGED AND PLAYING")
+            //[REMOVE LOG CALLS]Log.d(tag, radioTag + "SONG CHANGED AND PLAYING")
             // we activate latency compensation only if it's been at least 2 songs...
             when {
                 PlayerStore.instance.isStreamDown -> {

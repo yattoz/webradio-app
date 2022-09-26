@@ -22,6 +22,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.max
 import kotlin.math.min
+import android.util.Log
 
 
 class AlarmAdjustVolumeFragment : PreferenceFragmentCompat() {
@@ -70,7 +71,7 @@ class AlarmAdjustVolumeFragment : PreferenceFragmentCompat() {
         }
 
         val adjustAlarmVolume: (Int) -> Unit = debounce<Int>(50, GlobalScope.coroutineContext) {
-            android.util.Log.d(tag, "button $it pushed")
+            android.util.//[REMOVE LOG CALLS]Log.d(tag, "button $it pushed")
             val keyCode = it
             val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
             audioManager.apply {
