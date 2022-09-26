@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.*
 import fr.forum_thalie.tsumugi.planning.Planning
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.URL
 import java.text.ParseException
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat
 import java.time.format.TextStyle
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.coroutines.coroutineContext
 
 class PlayerStore {
 
@@ -76,9 +78,9 @@ class PlayerStore {
     // ################# API FUNCTIONS ##################
     // ##################################################
 
-    private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = false) {
+    private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = false, isID3TagChanged: Boolean = false) {
         // If we're not in PLAYING state, update title / artist metadata. If we're playing, the ICY will take care of that.
-        //[REMOVE LOG CALLS]Log.d(tag, "${playerStoreTag} CALLING UPDATEAPI")
+        //[REMOVE LOG CALLS]Log.d(tag, "${playerStoreTag} CALLING UPDATEAPI, isID3TagChanged = $isID3TagChanged")
         val s = extractSong(res.getJSONObject("now_playing"))
         if (playbackState.value != PlaybackStateCompat.STATE_PLAYING || currentSong.title.value.isNullOrEmpty()
             || currentSong.title.value == noConnectionValue)
@@ -88,27 +90,28 @@ class PlayerStore {
         val ends = s.stopTime.value
 
         if (currentSong.startTime.value != starts)
-            currentSong.startTime.value = starts
+            currentSong.startTime.value = starts //!! + 1000*(res.getJSONObject("now_playing").getInt("elapsed"))
 
         currentSong.stopTime.value = ends
+        currentSong.id = s.id
 
-        val apiTime = res.getJSONObject("now_playing").getInt("played_at") + res.getJSONObject("now_playing").getInt("elapsed")
+
+        val apiTime: Long = currentSong.startTime.value!! + 1000*(res.getJSONObject("now_playing").getLong("elapsed"))
         // I noticed that the server has a big (3 to 9 seconds !!) offset for current time.
         // we can measure it when the player is playing, to compensate it and have our progress bar perfectly timed
         // latencyCompensator is set to null when beginPlaying() (we can't measure it at the moment we start playing, since we're in the middle of a song),
         // at this moment, we set it to 0. Then, next time the updateApi is called when we're playing, we measure the latency and we set out latencyComparator.
         if(isCompensatingLatency)
         {
-            latencyCompensator = apiTime - (currentSong.startTime.value!!)
-            //[REMOVE LOG CALLS]Log.d(tag, "latency compensator set to ${(latencyCompensator).toFloat() / 1000} s")
+            latencyCompensator = apiTime - System.currentTimeMillis() //(currentSong.startTime.value!!)
+            Log.d(tag, "latency compensator set to ${(latencyCompensator).toFloat() / 1000} s")
         }
         currentTime.value = apiTime - (latencyCompensator)
 
-        /*
-        val listeners = resMain.getInt("listeners")
+        val listeners = res.getJSONObject("listeners").getInt("current")
         listenersCount.value = listeners
-        //[REMOVE LOG CALLS]Log.d((tag, playerStoreTag +  "store updated")
-         */
+        //[REMOVE LOG CALLS]
+        Log.d(tag, playerStoreTag +  "store updated:\n\t\tsong:${currentSong.title.value}, id=${currentSong.id}\n\t\tstart=${currentSong.startTime.value}, apiTime=${apiTime}, stop=${currentSong.stopTime.value}")
     }
 
     private val scrape : (Any?) -> String =
@@ -140,26 +143,46 @@ class PlayerStore {
         Async(scrape, post)
     }
 
-    fun fetchApi(isCompensatingLatency: Boolean = false) {
-        val post: (parameter: Any?) -> Unit = {
+    fun fetchApi(isCompensatingLatency: Boolean = false, isID3TagChanged: Boolean = false) {
+        lateinit var post: (parameter: Any?) -> Unit
+
+        fun postFun(it: String): Unit {
             val result = JSONObject(it as String)
             if (!result.isNull("now_playing"))
             {
-                updateApi(result, isCompensatingLatency)
+                val newId: String = result.getJSONObject("now_playing").getJSONObject("song").getString("id")
+                if (currentSong.id == newId && isID3TagChanged == true)
+                {
+                    Log.wtf(tag, "$playerStoreTag - ID ${result.getJSONObject("now_playing").getJSONObject("song").getString("text")} wasn't updated yet. isID3TagChanged = $isID3TagChanged")
+                    // re-schedule a fetch?
+                    // updateApi(result, isCompensatingLatency, isID3TagChanged)
+                    Async(scrape, post)
+                } else {
+                    updateApi(result, isCompensatingLatency, isID3TagChanged)
+                }
             }
+        }
+
+        post = {
+            val result = (it as String)
+            /*  The goal is to pass the result to a function that will process it (postFun).
+                The magic trick is, under circumstances, the last queue song might not have been updated yet when we fetch it.
+                So if this is detected ==> if (t == queue.last() )
+                Then the function re-schedule an Async(sleepScrape, post).
+                To do that, the "post" must be defined BEFORE the function, but the function must be defined BEFORE the "post" value.
+                So I declare "post" as lateinit var, define the function, then define the "post" that calls the function. IT SHOULD WORK.
+             */
+            postFun(result)
         }
         Async(scrape, post)
     }
 
     private fun extractSong(songJSON: JSONObject) : Song {
-        val song = Song()
-        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag)
+        val song = Song(_id = songJSON.getJSONObject("song").getString("id"))
         song.setTitleArtist(songJSON.getJSONObject("song").getString("text"))
-        song.startTime.value = (songJSON.getLong("played_at"))  // getTimestamp(songJSON.getString("starts"))
-        song.stopTime.value = (songJSON.getLong("played_at") + songJSON.getLong("duration"))  // getTimestamp(songJSON.getString("ends"))
+        song.startTime.value = 1000*(songJSON.getLong("played_at"))  // getTimestamp(songJSON.getString("starts"))
+        song.stopTime.value = 1000*(songJSON.getLong("played_at") + songJSON.getLong("duration"))  // getTimestamp(songJSON.getString("ends"))
         song.type.value = 0 // only used for R/a/dio
-        //[REMOVE LOG CALLS]Log.d(tag, playerStoreTag + "${song.startTime.value} + ${song.stopTime.value} ")
-
         return song
     }
 

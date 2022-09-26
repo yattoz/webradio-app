@@ -4,7 +4,7 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.MutableLiveData
 import fr.forum_thalie.tsumugi.noConnectionValue
 
-class Song(artistTitle: String = "", _id : Int = 0) {
+class Song(artistTitle: String = "", _id : String = "") {
 
     // TODO : remove MutableLiveData, use a MutableLiveData Boolean on PlayerStore instead
     val title: MutableLiveData<String> = MutableLiveData()
@@ -12,7 +12,7 @@ class Song(artistTitle: String = "", _id : Int = 0) {
     val type: MutableLiveData<Int> = MutableLiveData()
     val startTime: MutableLiveData<Long> = MutableLiveData()
     val stopTime: MutableLiveData<Long> = MutableLiveData()
-    var id: Int? = _id
+    var id: String? = _id
 
     init {
         setTitleArtist(artistTitle)
@@ -65,7 +65,7 @@ class Song(artistTitle: String = "", _id : Int = 0) {
         result = 31 * result + type.hashCode()
         result = 31 * result + startTime.hashCode()
         result = 31 * result + stopTime.hashCode()
-        result = 31 * result + (id ?: 0)
+        result = 31 * result + id.hashCode()
         return result
     }
 }
