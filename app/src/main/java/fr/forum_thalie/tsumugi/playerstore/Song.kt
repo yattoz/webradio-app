@@ -57,6 +57,7 @@ class Song(artistTitle: String = "", _id : String = "") {
         this.startTime.value = song.startTime.value
         this.stopTime.value = song.stopTime.value
         this.type.value = song.type.value
+        this.id = song.id
     }
 
     override fun hashCode(): Int {

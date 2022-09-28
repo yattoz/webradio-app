@@ -143,13 +143,15 @@ class RadioService : MediaBrowserServiceCompat() {
                     PlayerStore.instance.fetchApi(/* numberOfSongs >= 2 */ isID3TagChanged = true)
                 }
             }
-        }
+        } else {
+            if (PlayerStore.instance.currentSong != PlayerStore.instance.currentSongBackup
+                && it != noConnectionValue)
+            {
+                PlayerStore.instance.updateLp()
+                PlayerStore.instance.fetchQueue()
+                Log.d(tag, "updated queue/lp while player not playing\ncurrent=${PlayerStore.instance.currentSong}\nbackup=${PlayerStore.instance.currentSongBackup}")
+            }
 
-        if (PlayerStore.instance.currentSong != PlayerStore.instance.currentSongBackup
-            && it != noConnectionValue)
-        {
-            PlayerStore.instance.updateLp()
-            PlayerStore.instance.updateQueue()
         }
         nowPlayingNotification.update(this)
         Planning.instance.checkProgramme()
