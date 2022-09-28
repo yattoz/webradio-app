@@ -78,7 +78,7 @@ class PlayerStore {
     // ################# API FUNCTIONS ##################
     // ##################################################
 
-    private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = false, isID3TagChanged: Boolean = false) {
+    private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = true, isID3TagChanged: Boolean = false) {
         // If we're not in PLAYING state, update title / artist metadata. If we're playing, the ICY will take care of that.
         //[REMOVE LOG CALLS]Log.d(tag, "${playerStoreTag} CALLING UPDATEAPI, isID3TagChanged = $isID3TagChanged")
         val s = extractSong(res.getJSONObject("now_playing"))
@@ -143,37 +143,51 @@ class PlayerStore {
         Async(scrape, post)
     }
 
-    fun fetchApi(isCompensatingLatency: Boolean = false, isID3TagChanged: Boolean = false) {
+    fun fetchApi(isCompensatingLatency: Boolean = true, isID3TagChanged: Boolean = false) {
         lateinit var post: (parameter: Any?) -> Unit
+
+        val sleepScrape: (Any?) -> String = {
+            val sleepTime: Long = 2000 //ms
+            Thread.sleep(sleepTime) // we wait a bit (2s) for the API to get updated on Azuracast side
+            URL(urlToScrape).readText()
+        }
 
         fun postFun(it: String): Unit {
             val result = JSONObject(it as String)
             if (!result.isNull("now_playing"))
             {
                 val newId: String = result.getJSONObject("now_playing").getJSONObject("song").getString("id")
-                if (currentSong.id == newId && isID3TagChanged == true)
+                if (currentSong.id == newId && isID3TagChanged)
                 {
                     Log.wtf(tag, "$playerStoreTag - ID ${result.getJSONObject("now_playing").getJSONObject("song").getString("text")} wasn't updated yet. isID3TagChanged = $isID3TagChanged")
                     // re-schedule a fetch?
                     // updateApi(result, isCompensatingLatency, isID3TagChanged)
-                    Async(scrape, post)
+                    Async(sleepScrape, post)
                 } else {
                     updateApi(result, isCompensatingLatency, isID3TagChanged)
                 }
             }
         }
 
+        /*  The goal is to pass the result to a function that will process it (postFun).
+            The magic trick is, under circumstances, the last queue song might not have been updated yet when we fetch it.
+            So if this is detected ==> if (t == queue.last() )
+            Then the function re-schedule an Async(sleepScrape, post).
+            To do that, the "post" must be defined BEFORE the function, but the function must be defined BEFORE the "post" value.
+            So I declare "post" as lateinit var, define the function, then define the "post" that calls the function. IT SHOULD WORK.
+         */
         post = {
             val result = (it as String)
-            /*  The goal is to pass the result to a function that will process it (postFun).
-                The magic trick is, under circumstances, the last queue song might not have been updated yet when we fetch it.
-                So if this is detected ==> if (t == queue.last() )
-                Then the function re-schedule an Async(sleepScrape, post).
-                To do that, the "post" must be defined BEFORE the function, but the function must be defined BEFORE the "post" value.
-                So I declare "post" as lateinit var, define the function, then define the "post" that calls the function. IT SHOULD WORK.
-             */
             postFun(result)
         }
+
+
+        /*
+        if (isID3TagChanged) {  // update the bar right away to make it look like starting the song.
+            currentSong.startTime.value = System.currentTimeMillis()
+            currentTime.value = System.currentTimeMillis()
+        }
+         */
         Async(scrape, post)
     }
 

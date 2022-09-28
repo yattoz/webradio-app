@@ -32,15 +32,15 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="top|center_horizontal"
+            android:layout_margin="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="dj-image"
             android:scaleType="fitStart"
+            app:layout_constraintBottom_toTopOf="@+id/imageLeftGuideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/scrollViewMetadataNext"
             app:layout_constraintStart_toStartOf="@id/imageGuideline"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_roundsquare"
-            android:layout_margin="8dp"
             tools:ignore="HardcodedText" />
         <!--             app:layout_constraintBottom_toTopOf="@id/imageLeftGuideline" -->
 
@@ -75,23 +75,22 @@
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
             app:layout_constraintTop_toBottomOf="@id/streamerPicture"
             android:visibility="gone"/>
+
         <TextView
             android:id="@+id/listenersCount"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintVertical_weight="5"
             android:gravity="top|center_horizontal"
-            android:text="@string/listeners"
             android:lines="2"
+            android:text="@string/listeners"
             android:textAlignment="center"
             android:textStyle=""
-            android:layout_marginTop="0dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/topInfoGuideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/streamerPicture"
             app:layout_constraintTop_toBottomOf="@id/streamerName"
-            android:visibility="gone"
-            />
+            app:layout_constraintVertical_weight="5" />
 
         <TextView
             android:id="@+id/sleepInfo"
