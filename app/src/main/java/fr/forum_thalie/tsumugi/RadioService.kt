@@ -23,6 +23,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 import android.view.KeyEvent
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
@@ -122,6 +123,7 @@ class RadioService : MediaBrowserServiceCompat() {
             stopPlaying()
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private val titleObserver = Observer<String> {
         // We're checking if a new song arrives. If so, we put the currentSong in Lp and update the backup.
 
@@ -157,7 +159,9 @@ class RadioService : MediaBrowserServiceCompat() {
         Planning.instance.checkProgramme()
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private val streamerPictureObserver = Observer<Bitmap> {
+        Log.d(radioTag, "read StreamerPictureObserver")
         nowPlayingNotification.update(this)
     }
 

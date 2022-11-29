@@ -10,6 +10,8 @@ import fr.forum_thalie.tsumugi.*
 import fr.forum_thalie.tsumugi.planning.Planning
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 import java.net.URL
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -39,6 +41,8 @@ class PlayerStore {
     var latencyCompensator : Long = 0
     var isInitialized: Boolean = false
     var isStreamDown: Boolean = false
+    lateinit var pictureUrl: String
+    lateinit var defaultPicture: Bitmap
     lateinit var updateQueue: (parameter: Any?) -> Unit
 
     init {
@@ -119,10 +123,14 @@ class PlayerStore {
     private fun updateApi(res: JSONObject, isCompensatingLatency : Boolean = true, isID3TagChanged: Boolean = false) {
         // If we're not in PLAYING state, update title / artist metadata. If we're playing, the ICY will take care of that.
         //[REMOVE LOG CALLS]Log.d(tag, "${playerStoreTag} CALLING UPDATEAPI, isID3TagChanged = $isID3TagChanged")
+
+
         val s = extractSong(res.getJSONObject("now_playing"))
         if (playbackState.value != PlaybackStateCompat.STATE_PLAYING || currentSong.title.value.isNullOrEmpty()
             || currentSong.title.value == noConnectionValue)
+        {
             currentSong.setTitleArtist("${s.artist.value} - ${s.title.value}")
+        }
 
         val starts = s.startTime.value
         val ends = s.stopTime.value
@@ -148,6 +156,12 @@ class PlayerStore {
 
         val listeners = res.getJSONObject("listeners").getInt("current")
         listenersCount.value = listeners
+
+
+
+        val newPictureUrl = res.getJSONObject("now_playing").getJSONObject("song").getString("art").replace("http://", "https://")
+        fetchPicture(newPictureUrl)
+
         //[REMOVE LOG CALLS]
         Log.d(tag, playerStoreTag +  "store updated:\n\t\tsong:${currentSong.title.value}, id=${currentSong.id}\n\t\tstart=${currentSong.startTime.value}, apiTime=${apiTime}, stop=${currentSong.stopTime.value}")
     }
@@ -289,10 +303,45 @@ class PlayerStore {
     // ############## PICTURE FUNCTIONS #################
     // ##################################################
 
+
+    private fun fetchPicture(fileUrl: String)
+    {
+        val scrape: (Any?) -> Bitmap? = {
+            var k: InputStream? = null
+            var pic: Bitmap? = null
+            try {
+                k = URL(fileUrl).content as InputStream
+                val options = BitmapFactory.Options()
+                options.inSampleSize = 1
+                // this makes 1/2 of origin image size from width and height.
+                // it alleviates the memory for API16-API19 especially
+                pic = BitmapFactory.decodeStream(k, null, options)
+                k.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } finally {
+                k?.close()
+            }
+            pic
+        }
+        val post : (parameter: Any?) -> Unit = {
+            streamerPicture.postValue(it as Bitmap?)
+        }
+        Log.d(tag, fileUrl)
+        if (fileUrl == "" || fileUrl == "https://azuracast.mahoro-net.org/static/img/generic_song.jpg")
+        {
+            streamerPicture.value = defaultPicture
+        } else {
+            Async(scrape, post)
+        }
+    }
+
     fun initPicture(c: Context) {
-        streamerPicture.value = BitmapFactory.decodeResource(c.resources,
+        defaultPicture =  BitmapFactory.decodeResource(c.resources,
             R.drawable.logo_roundsquare
         )
+        pictureUrl = ""
+        streamerPicture.value = defaultPicture
     }
 
     private val playerStoreTag = "====PlayerStore===="
