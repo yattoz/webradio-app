@@ -351,9 +351,10 @@
             android:layout_gravity="fill_horizontal"
             android:progress="70"
             android:progressDrawable="@drawable/progress_bar_progress"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/play_pause"
-            tools:layout_editor_absoluteX="0dp"
-            android:visibility="visible"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- REMOVE VISIBILITY GONE IF YOU HAVE TIME VALUES TO DISPLAY THE PROGRESS BAR -->
         <TextView
@@ -426,7 +427,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
     android:id="@+id/splitHorizontalLayout"
