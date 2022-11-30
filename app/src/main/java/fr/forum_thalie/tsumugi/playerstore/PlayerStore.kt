@@ -3,6 +3,7 @@ package fr.forum_thalie.tsumugi.playerstore
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -304,7 +305,7 @@ class PlayerStore {
     // ##################################################
 
 
-    private fun fetchPicture(fileUrl: String)
+    fun fetchPicture(fileUrl: String)
     {
         val scrape: (Any?) -> Bitmap? = {
             var k: InputStream? = null

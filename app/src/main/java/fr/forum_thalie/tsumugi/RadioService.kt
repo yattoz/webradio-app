@@ -127,6 +127,7 @@ class RadioService : MediaBrowserServiceCompat() {
     private val titleObserver = Observer<String> {
         // We're checking if a new song arrives. If so, we put the currentSong in Lp and update the backup.
 
+
         if (PlayerStore.instance.playbackState.value == PlaybackStateCompat.STATE_PLAYING)
         {
             //[REMOVE LOG CALLS]Log.d(tag, radioTag + "SONG CHANGED AND PLAYING")
@@ -155,14 +156,55 @@ class RadioService : MediaBrowserServiceCompat() {
             }
 
         }
-        nowPlayingNotification.update(this)
+        val d = (PlayerStore.instance.currentSong.stopTime.value ?: 0) - (PlayerStore.instance.currentSong.startTime.value ?: 0)
+        val duration = d
+
+        Log.d(radioTag, "picture observer, duration: $duration, playbackpos = ${mediaSession.controller.playbackState.position}")
+        metadataBuilder
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, PlayerStore.instance.currentSong.title.value)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, PlayerStore.instance.currentSong.artist.value)
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "id" + Random().nextInt(999))
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, PlayerStore.instance.streamerPicture.value)
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ART, PlayerStore.instance.streamerPicture.value)
+            // .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)
+
+        mediaSession.setMetadata(metadataBuilder.build())
+        nowPlayingNotification.update(this, mediaSession = mediaSession)
+
         Planning.instance.checkProgramme()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
+    private val stopTimeObserver = Observer<Bitmap> {
+        // Bug from Android 13: the notification needs another update from the mediaSession with different metadata content
+        // to update the notification picture. At the same time, we update the duration.
+
+        metadataBuilder
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, PlayerStore.instance.currentSong.title.value)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, PlayerStore.instance.currentSong.artist.value + " ")
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "id" + Random().nextInt(999))
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, PlayerStore.instance.streamerPicture.value)
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ART, PlayerStore.instance.streamerPicture.value)
+
+        mediaSession.setMetadata(metadataBuilder.build())
+        nowPlayingNotification.update(this, mediaSession = mediaSession)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
     private val streamerPictureObserver = Observer<Bitmap> {
-        Log.d(radioTag, "read StreamerPictureObserver")
-        nowPlayingNotification.update(this)
+        // Bug from Android 13: the notification needs another update from the mediaSession with different metadata content
+        // to update the notification picture. At the same time, we update the duration.
+
+        metadataBuilder
+            .putString(MediaMetadataCompat.METADATA_KEY_TITLE, PlayerStore.instance.currentSong.title.value)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, PlayerStore.instance.currentSong.artist.value + " ")
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "id" + Random().nextInt(999))
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, PlayerStore.instance.streamerPicture.value)
+            .putBitmap(MediaMetadataCompat.METADATA_KEY_ART, PlayerStore.instance.streamerPicture.value)
+
+
+        mediaSession.setMetadata(metadataBuilder.build())
+        nowPlayingNotification.update(this, mediaSession = mediaSession)
     }
 
     // ##################################################
@@ -265,7 +307,7 @@ class RadioService : MediaBrowserServiceCompat() {
             Actions.PAUSE.name -> { setVolume(PlayerStore.instance.volume.value); pausePlaying() }
             Actions.VOLUME.name -> setVolume(intent.getIntExtra("value", 100))
             Actions.KILL.name -> {stopForeground(true); stopSelf(); return Service.START_NOT_STICKY}
-            Actions.NOTIFY.name -> nowPlayingNotification.update(this)
+            Actions.NOTIFY.name -> nowPlayingNotification.update(this, mediaSession = mediaSession)
             Actions.PLAY_OR_FALLBACK.name -> beginPlayingOrFallback()
             Actions.FADE_OUT.name -> {
                 for (i in 1 until 28) // we schedule 28 "LowerVolumeRunnable" every 2 seconds (i * 2)
@@ -413,8 +455,12 @@ class RadioService : MediaBrowserServiceCompat() {
                 )
                     .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, PlayerStore.instance.currentSong.artist.value)
                     .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)
+                    .putString(MediaMetadataCompat.METADATA_KEY_TITLE, PlayerStore.instance.currentSong.title.value)
+                    .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, "id" + Random().nextInt(999))
+                    .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, PlayerStore.instance.streamerPicture.value)
 
                 mediaSession.setMetadata(metadataBuilder.build())
+
 
                 val intent = Intent("com.android.music.metachanged")
                 intent.putExtra("artist", PlayerStore.instance.currentSong.artist.value)
@@ -447,7 +493,9 @@ class RadioService : MediaBrowserServiceCompat() {
         mediaSession.isActive = true
         mediaSession.setCallback(mediaSessionCallback)
         playbackStateBuilder = PlaybackStateCompat.Builder()
-        playbackStateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY_PAUSE)
+        playbackStateBuilder
+            .setActions(PlaybackStateCompat.ACTION_PLAY_PAUSE)
+            .setActions(PlaybackStateCompat.ACTION_REWIND)
             .setState(PlaybackStateCompat.STATE_STOPPED, 0, 1.0f, SystemClock.elapsedRealtime())
 
         metadataBuilder = MediaMetadataCompat.Builder()
@@ -542,7 +590,7 @@ class RadioService : MediaBrowserServiceCompat() {
 
         // START PLAYBACK, LET'S ROCK
         player.playWhenReady = true
-        nowPlayingNotification.update(this, isUpdatingNotificationButton =  true, isRinging = isRinging)
+        nowPlayingNotification.update(this, isUpdatingNotificationButton =  true, isRinging = isRinging, mediaSession)
 
         playbackStateBuilder.setState(
             PlaybackStateCompat.STATE_PLAYING,
@@ -573,7 +621,7 @@ class RadioService : MediaBrowserServiceCompat() {
         // STOP THE PLAYBACK
         player.stop()
 
-        nowPlayingNotification.update(this, true)
+        nowPlayingNotification.update(this, true, mediaSession = mediaSession)
         playbackStateBuilder.setState(
             PlaybackStateCompat.STATE_STOPPED,
             0,
