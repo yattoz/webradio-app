@@ -2,12 +2,12 @@
 
     <!-- URLs -->
     <string name="STREAM_URL_RADIO">https://relay0.r-a-d.io/main.mp3</string>
-    <string name="STREAM_URL_TSUMUGI">http://shelter.mahoro-net.org:8000/tsumugi</string>
+    <string name="STREAM_URL_TSUMUGI">https://azuracast.mahoro-net.org/listen/tsumugi/radio.mp3</string>
     <string name="STREAM_URL_RSTLSS">http://stream.radiosolution.fr/rstlss.mp3</string>
     <string name="github_url_new_issue">https://github.com/yattoz/Tsumugi-app/issues/</string>
     <string name="website_url">https://tsumugi.forum-thalie.fr/</string>
     <string name="rss_url">https://tsumugi.forum-thalie.fr/?feed=rss2</string>
-    <string name="API_URL">https://radio.mahoro-net.org/airtime/api/live-info-v2</string>
+    <string name="API_URL">https://azuracast.mahoro-net.org/api/nowplaying/tsumugi</string>
     <string name="planning_url">ADD SOME URL HERE</string>
 
 
@@ -26,7 +26,7 @@
     <string name="volume">Volume: </string>
 
     <string name="up_next">Up next :</string>
-    <string name="current_programme">Current programme : </string>
+    <string name="current_programme">Now listening: </string>
     <string name="now_streaming">Now streaming</string>
     <string name="error_webView">Error loading WebView. Try downloading Google Chrome on Google Play, or enabling it if you disabled it.</string>
     <string name="action_settings">Settings</string>

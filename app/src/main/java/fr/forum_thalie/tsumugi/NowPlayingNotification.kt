@@ -4,11 +4,13 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import fr.forum_thalie.tsumugi.playerstore.PlayerStore
+
 
 class NowPlayingNotification(
     notificationChannelId: String,
@@ -28,7 +30,7 @@ class NowPlayingNotification(
     // ###### NOW PLAYING NOTIFICATION ########
     // ########################################
 
-    private lateinit var mediaStyle: androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle
+    private lateinit var mediaStyle: androidx.media.app.NotificationCompat.MediaStyle
 
     fun create(c: Context, m: MediaSessionCompat) {
         super.create(c)
@@ -39,17 +41,17 @@ class NowPlayingNotification(
         val deleteIntent = PendingIntent.getService(c, 0, delIntent, PendingIntent.FLAG_NO_CREATE + PendingIntent.FLAG_IMMUTABLE)
         builder.setDeleteIntent(deleteIntent)
 
-        mediaStyle = androidx.media.app.NotificationCompat.DecoratedMediaCustomViewStyle().also {
+        mediaStyle = androidx.media.app.NotificationCompat.MediaStyle().also {
             it.setMediaSession(m.sessionToken)
             it.setShowActionsInCompactView(0, 1) // index 0 = show actions 0 and 1 (show action #0 (play/pause))
             it.setCancelButtonIntent(deleteIntent)
         }
         builder.setStyle(mediaStyle)
-        update(c)
+        update(c, mediaSession = m)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun update(c: Context, isUpdatingNotificationButton: Boolean = false, isRinging: Boolean = false) {
+    fun update(c: Context, isUpdatingNotificationButton: Boolean = false, isRinging: Boolean = false, mediaSession: MediaSessionCompat) {
 
         if (isUpdatingNotificationButton)
             builder.mActions.clear()
@@ -101,6 +103,10 @@ class NowPlayingNotification(
                     builder.addAction(snoozeAction)
                 builder.setStyle(NotificationCompat.DecoratedCustomViewStyle())
             } else {
+
+                mediaStyle = androidx.media.app.NotificationCompat.MediaStyle().also {
+                    it.setMediaSession(mediaSession.sessionToken)
+                }
                 builder.setStyle(mediaStyle)
             }
         }

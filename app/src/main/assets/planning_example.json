@@ -1,41 +1,24 @@
 {
   "planning": [
     {
-      "title": "Le Classique du Matin",
-      "periodicity": "1111111",
-      "hour_begin": "6:00",
-      "hour_end": "7:00"
+      "title": "Jeux Vidéos Matin",
+      "periodicity": "1111100",
+      "hour_begin": "09:00",
+      "hour_end": "10:00"
     },
     {
-      "title": "Tsumugi Rétro",
-      "periodicity": "1000000",
-      "hour_begin": "09:00",
+      "title": "Anime Matin'",
+      "periodicity": "1111100",
+      "hour_begin": "11:00",
       "hour_end": "12:00"
     },
     {
-      "title": "Tournant du Millénaire",
-      "periodicity": "0100000",
-      "hour_begin": "09:00",
-      "hour_end": "12:00"
+      "title": "Tsumugi Net/Pop",
+      "periodicity": "1111100",
+      "hour_begin": "10:00",
+      "hour_end": "11:00"
     },
-    {
-      "title": "Tsumugi Netpop",
-      "periodicity": "0010000",
-      "hour_begin": "09:00",
-      "hour_end": "12:00"
-    },
-    {
-      "title": "Tsumugi Moderne",
-      "periodicity": "0001000",
-      "hour_begin": "09:00",
-      "hour_end": "12:00"
-    },
-    {
-      "title": "Tsumugi Très Récent",
-      "periodicity": "0000100",
-      "hour_begin": "09:00",
-      "hour_end": "12:00"
-    },
+
     {
       "title": "Jeux Vidéos Aprem'",
       "periodicity": "1111111",
